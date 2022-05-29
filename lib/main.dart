@@ -1,59 +1,88 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mindpoint/components/atoms/Typography/Heading/main.dart';
+import 'package:mindpoint/components/atoms/Typography/Label/main.dart';
+import 'package:mindpoint/components/atoms/Typography/Paragraph/main.dart';
+
+import 'package:mindpoint/components/molecules/PageScaffold/main.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(App());
 }
 
-const TextStyle defaultTextStyle =
-    TextStyle(color: Color.fromRGBO(255, 255, 255, 1), height: 10);
+class App extends StatelessWidget {
+  App({Key? key}) : super(key: key);
 
-class MyApp extends StatelessWidget {
-  MyApp({Key? key}) : super(key: key);
-
-  // This widget is the root of your application.
   @override
-  Widget build(BuildContext context) => WidgetsApp.router(
+  Widget build(BuildContext context) {
+    return WidgetsApp.router(
+      debugShowCheckedModeBanner: false,
       routeInformationParser: _router.routeInformationParser,
       routerDelegate: _router.routerDelegate,
-      title: 'GoRouter Example',
-      color: Colors.white);
+      title: 'Mind Point',
+      color: Colors.white,
+    );
+  }
 
   final GoRouter _router = GoRouter(
+    initialLocation: '/',
     routes: <GoRoute>[
       GoRoute(
         path: '/',
-        builder: (BuildContext context, GoRouterState state) => Page(
-          target: '/page2',
-        ),
-      ),
-      GoRoute(
-        path: '/page2',
-        builder: (BuildContext context, GoRouterState state) => Page(
-          target: '/',
-        ),
+        builder: (BuildContext context, GoRouterState state) => const Page(),
       ),
     ],
   );
 }
 
 class Page extends StatelessWidget {
-  String target = '';
-
-  Page({super.key, required this.target});
+  const Page({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: OutlinedButton(
-        onPressed: () {
-          GoRouter.of(context).go(target);
-        },
-        child: Text(
-          'Click Me to go to: $target',
-          textDirection: TextDirection.ltr,
+    return PageScaffold(children: [
+      Container(
+        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
+        child: const Heading(data: 'Bem vindo!'),
+      ),
+
+      /// Paragraph
+      Container(
+        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
+        child: const Paragraph(
+          data:
+              'O Mind Point é um lugar para escrever tudo o que pensa de forma simples e fluida.',
+          variation: ParagraphVariation.medium,
         ),
       ),
-    );
+      Container(
+        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
+        child: const Paragraph(
+          data:
+              'O Mind Point é um lugar para escrever tudo o que pensa de forma simples e fluida.',
+          variation: ParagraphVariation.small,
+        ),
+      ),
+
+      /// Label
+      Container(
+        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
+        child: const Label(
+          data:
+              'O Mind Point é um lugar para escrever tudo o que pensa de forma simples e fluida.',
+          variation: LabelVariation.medium,
+        ),
+      ),
+      Container(
+        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
+        child: const Label(
+          data:
+              'O Mind Point é um lugar para escrever tudo o que pensa de forma simples e fluida.',
+          variation: LabelVariation.small,
+        ),
+      ),
+    ]);
   }
 }

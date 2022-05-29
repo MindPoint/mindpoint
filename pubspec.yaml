@@ -36,6 +36,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   icons_launcher: ^1.1.8
   go_router: ^3.1.0
+  google_fonts: ^3.0.1
 
 dev_dependencies:
   flutter_test:
@@ -75,14 +76,16 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   # fonts:
-  #   - family: Schyler
+  #   # - family: Schyler
+  #   #   fonts:
+  #   #     - asset: fonts/Schyler-Regular.ttf
+  #   #     - asset: fonts/Schyler-Italic.ttf
+  #   #       style: italic
+  #   - family: Poppins
   #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
+  #       - asset: assets/fonts/Poppins-Black.ttf
+  #         weight: 900
+
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
   #
