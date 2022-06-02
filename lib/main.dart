@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mindpoint/components/atoms/Step/main.dart';
 import 'package:mindpoint/components/atoms/Typography/Heading/main.dart';
 import 'package:mindpoint/components/atoms/Typography/Label/main.dart';
 import 'package:mindpoint/components/atoms/Typography/Paragraph/main.dart';
+import 'package:mindpoint/components/molecules/Button/main.dart';
 
 import 'package:mindpoint/components/molecules/PageScaffold/main.dart';
 
@@ -69,19 +71,53 @@ class Page extends StatelessWidget {
       /// Label
       Container(
         padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
-        child: const Label(
+        child: const DSLabel(
           data:
               'O Mind Point é um lugar para escrever tudo o que pensa de forma simples e fluida.',
-          variation: LabelVariation.medium,
+          size: DSLabelSize.big,
         ),
       ),
       Container(
         padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
-        child: const Label(
+        child: const DSLabel(
           data:
               'O Mind Point é um lugar para escrever tudo o que pensa de forma simples e fluida.',
-          variation: LabelVariation.small,
+          size: DSLabelSize.medium,
         ),
+      ),
+      Container(
+        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
+        child: const DSLabel(
+          data:
+              'O Mind Point é um lugar para escrever tudo o que pensa de forma simples e fluida.',
+          size: DSLabelSize.small,
+        ),
+      ),
+      Row(
+        children: const [
+          StepBullet(
+            state: StepBulletState.active,
+          ),
+          StepBullet(
+            state: StepBulletState.inactive,
+          ),
+        ],
+      ),
+      Row(
+        children: [
+          Column(
+            children: [
+              DSButton(
+                size: DSButtonSizes.medium,
+                shape: DSButtonShapes.squared,
+                variation: DSButtonVariations.primary,
+                onTap: () {
+                  print('batata');
+                },
+              )
+            ],
+          )
+        ],
       ),
     ]);
   }

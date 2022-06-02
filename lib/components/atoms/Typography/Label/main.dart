@@ -1,38 +1,47 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:mindpoint/styles/text/main.dart';
+import 'package:mindpoint/styles/colors/main.dart';
 
-enum LabelVariation {
+enum DSLabelSize {
+  big,
   medium,
   small,
 }
 
-class Label extends StatelessWidget {
+class DSLabel extends StatelessWidget {
   final String data;
-  final LabelVariation variation;
+  final Color color;
+  final DSLabelSize size;
 
-  const Label({super.key, required this.data, required this.variation});
+  const DSLabel({
+    super.key,
+    required this.data,
+    this.color = DSColor.black,
+    this.size = DSLabelSize.medium,
+  });
 
   @override
   Widget build(BuildContext context) {
-    switch (variation) {
-      case LabelVariation.medium:
-        return Text(
-          data,
-          style: getLabelMediumStyle(mediaQueryData: MediaQuery.of(context)),
-          textDirection: defaultTextDirection,
-        );
-      case LabelVariation.small:
-        return Text(
-          data,
-          style: getLabelSmallStyle(mediaQueryData: MediaQuery.of(context)),
-          textDirection: defaultTextDirection,
-        );
-      default:
-        return Text(
-          data,
-          style: getLabelMediumStyle(mediaQueryData: MediaQuery.of(context)),
-          textDirection: defaultTextDirection,
-        );
-    }
+    final styles = {
+      DSLabelSize.small: (BuildContext context) => getLabelSmallStyle(
+            mediaQueryData: MediaQuery.of(context),
+            color: color,
+          ),
+      DSLabelSize.medium: (BuildContext context) => getLabelMediumStyle(
+            mediaQueryData: MediaQuery.of(context),
+            color: color,
+          ),
+      DSLabelSize.big: (BuildContext context) => getLabelBiggerStyle(
+            mediaQueryData: MediaQuery.of(context),
+            color: color,
+          ),
+    };
+
+    return Text(
+      data,
+      style: styles[size]!(context),
+      textDirection: defaultTextDirection,
+    );
   }
 }

@@ -15,21 +15,29 @@ double Function({
     mediaQueryData != null ? (1.0 - mediaQueryData.textScaleFactor) + 1.0 : 1.0;
 
 /// Utility function that helps generating the style of a text
-TextStyle Function({MediaQueryData? mediaQueryData}) createTextStyle({
-  double fontSize = 16,
-  Color color = black100,
-  FontWeight fontWeight = FontWeight.w500,
+TextStyle Function({
+  MediaQueryData? mediaQueryData,
+  Color? color,
+  double? fontSize,
+  FontWeight? fontWeight,
+}) createTextStyle({
+  Color defaultColor = black100,
+  double defaultFontSize = 16,
+  FontWeight defaultFontWeight = FontWeight.w500,
 }) {
   TextStyle fn({
     MediaQueryData? mediaQueryData,
+    Color? color,
+    double? fontSize,
+    FontWeight? fontWeight,
   }) {
     return GoogleFonts.poppins(
-      color: color,
-      fontSize: fontSize *
+      color: color ?? defaultColor,
+      fontSize: (fontSize ?? defaultFontSize) *
           compensateDeviceScalingFactor(
             mediaQueryData: mediaQueryData,
           ), // This size is affected by the deviceScaleFactor
-      fontWeight: fontWeight,
+      fontWeight: fontWeight ?? defaultFontWeight,
     );
   }
 
@@ -37,31 +45,37 @@ TextStyle Function({MediaQueryData? mediaQueryData}) createTextStyle({
 }
 
 final getHeadingBigStyle = createTextStyle(
-  color: black100,
-  fontSize: 36,
-  fontWeight: FontWeight.w700,
+  defaultColor: black100,
+  defaultFontSize: 36,
+  defaultFontWeight: FontWeight.w700,
 );
 
 final getParagraphSmallStyle = createTextStyle(
-  color: black100,
-  fontSize: 14,
-  fontWeight: FontWeight.w400,
+  defaultColor: black100,
+  defaultFontSize: 14,
+  defaultFontWeight: FontWeight.w400,
 );
 
 final getParagraphMediumStyle = createTextStyle(
-  color: black100,
-  fontSize: 16,
-  fontWeight: FontWeight.w400,
+  defaultColor: black100,
+  defaultFontSize: 16,
+  defaultFontWeight: FontWeight.w400,
 );
 
 final getLabelSmallStyle = createTextStyle(
-  color: black100,
-  fontSize: 12,
-  fontWeight: FontWeight.w500,
+  defaultColor: black100,
+  defaultFontSize: 12,
+  defaultFontWeight: FontWeight.w500,
 );
 
 final getLabelMediumStyle = createTextStyle(
-  color: black100,
-  fontSize: 16,
-  fontWeight: FontWeight.w500,
+  defaultColor: black100,
+  defaultFontSize: 14,
+  defaultFontWeight: FontWeight.w500,
+);
+
+final getLabelBiggerStyle = createTextStyle(
+  defaultColor: black100,
+  defaultFontSize: 16,
+  defaultFontWeight: FontWeight.w500,
 );
