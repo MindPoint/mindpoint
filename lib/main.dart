@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mindpoint/components/atoms/Step/main.dart';
-import 'package:mindpoint/components/atoms/Typography/Heading/main.dart';
-import 'package:mindpoint/components/atoms/Typography/Label/main.dart';
-import 'package:mindpoint/components/atoms/Typography/Paragraph/main.dart';
+import 'package:mindpoint/components/atoms/Text/main.dart';
 import 'package:mindpoint/components/molecules/Button/main.dart';
 
 import 'package:mindpoint/components/molecules/PageScaffold/main.dart';
@@ -45,54 +43,6 @@ class Page extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PageScaffold(children: [
-      Container(
-        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
-        child: const Heading(data: 'Bem vindo!'),
-      ),
-
-      /// Paragraph
-      Container(
-        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
-        child: const Paragraph(
-          data:
-              'O Mind Point é um lugar para escrever tudo o que pensa de forma simples e fluida.',
-          variation: ParagraphVariation.medium,
-        ),
-      ),
-      Container(
-        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
-        child: const Paragraph(
-          data:
-              'O Mind Point é um lugar para escrever tudo o que pensa de forma simples e fluida.',
-          variation: ParagraphVariation.small,
-        ),
-      ),
-
-      /// Label
-      Container(
-        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
-        child: const DSLabel(
-          data:
-              'O Mind Point é um lugar para escrever tudo o que pensa de forma simples e fluida.',
-          size: DSLabelSize.big,
-        ),
-      ),
-      Container(
-        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
-        child: const DSLabel(
-          data:
-              'O Mind Point é um lugar para escrever tudo o que pensa de forma simples e fluida.',
-          size: DSLabelSize.medium,
-        ),
-      ),
-      Container(
-        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
-        child: const DSLabel(
-          data:
-              'O Mind Point é um lugar para escrever tudo o que pensa de forma simples e fluida.',
-          size: DSLabelSize.small,
-        ),
-      ),
       Row(
         children: const [
           StepBullet(
@@ -102,6 +52,22 @@ class Page extends StatelessWidget {
             state: StepBulletState.inactive,
           ),
         ],
+      ),
+      const DSText(
+        'Lorem Ipsum',
+        wheight: DSTextWheights.light,
+      ),
+      const DSText(
+        'Lorem Ipsum',
+        wheight: DSTextWheights.regular,
+      ),
+      const DSText(
+        'Lorem Ipsum',
+        wheight: DSTextWheights.medium,
+      ),
+      const DSText(
+        'Lorem Ipsum',
+        wheight: DSTextWheights.bold,
       ),
       Row(
         children: [

@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:mindpoint/components/atoms/Typography/Label/main.dart';
+import 'package:mindpoint/components/atoms/Text/main.dart';
 import 'package:mindpoint/styles/colors/main.dart';
 
 enum DSButtonVariations {
@@ -39,11 +39,11 @@ class DSButtonVariation {
 class DSButtonSize {
   final double padding;
   final double borderSize;
-  final DSLabelSize labelSize;
+  final DSTextSizes textSize;
 
   DSButtonSize({
     required this.padding,
-    required this.labelSize,
+    required this.textSize,
     required this.borderSize,
   });
 }
@@ -99,17 +99,17 @@ class DSButton extends HookWidget {
   final Map<DSButtonSizes, DSButtonSize> sizes = {
     DSButtonSizes.small: DSButtonSize(
       padding: 8.0,
-      labelSize: DSLabelSize.small,
+      textSize: DSTextSizes.s,
       borderSize: 1.0,
     ),
     DSButtonSizes.medium: DSButtonSize(
       padding: 12,
-      labelSize: DSLabelSize.medium,
+      textSize: DSTextSizes.s,
       borderSize: 2.0,
     ),
     DSButtonSizes.big: DSButtonSize(
       padding: 22,
-      labelSize: DSLabelSize.medium,
+      textSize: DSTextSizes.s,
       borderSize: 2.0,
     ),
   };
@@ -157,9 +157,9 @@ class DSButton extends HookWidget {
         padding: EdgeInsets.all(selectedSize.padding),
         child: Row(
           children: [
-            DSLabel(
-              data: data,
-              size: selectedSize.labelSize,
+            DSText(
+              data,
+              size: selectedSize.textSize,
               color: selectedVariation.textColor,
             )
           ],
