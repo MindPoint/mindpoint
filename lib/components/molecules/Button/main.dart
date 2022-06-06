@@ -230,9 +230,12 @@ Widget defaultButtonUseCase(BuildContext context) {
     context.knobs.nullableText(
       label: 'Label',
       initialValue: 'Lorem Ipsum',
+      description: 'The value that will be displayed as the button label',
     ),
     kind: context.knobs.options(
       label: 'Kinds',
+      description:
+          'Determines the color properties of a given button, like background color or border color',
       options: [
         const Option(
           label: 'primary',
@@ -258,7 +261,8 @@ Widget defaultButtonUseCase(BuildContext context) {
     ),
     size: context.knobs.options(
       label: 'Sizes',
-      description: 'the size of a component affects its padding',
+      description:
+          'Determines the size properties of the button, like padding, text size and icon size.',
       options: [
         const Option(
           label: 'big',
@@ -276,7 +280,7 @@ Widget defaultButtonUseCase(BuildContext context) {
     ),
     shape: context.knobs.options(
       label: 'Shape',
-      description: 'Determines the shape of a button',
+      description: 'Determines the shape of a button.',
       options: [
         const Option(
           label: 'squared',
@@ -290,7 +294,7 @@ Widget defaultButtonUseCase(BuildContext context) {
     ),
     icon: context.knobs.options(
       label: 'Icons',
-      description: 'some icons to test with the button',
+      description: 'Input some icons to be used to test the button.',
       options: [
         const Option(
           label: 'arrow back',
