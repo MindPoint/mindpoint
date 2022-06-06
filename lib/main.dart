@@ -16,10 +16,6 @@ void main() {
       name: 'Widgetbook',
       allowsDevices: true,
     ),
-    WidgetbookFrame(
-      name: 'None',
-      allowsDevices: false,
-    ),
   ],
   devices: [],
   textScaleFactors: [
