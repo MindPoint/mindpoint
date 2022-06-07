@@ -4,11 +4,11 @@ import 'package:mindpoint/styles/colors/main.dart';
 import 'package:mindpoint/components/atoms/AndroidStatusBar/main.dart';
 
 class PageScaffold extends StatelessWidget {
-  List<Widget> children = [];
+  final Widget template;
 
-  PageScaffold({
+  const PageScaffold({
     super.key,
-    required this.children,
+    required this.template,
   });
 
   @override
@@ -16,11 +16,14 @@ class PageScaffold extends StatelessWidget {
     return Container(
       decoration: const BoxDecoration(color: white100),
       child: Column(
-        mainAxisSize: MainAxisSize.min,
+        mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           AndroidStatusBar(),
-          ...children,
+          Expanded(
+            flex: 1,
+            child: template,
+          ),
         ],
       ),
     );

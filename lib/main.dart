@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:mindpoint/components/molecules/PageScaffold/main.dart';
+import 'package:mindpoint/components/templates/Welcome/main.dart';
 
 import 'package:widgetbook_annotation/widgetbook_annotation.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
   runApp(App());
 }
 
@@ -18,11 +21,7 @@ void main() {
     ),
   ],
   devices: [],
-  textScaleFactors: [
-    1,
-    2,
-    3,
-  ],
+  textScaleFactors: [1],
   foldersExpanded: true,
   widgetsExpanded: true,
   constructor: WidgetbookConstructor.custom,
@@ -61,7 +60,33 @@ class Page extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PageScaffold(children: []);
+    return PageScaffold(
+      template: DSWelcomeTemplate(
+        steps: const [
+          DSWelcomeStepData(
+            title: 'Bem vindo!',
+            paragraphs: [
+              'O Mind Point é um lugar para escrever tudo o que pensa de forma simples e fluida.',
+            ],
+          ),
+          DSWelcomeStepData(
+            title: 'Privado!',
+            paragraphs: [
+              'O Mind Point é só seu!',
+              'Nenhuma informação é compartilhada com outros usuários ou empresas.',
+            ],
+          ),
+          DSWelcomeStepData(
+            title: 'Seguro!',
+            paragraphs: [
+              'Escreva o que quiser, da maneira que quiser e no tempo que quiser!',
+              'Tudo é salvo e criptografado na nuvem, possibilidanto o acesso em qualquer lugar em qualquer dispositivo.',
+            ],
+          ),
+        ],
+        onFinish: () {},
+      ),
+    );
   }
 }
 

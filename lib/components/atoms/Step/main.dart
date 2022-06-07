@@ -1,17 +1,17 @@
 import 'package:flutter/widgets.dart';
 import 'package:mindpoint/styles/colors/main.dart';
 
-enum StepBulletState {
+enum DSStepBulletState {
   active,
   inactive,
 }
 
-class StepBullet extends StatelessWidget {
-  final StepBulletState state;
+class DSStepBullet extends StatelessWidget {
+  final DSStepBulletState state;
 
-  const StepBullet({
+  const DSStepBullet({
     super.key,
-    this.state = StepBulletState.inactive,
+    this.state = DSStepBulletState.inactive,
   });
 
   @override
@@ -25,7 +25,7 @@ class StepBullet extends StatelessWidget {
           width: 2.0,
         ),
         borderRadius: BorderRadius.circular(10),
-        color: state == StepBulletState.active ? black100 : transparent,
+        color: state == DSStepBulletState.active ? black100 : transparent,
       ),
     );
   }
