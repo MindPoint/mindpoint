@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "639603288747",
+    "project_id": "mind-point-99cb5",
+    "storage_bucket": "mind-point-99cb5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:639603288747:android:c77c257ccaefa7553fe5ee",
+        "android_client_info": {
+          "package_name": "com.example.mindpoint"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "639603288747-l27ui8e5jemdvm6g4vo5is7membsctq2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCwN4RLNwIszuT9KxF8qPqz8Ob9ML8a918"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "639603288747-l27ui8e5jemdvm6g4vo5is7membsctq2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

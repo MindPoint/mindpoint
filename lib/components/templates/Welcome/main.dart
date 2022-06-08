@@ -20,12 +20,10 @@ class DSWelcomeStepData {
 }
 
 class DSWelcomeTemplate extends HookWidget {
-  late final CarouselController buttonCarouselController = CarouselController();
-
-  final List<DSWelcomeStepData> steps;
   final void Function() onFinish;
+  final List<DSWelcomeStepData> steps;
 
-  DSWelcomeTemplate({
+  const DSWelcomeTemplate({
     super.key,
     required this.steps,
     required this.onFinish,
@@ -33,6 +31,9 @@ class DSWelcomeTemplate extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final CarouselController buttonCarouselController =
+        useMemoized(() => CarouselController(), []);
+
     void handleNextButtonTap() {
       buttonCarouselController.nextPage(
         duration: const Duration(milliseconds: 500),

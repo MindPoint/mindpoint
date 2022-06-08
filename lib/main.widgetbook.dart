@@ -5,20 +5,21 @@
 // **************************************************************************
 
 import 'package:mindpoint/main.dart';
+import 'package:mindpoint/components/pages/Welcome/main.dart';
 import 'dart:core';
-import 'package:mindpoint/components/molecules/PageScaffold/main.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mindpoint/components/templates/Welcome/main.dart';
 import 'package:flutter/material.dart';
 import 'package:mindpoint/components/molecules/Button/main.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:mindpoint/styles/colors/main.dart';
 import 'package:mindpoint/components/atoms/Text/main.dart';
 import 'package:mindpoint/components/atoms/Icon/main.dart';
 import 'package:widgetbook/widgetbook.dart';
 import 'package:flutter/widgets.dart';
+import 'package:mindpoint/components/templates/Welcome/main.dart';
 import 'package:mindpoint/components/atoms/Step/main.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:mindpoint/components/molecules/PageScaffold/main.dart';
 
 void main() {
   runApp(HotReload());
@@ -74,6 +75,31 @@ class HotReload extends StatelessWidget {
                               name: 'Default',
                               builder: (context) =>
                                   defaultButtonUseCase(context),
+                            ),
+                          ],
+                          isExpanded: true,
+                        ),
+                      ],
+                      folders: [],
+                      isExpanded: true,
+                    ),
+                  ],
+                  isExpanded: true,
+                ),
+                WidgetbookFolder(
+                  name: 'pages',
+                  widgets: [],
+                  folders: [
+                    WidgetbookFolder(
+                      name: 'Welcome',
+                      widgets: [
+                        WidgetbookComponent(
+                          name: 'DSWelcomePage',
+                          useCases: [
+                            WidgetbookUseCase(
+                              name: 'Default',
+                              builder: (context) =>
+                                  defaultDSWelcomePageUseCase(context),
                             ),
                           ],
                           isExpanded: true,

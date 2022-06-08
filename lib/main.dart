@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-
-import 'package:mindpoint/components/molecules/PageScaffold/main.dart';
-import 'package:mindpoint/components/templates/Welcome/main.dart';
-
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:mindpoint/components/pages/Welcome/main.dart';
 import 'package:widgetbook_annotation/widgetbook_annotation.dart';
 
-void main() {
+import 'firebase_options.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   runApp(App());
 }
@@ -26,7 +32,7 @@ void main() {
   widgetsExpanded: true,
   constructor: WidgetbookConstructor.custom,
 )
-class App extends StatelessWidget {
+class App extends HookWidget {
   App({
     super.key,
   });
@@ -43,51 +49,18 @@ class App extends StatelessWidget {
   }
 
   final GoRouter _router = GoRouter(
-    initialLocation: '/',
+    initialLocation: '/welcome',
     routes: <GoRoute>[
       GoRoute(
-        path: '/',
-        builder: (BuildContext context, GoRouterState state) => const Page(),
+        path: '/welcome',
+        builder: (BuildContext context, GoRouterState state) => DSWelcomePage(
+          onFinishWelcome: () {
+            GoRouter.of(context).go('/login');
+          },
+        ),
       ),
     ],
   );
-}
-
-class Page extends StatelessWidget {
-  const Page({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return PageScaffold(
-      template: DSWelcomeTemplate(
-        steps: const [
-          DSWelcomeStepData(
-            title: 'Bem vindo!',
-            paragraphs: [
-              'O Mind Point é um lugar para escrever tudo o que pensa de forma simples e fluida.',
-            ],
-          ),
-          DSWelcomeStepData(
-            title: 'Privado!',
-            paragraphs: [
-              'O Mind Point é só seu!',
-              'Nenhuma informação é compartilhada com outros usuários ou empresas.',
-            ],
-          ),
-          DSWelcomeStepData(
-            title: 'Seguro!',
-            paragraphs: [
-              'Escreva o que quiser, da maneira que quiser e no tempo que quiser!',
-              'Tudo é salvo e criptografado na nuvem, possibilidanto o acesso em qualquer lugar em qualquer dispositivo.',
-            ],
-          ),
-        ],
-        onFinish: () {},
-      ),
-    );
-  }
 }
 
 // Define themes to be used on the App
