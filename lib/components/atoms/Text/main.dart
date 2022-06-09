@@ -130,6 +130,7 @@ class DSText extends StatelessWidget {
       data,
       style: textStyle,
       textDirection: TextDirection.ltr,
+      textScaleFactor: 1,
     );
   }
 }
