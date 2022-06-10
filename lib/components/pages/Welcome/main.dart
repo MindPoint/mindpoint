@@ -9,7 +9,7 @@ import 'package:widgetbook/widgetbook.dart';
 import 'package:widgetbook_annotation/widgetbook_annotation.dart' as notations;
 
 class DSWelcomePage extends HookWidget {
-  final void Function() onFinishWelcome;
+  final void Function(BuildContext context) onFinishWelcome;
 
   const DSWelcomePage({
     super.key,
@@ -42,7 +42,7 @@ class DSWelcomePage extends HookWidget {
             ],
           ),
         ],
-        onFinish: () {},
+        onFinish: onFinishWelcome,
       ),
     );
   }
@@ -51,6 +51,6 @@ class DSWelcomePage extends HookWidget {
 @notations.WidgetbookUseCase(name: 'Default', type: DSWelcomePage)
 Widget defaultDSWelcomePageUseCase(BuildContext context) {
   return DSWelcomePage(
-    onFinishWelcome: () {},
+    onFinishWelcome: (context) {},
   );
 }

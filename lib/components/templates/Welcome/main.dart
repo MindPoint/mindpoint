@@ -20,7 +20,7 @@ class DSWelcomeStepData {
 }
 
 class DSWelcomeTemplate extends HookWidget {
-  final void Function() onFinish;
+  final void Function(BuildContext context) onFinish;
   final List<DSWelcomeStepData> steps;
 
   const DSWelcomeTemplate({
@@ -64,7 +64,7 @@ class DSWelcomeTemplate extends HookWidget {
     final forwardButtonIcon =
         isLastCarouselPage ? Icons.done : Icons.arrow_forward;
     final forwardButtonCallback =
-        isLastCarouselPage ? onFinish : handleNextButtonTap;
+        isLastCarouselPage ? () => onFinish(context) : handleNextButtonTap;
 
     /// Builds all carrousel items that will be displayed on the carrousel
     final List<Widget> carrouselItems = steps.map((data) {
@@ -240,7 +240,7 @@ Widget defaultDSWelcomeTemplateUseCase(BuildContext context) {
         ],
       ),
     ],
-    onFinish: () {
+    onFinish: (context) {
       print('finished');
     },
   );
