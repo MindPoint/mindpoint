@@ -67,8 +67,6 @@ class DSButtonShape {
   });
 }
 
-_defaultOnTapFn() {}
-
 final Map<DSButtonKinds, DSButtonKind> variations = {
   DSButtonKinds.primary: DSButtonKind(
     iconColor: DSColor.white,
@@ -144,7 +142,7 @@ class DSButton extends HookWidget {
   final bool displayIcon;
   final bool displayLabel;
 
-  final void Function() onTap;
+  final void Function()? onTap;
 
   const DSButton(
     this.data, {
@@ -155,7 +153,7 @@ class DSButton extends HookWidget {
     this.size = DSButtonSizes.medium,
     this.shape = DSButtonShapes.squared,
     this.kind = DSButtonKinds.primary,
-    this.onTap = _defaultOnTapFn,
+    this.onTap,
   });
 
   @override
@@ -197,26 +195,24 @@ class DSButton extends HookWidget {
 
     return GestureDetector(
       onTap: onTap,
-      child: FittedBox(
-        child: Container(
-          decoration: BoxDecoration(
-            color: selectedVariation.backgroundColor,
-            borderRadius: BorderRadius.all(
-              Radius.circular(
-                selectedShape.borderRadius,
-              ),
-            ),
-            border: Border.all(
-              color: selectedVariation.borderColor,
-              width: selectedSize.borderSize,
+      child: Container(
+        decoration: BoxDecoration(
+          color: selectedVariation.backgroundColor,
+          borderRadius: BorderRadius.all(
+            Radius.circular(
+              selectedShape.borderRadius,
             ),
           ),
-          padding: EdgeInsets.all(selectedSize.padding),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: children,
+          border: Border.all(
+            color: selectedVariation.borderColor,
+            width: selectedSize.borderSize,
           ),
+        ),
+        padding: EdgeInsets.all(selectedSize.padding),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: children,
         ),
       ),
     );

@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 
-import '../components/pages/Login/main.dart';
+import '../components/pages/Authentication/main.dart';
 import 'package:mindpoint/components/pages/Welcome/main.dart';
 import 'package:mindpoint/components/pages/Timeline/main.dart';
 
@@ -27,7 +27,7 @@ GoRouter createRouterInstance() => GoRouter(
         GoRoute(
           path: RouteNames.authentication,
           builder: (BuildContext context, GoRouterState state) =>
-              const DSAuthPage(),
+              const DSAuthenticationPage(),
         ),
         GoRoute(
           path: RouteNames.timeline,

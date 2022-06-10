@@ -12,7 +12,7 @@ class UserViewModel extends ChangeNotifier {
 
   bool get isAuthenticated => _user != null;
 
-  UserViewModel({required fireBaseAuthRepository})
+  UserViewModel({required AbstractAuthRepository fireBaseAuthRepository})
       : _firebaseAuthRepository = fireBaseAuthRepository,
         _user = fireBaseAuthRepository.currentUser;
 
