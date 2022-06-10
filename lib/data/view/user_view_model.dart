@@ -6,19 +6,22 @@ import '../repositories/auth_repository.dart';
 class UserViewModel extends ChangeNotifier {
   final AbstractAuthRepository _firebaseAuthRepository;
 
-  UserViewModel({required firebaseAuthProvider})
-      : _firebaseAuthRepository = firebaseAuthProvider;
-
   User? _user;
 
   User? get user => _user;
 
   bool get isAuthenticated => _user != null;
 
+  UserViewModel({required fireBaseAuthRepository})
+      : _firebaseAuthRepository = fireBaseAuthRepository,
+        _user = fireBaseAuthRepository.currentUser;
+
   /// Update the user variable when successfully login
   Future<void> signIn() async {
     try {
       final user = await _firebaseAuthRepository.signIn();
+
+      print(user);
 
       if (user != null) {
         _user = user;

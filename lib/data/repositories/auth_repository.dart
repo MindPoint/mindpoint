@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import '../sources/abstract_auth_data_source.dart';
 
 abstract class AbstractAuthRepository {
+  User? get currentUser;
   Future<User?> signIn();
   Future<void> signOut();
 }
@@ -25,4 +26,8 @@ class AuthRepository extends AbstractAuthRepository {
   Future<void> signOut() {
     return _dataSource.signOut();
   }
+
+  @override
+  // TODO: implement currentUser
+  User? get currentUser => _dataSource.currentUser;
 }

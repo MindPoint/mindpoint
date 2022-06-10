@@ -12,8 +12,11 @@ final fireabaseAuthRemoteDataSourceProvider = Provider<AbstractAuthDataSource>(
     (ref) =>
         FirebaseAuthRemoteDataSource(ref.read(firebaseAuthInstanceProvider)));
 
-final authRepositoryProvider = Provider<AbstractAuthRepository>(
+final fireBaseAuthRepositoryProvider = Provider<AbstractAuthRepository>(
     (ref) => AuthRepository(ref.read(fireabaseAuthRemoteDataSourceProvider)));
 
-final userViewModelProvider = Provider<UserViewModel>(
-    (ref) => UserViewModel(firebaseAuthProvider: authRepositoryProvider));
+final userViewModelProvider = ChangeNotifierProvider<UserViewModel>(
+  (ref) => UserViewModel(
+    fireBaseAuthRepository: ref.read(fireBaseAuthRepositoryProvider),
+  ),
+);

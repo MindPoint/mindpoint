@@ -49,4 +49,7 @@ class FirebaseAuthRemoteDataSource extends AbstractAuthDataSource {
         .then(handleSignOutSuccess)
         .catchError(handleSignOutError);
   }
+
+  @override
+  User? get currentUser => _firebaseAuth.currentUser;
 }

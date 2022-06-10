@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 // will be only using Firebase
 
 abstract class AbstractAuthDataSource {
+  User? get currentUser;
   Future<void> signOut();
   Future<User?> signIn();
 }
