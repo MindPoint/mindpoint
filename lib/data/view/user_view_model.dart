@@ -1,10 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
-import '../repositories/auth_repository.dart';
+import 'package:mindpoint/data/sources/abstract_auth_data_source.dart';
 
 class UserViewModel extends ChangeNotifier {
-  final AbstractAuthRepository _firebaseAuthRepository;
+  final AbstractAuthDataSource _firebaseAuthDataSource;
 
   User? _user;
 
@@ -12,16 +11,14 @@ class UserViewModel extends ChangeNotifier {
 
   bool get isAuthenticated => _user != null;
 
-  UserViewModel({required AbstractAuthRepository fireBaseAuthRepository})
-      : _firebaseAuthRepository = fireBaseAuthRepository,
-        _user = fireBaseAuthRepository.currentUser;
+  UserViewModel({required AbstractAuthDataSource fireBaseAuthDataSource})
+      : _firebaseAuthDataSource = fireBaseAuthDataSource,
+        _user = fireBaseAuthDataSource.currentUser;
 
   /// Update the user variable when successfully login
   Future<void> signIn() async {
     try {
-      final user = await _firebaseAuthRepository.signIn();
-
-      print(user);
+      final user = await _firebaseAuthDataSource.signIn();
 
       if (user != null) {
         _user = user;
@@ -34,7 +31,7 @@ class UserViewModel extends ChangeNotifier {
 
   Future<void> signOut() async {
     try {
-      await _firebaseAuthRepository.signOut();
+      await _firebaseAuthDataSource.signOut();
 
       _user = null;
       notifyListeners();
