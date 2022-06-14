@@ -28,6 +28,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:mindpoint/components/pages/Authentication/main.dart';
 import 'package:mindpoint/components/templates/Authentication/main.dart';
 import 'package:mindpoint/components/atoms/CustomIcons/main.dart';
+import 'package:mindpoint/components/atoms/Avatar/main.dart';
 
 void main() {
   runApp(HotReload());
@@ -83,6 +84,31 @@ class HotReload extends StatelessWidget {
                               name: 'Default',
                               builder: (context) =>
                                   defaultButtonUseCase(context),
+                            ),
+                          ],
+                          isExpanded: true,
+                        ),
+                      ],
+                      folders: [],
+                      isExpanded: true,
+                    ),
+                  ],
+                  isExpanded: true,
+                ),
+                WidgetbookFolder(
+                  name: 'atoms',
+                  widgets: [],
+                  folders: [
+                    WidgetbookFolder(
+                      name: 'Avatar',
+                      widgets: [
+                        WidgetbookComponent(
+                          name: 'DSAvatar',
+                          useCases: [
+                            WidgetbookUseCase(
+                              name: 'Default',
+                              builder: (context) =>
+                                  defaultDSAvatarUseCase(context),
                             ),
                           ],
                           isExpanded: true,
