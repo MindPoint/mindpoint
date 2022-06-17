@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:mindpoint/components/atoms/Text/main.dart';
@@ -7,8 +5,6 @@ import 'package:mindpoint/hooks/debounce.dart';
 
 import 'package:widgetbook/widgetbook.dart';
 import 'package:widgetbook_annotation/widgetbook_annotation.dart' as notations;
-
-/// TODO: throttle the onChange event emmition;
 
 class DSEditableText extends HookWidget {
   final String initialText;

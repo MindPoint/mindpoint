@@ -34,7 +34,6 @@ import 'package:mindpoint/components/templates/Timeline/main.dart';
 import 'package:mindpoint/data/models/thought_model.dart';
 import 'package:mindpoint/components/atoms/EditableText/main.dart';
 import 'package:mindpoint/hooks/debounce.dart';
-import 'dart:async';
 
 void main() {
   runApp(HotReload());
