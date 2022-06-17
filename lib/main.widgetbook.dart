@@ -5,15 +5,15 @@
 // **************************************************************************
 
 import 'package:mindpoint/main.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:mindpoint/router/main.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter/material.dart';
-import 'package:mindpoint/data/providers/main.dart';
-import 'dart:core';
-import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:go_router/go_router.dart';
+import 'dart:core';
+import 'package:mindpoint/router/main.dart';
 import 'package:mindpoint/firebase_options.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:mindpoint/data/providers/main.dart';
 import 'package:mindpoint/components/molecules/Button/main.dart';
 import 'package:mindpoint/components/atoms/Icon/main.dart';
 import 'package:mindpoint/components/atoms/Text/main.dart';

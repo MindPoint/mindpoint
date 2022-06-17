@@ -22,9 +22,12 @@ ThoughtModel _$ThoughtModelFromJson(Map<String, dynamic> json) {
 mixin _$ThoughtModel {
   String? get id => throw _privateConstructorUsedError;
   String? get parent => throw _privateConstructorUsedError;
-  @TimestampConverter()
-  DateTime get timestamp => throw _privateConstructorUsedError;
   String get data => throw _privateConstructorUsedError;
+  ThoughtType get type => throw _privateConstructorUsedError;
+  @TimestampConverter()
+  DateTime get edited => throw _privateConstructorUsedError;
+  @TimestampConverter()
+  DateTime get created => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -40,8 +43,10 @@ abstract class $ThoughtModelCopyWith<$Res> {
   $Res call(
       {String? id,
       String? parent,
-      @TimestampConverter() DateTime timestamp,
-      String data});
+      String data,
+      ThoughtType type,
+      @TimestampConverter() DateTime edited,
+      @TimestampConverter() DateTime created});
 }
 
 /// @nodoc
@@ -56,8 +61,10 @@ class _$ThoughtModelCopyWithImpl<$Res> implements $ThoughtModelCopyWith<$Res> {
   $Res call({
     Object? id = freezed,
     Object? parent = freezed,
-    Object? timestamp = freezed,
     Object? data = freezed,
+    Object? type = freezed,
+    Object? edited = freezed,
+    Object? created = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -68,14 +75,22 @@ class _$ThoughtModelCopyWithImpl<$Res> implements $ThoughtModelCopyWith<$Res> {
           ? _value.parent
           : parent // ignore: cast_nullable_to_non_nullable
               as String?,
-      timestamp: timestamp == freezed
-          ? _value.timestamp
-          : timestamp // ignore: cast_nullable_to_non_nullable
-              as DateTime,
       data: data == freezed
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
               as String,
+      type: type == freezed
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as ThoughtType,
+      edited: edited == freezed
+          ? _value.edited
+          : edited // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      created: created == freezed
+          ? _value.created
+          : created // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ));
   }
 }
@@ -90,8 +105,10 @@ abstract class _$$_ThoughtCopyWith<$Res>
   $Res call(
       {String? id,
       String? parent,
-      @TimestampConverter() DateTime timestamp,
-      String data});
+      String data,
+      ThoughtType type,
+      @TimestampConverter() DateTime edited,
+      @TimestampConverter() DateTime created});
 }
 
 /// @nodoc
@@ -107,8 +124,10 @@ class __$$_ThoughtCopyWithImpl<$Res> extends _$ThoughtModelCopyWithImpl<$Res>
   $Res call({
     Object? id = freezed,
     Object? parent = freezed,
-    Object? timestamp = freezed,
     Object? data = freezed,
+    Object? type = freezed,
+    Object? edited = freezed,
+    Object? created = freezed,
   }) {
     return _then(_$_Thought(
       id: id == freezed
@@ -119,14 +138,22 @@ class __$$_ThoughtCopyWithImpl<$Res> extends _$ThoughtModelCopyWithImpl<$Res>
           ? _value.parent
           : parent // ignore: cast_nullable_to_non_nullable
               as String?,
-      timestamp: timestamp == freezed
-          ? _value.timestamp
-          : timestamp // ignore: cast_nullable_to_non_nullable
-              as DateTime,
       data: data == freezed
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
               as String,
+      type: type == freezed
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as ThoughtType,
+      edited: edited == freezed
+          ? _value.edited
+          : edited // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      created: created == freezed
+          ? _value.created
+          : created // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ));
   }
 }
@@ -137,8 +164,10 @@ class _$_Thought extends _Thought {
   const _$_Thought(
       {this.id,
       this.parent,
-      @TimestampConverter() required this.timestamp,
-      required this.data})
+      required this.data,
+      required this.type,
+      @TimestampConverter() required this.edited,
+      @TimestampConverter() required this.created})
       : super._();
 
   factory _$_Thought.fromJson(Map<String, dynamic> json) =>
@@ -149,14 +178,19 @@ class _$_Thought extends _Thought {
   @override
   final String? parent;
   @override
-  @TimestampConverter()
-  final DateTime timestamp;
-  @override
   final String data;
+  @override
+  final ThoughtType type;
+  @override
+  @TimestampConverter()
+  final DateTime edited;
+  @override
+  @TimestampConverter()
+  final DateTime created;
 
   @override
   String toString() {
-    return 'ThoughtModel(id: $id, parent: $parent, timestamp: $timestamp, data: $data)';
+    return 'ThoughtModel(id: $id, parent: $parent, data: $data, type: $type, edited: $edited, created: $created)';
   }
 
   @override
@@ -166,8 +200,10 @@ class _$_Thought extends _Thought {
             other is _$_Thought &&
             const DeepCollectionEquality().equals(other.id, id) &&
             const DeepCollectionEquality().equals(other.parent, parent) &&
-            const DeepCollectionEquality().equals(other.timestamp, timestamp) &&
-            const DeepCollectionEquality().equals(other.data, data));
+            const DeepCollectionEquality().equals(other.data, data) &&
+            const DeepCollectionEquality().equals(other.type, type) &&
+            const DeepCollectionEquality().equals(other.edited, edited) &&
+            const DeepCollectionEquality().equals(other.created, created));
   }
 
   @JsonKey(ignore: true)
@@ -176,8 +212,10 @@ class _$_Thought extends _Thought {
       runtimeType,
       const DeepCollectionEquality().hash(id),
       const DeepCollectionEquality().hash(parent),
-      const DeepCollectionEquality().hash(timestamp),
-      const DeepCollectionEquality().hash(data));
+      const DeepCollectionEquality().hash(data),
+      const DeepCollectionEquality().hash(type),
+      const DeepCollectionEquality().hash(edited),
+      const DeepCollectionEquality().hash(created));
 
   @JsonKey(ignore: true)
   @override
@@ -194,8 +232,10 @@ abstract class _Thought extends ThoughtModel {
   const factory _Thought(
       {final String? id,
       final String? parent,
-      @TimestampConverter() required final DateTime timestamp,
-      required final String data}) = _$_Thought;
+      required final String data,
+      required final ThoughtType type,
+      @TimestampConverter() required final DateTime edited,
+      @TimestampConverter() required final DateTime created}) = _$_Thought;
   const _Thought._() : super._();
 
   factory _Thought.fromJson(Map<String, dynamic> json) = _$_Thought.fromJson;
@@ -205,10 +245,15 @@ abstract class _Thought extends ThoughtModel {
   @override
   String? get parent => throw _privateConstructorUsedError;
   @override
-  @TimestampConverter()
-  DateTime get timestamp => throw _privateConstructorUsedError;
-  @override
   String get data => throw _privateConstructorUsedError;
+  @override
+  ThoughtType get type => throw _privateConstructorUsedError;
+  @override
+  @TimestampConverter()
+  DateTime get edited => throw _privateConstructorUsedError;
+  @override
+  @TimestampConverter()
+  DateTime get created => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$$_ThoughtCopyWith<_$_Thought> get copyWith =>

@@ -6,6 +6,8 @@ import 'converters/timestamp_converter.dart';
 part 'thought_model.g.dart';
 part 'thought_model.freezed.dart';
 
+enum ThoughtType { text }
+
 @freezed
 class ThoughtModel with _$ThoughtModel {
   const ThoughtModel._();
@@ -13,8 +15,10 @@ class ThoughtModel with _$ThoughtModel {
   const factory ThoughtModel({
     String? id,
     String? parent,
-    @TimestampConverter() required DateTime timestamp,
     required String data,
+    required ThoughtType type,
+    @TimestampConverter() required DateTime edited,
+    @TimestampConverter() required DateTime created,
   }) = _Thought;
 
   factory ThoughtModel.fromJson(Map<String, dynamic> json) =>
