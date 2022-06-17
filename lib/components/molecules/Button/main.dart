@@ -1,4 +1,3 @@
-import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:mindpoint/components/atoms/Icon/main.dart';
@@ -45,7 +44,7 @@ class DSButtonKind {
 /// Defines a Button size
 class DSButtonSize {
   final double height;
-  final double padding;
+  final EdgeInsets padding;
   final double borderSize;
   final DSIconSizes iconSize;
   final DSTextSizes textSize;
@@ -103,21 +102,21 @@ final Map<DSButtonKinds, DSButtonKind> variations = {
 final Map<DSButtonSizes, DSButtonSize> sizes = {
   DSButtonSizes.small: DSButtonSize(
     height: 34,
-    padding: 8.0,
+    padding: const EdgeInsets.all(7),
     textSize: DSTextSizes.s,
     iconSize: DSIconSizes.small,
     borderSize: 1.0,
   ),
   DSButtonSizes.medium: DSButtonSize(
     height: 48,
-    padding: 12,
+    padding: const EdgeInsets.all(10),
     textSize: DSTextSizes.m,
     iconSize: DSIconSizes.medium,
     borderSize: 2.0,
   ),
   DSButtonSizes.big: DSButtonSize(
     height: 68,
-    padding: 22,
+    padding: const EdgeInsets.all(18),
     textSize: DSTextSizes.m,
     iconSize: DSIconSizes.big,
     borderSize: 2.0,
@@ -156,37 +155,64 @@ class DSButton extends HookWidget {
     this.onTap,
   });
 
+  DSButtonSize get _size {
+    return sizes[size] as DSButtonSize;
+  }
+
+  DSButtonShape get _shape {
+    return shapes[shape] as DSButtonShape;
+  }
+
+  DSButtonKind get _variation {
+    return variations[kind] as DSButtonKind;
+  }
+
+  get _shouldAddIcon {
+    return displayIcon && icon != null;
+  }
+
+  get _shouldAddLabel {
+    return displayLabel && data != null;
+  }
+
+  BoxConstraints? get constrains {
+    if (_shouldAddIcon && _shouldAddLabel ||
+        !_shouldAddIcon && _shouldAddLabel) {
+      return BoxConstraints(minHeight: _size.height, maxHeight: _size.height);
+    }
+
+    return BoxConstraints(
+      minWidth: _size.height,
+      maxWidth: _size.height,
+      minHeight: _size.height,
+      maxHeight: _size.height,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    final DSButtonSize selectedSize = sizes[size] as DSButtonSize;
-    final DSButtonShape selectedShape = shapes[shape] as DSButtonShape;
-    final DSButtonKind selectedVariation = variations[kind] as DSButtonKind;
-
     final List<Widget> children = [];
 
-    final shouldAddIcon = displayIcon && icon != null;
-    final shouldAddLabel = displayLabel && data != null;
-
-    if (shouldAddIcon) {
+    if (_shouldAddIcon) {
       final iconWidget = DSIcon(
         icon as IconData,
-        size: selectedSize.iconSize,
-        color: selectedVariation.iconColor,
+        size: _size.iconSize,
+        color: _variation.iconColor,
       );
 
       children.add(iconWidget);
     }
 
     // Adds some space between the two nodes
-    if (shouldAddIcon && shouldAddLabel) {
-      children.add(const SizedBox(width: 12));
+    if (_shouldAddIcon && _shouldAddLabel) {
+      children.add(SizedBox(width: _size.padding.right));
     }
 
-    if (shouldAddLabel) {
+    if (_shouldAddLabel) {
       final labelWidget = DSText(
         data as String,
-        size: selectedSize.textSize,
-        color: selectedVariation.textColor,
+        size: _size.textSize,
+        color: _variation.textColor,
         wheight: DSTextWheights.medium,
       );
 
@@ -196,22 +222,24 @@ class DSButton extends HookWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
+        constraints: constrains,
         decoration: BoxDecoration(
-          color: selectedVariation.backgroundColor,
+          color: _variation.backgroundColor,
           borderRadius: BorderRadius.all(
             Radius.circular(
-              selectedShape.borderRadius,
+              _shape.borderRadius,
             ),
           ),
           border: Border.all(
-            color: selectedVariation.borderColor,
-            width: selectedSize.borderSize,
+            color: _variation.borderColor,
+            width: _size.borderSize,
           ),
         ),
-        padding: EdgeInsets.all(selectedSize.padding),
+        padding: _size.padding,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
           children: children,
         ),
       ),

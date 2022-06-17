@@ -27,10 +27,12 @@ class DSIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final finalSize = sizes[size] as double;
+
     return Icon(
       icon,
       color: color,
-      size: sizes[size],
+      size: finalSize,
     );
   }
 }
