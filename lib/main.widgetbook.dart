@@ -5,26 +5,26 @@
 // **************************************************************************
 
 import 'package:mindpoint/main.dart';
-import 'package:go_router/go_router.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:mindpoint/data/providers/main.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:mindpoint/firebase_options.dart';
-import 'dart:core';
 import 'package:mindpoint/router/main.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter/material.dart';
+import 'package:mindpoint/data/providers/main.dart';
+import 'dart:core';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:go_router/go_router.dart';
+import 'package:mindpoint/firebase_options.dart';
 import 'package:mindpoint/components/molecules/Button/main.dart';
-import 'package:mindpoint/styles/colors/main.dart';
+import 'package:mindpoint/components/atoms/Icon/main.dart';
 import 'package:mindpoint/components/atoms/Text/main.dart';
 import 'package:widgetbook/widgetbook.dart';
-import 'package:mindpoint/components/atoms/Icon/main.dart';
+import 'package:mindpoint/styles/colors/main.dart';
 import 'package:mindpoint/components/pages/Welcome/main.dart';
 import 'package:mindpoint/components/templates/Welcome/main.dart';
 import 'package:flutter/widgets.dart';
 import 'package:mindpoint/components/molecules/PageScaffold/main.dart';
-import 'package:mindpoint/components/atoms/Step/main.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:mindpoint/components/atoms/Step/main.dart';
 import 'package:mindpoint/components/pages/Authentication/main.dart';
 import 'package:mindpoint/components/templates/Authentication/main.dart';
 import 'package:mindpoint/components/atoms/CustomIcons/main.dart';
@@ -32,6 +32,9 @@ import 'package:mindpoint/components/atoms/Avatar/main.dart';
 import 'package:mindpoint/components/molecules/AppBar/main.dart';
 import 'package:mindpoint/components/templates/Timeline/main.dart';
 import 'package:mindpoint/data/models/thought_model.dart';
+import 'package:mindpoint/components/atoms/EditableText/main.dart';
+import 'package:mindpoint/hooks/debounce.dart';
+import 'dart:async';
 
 void main() {
   runApp(HotReload());
@@ -120,6 +123,30 @@ class HotReload extends StatelessWidget {
                   name: 'atoms',
                   widgets: [],
                   folders: [
+                    WidgetbookFolder(
+                      name: 'EditableText',
+                      widgets: [
+                        WidgetbookComponent(
+                          name: 'DSEditableText',
+                          useCases: [
+                            WidgetbookUseCase(
+                              name: 'Keeps focus on new line',
+                              builder: (context) =>
+                                  defaultDSEditableTextUseCase(context),
+                            ),
+                            WidgetbookUseCase(
+                              name: 'Lose focus on new line',
+                              builder: (context) =>
+                                  loseFocusWhenNewLineDSEditableTextUseCase(
+                                      context),
+                            ),
+                          ],
+                          isExpanded: true,
+                        ),
+                      ],
+                      folders: [],
+                      isExpanded: true,
+                    ),
                     WidgetbookFolder(
                       name: 'Avatar',
                       widgets: [

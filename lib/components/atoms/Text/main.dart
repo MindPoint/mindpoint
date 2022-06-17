@@ -98,6 +98,56 @@ final Map<DSTextWheights, DSTextWheight> wheights = {
   DSTextWheights.bold: DSTextWheight(fontWheight: FontWeight.w700),
 };
 
+class DSTextStyle {
+  final DSTextKinds kind;
+  final DSTextSizes size;
+  final DSTextWheights wheight;
+  final Color? color;
+
+  const DSTextStyle({
+    this.kind = DSTextKinds.primary,
+    this.size = DSTextSizes.m,
+    this.wheight = DSTextWheights.regular,
+    this.color,
+  });
+
+  DSTextKind get _selectedKind {
+    return kinds[kind] as DSTextKind;
+  }
+
+  DSTextSize get _selectedSize {
+    return sizes[size] as DSTextSize;
+  }
+
+  DSTextWheight get _selectedWheight {
+    return wheights[wheight] as DSTextWheight;
+  }
+
+  TextStyle get style {
+    final textStyle = _selectedKind.styleMethod(
+      color: color ?? _selectedKind.color,
+      fontSize: _selectedSize.fontSize,
+      fontWeight: _selectedWheight.fontWheight,
+    );
+
+    return textStyle;
+  }
+
+  factory DSTextStyle.create({
+    DSTextKinds kind = DSTextKinds.primary,
+    DSTextSizes size = DSTextSizes.m,
+    DSTextWheights wheight = DSTextWheights.regular,
+    Color? color,
+  }) {
+    return DSTextStyle(
+      kind: kind,
+      size: size,
+      wheight: wheight,
+      color: color,
+    );
+  }
+}
+
 class DSText extends StatelessWidget {
   final String data;
   final DSTextKinds kind;
