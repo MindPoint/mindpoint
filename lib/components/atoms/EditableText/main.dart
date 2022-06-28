@@ -52,15 +52,21 @@ class DSEditableText extends HookWidget {
 
     return EditableText(
       maxLines: null,
-      forceLine: true,
       focusNode: focusNodeController,
       controller: textEditingController,
       keyboardType: TextInputType.multiline,
       cursorColor: const Color(0xFF000000),
-      style: style ?? DSTextStyle.create().style,
+      style: style ??
+          DSTextStyle.create(
+            size: DSTextSizes.s,
+          ).style,
+      textScaleFactor: 1,
       backgroundCursorColor: const Color(0xFFFF7D54),
       onChanged: (data) {
-        final bool userIsTryingToCreateNewLine = data[data.length - 1] == '\n';
+        final String lastDataChar = data[data.length - 1];
+        final bool userIsTryingToCreateNewLine =
+            RegExp('g\n|\r').hasMatch(lastDataChar) ||
+                lastDataChar.codeUnitAt(0) == 10;
 
         // Checks if the parent node wants to lose focus or not when a user is
         // trying to create a new line

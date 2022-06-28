@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:mindpoint/components/atoms/Avatar/main.dart';
+import 'package:mindpoint/components/atoms/EditableText/main.dart';
+import 'package:mindpoint/components/atoms/Text/main.dart';
 import 'package:mindpoint/components/molecules/AppBar/main.dart';
+import 'package:mindpoint/components/molecules/Thought/main.dart';
 import 'package:mindpoint/data/models/thought_model.dart';
+import 'package:mindpoint/styles/colors/main.dart';
 
 // ignore: unused_import
 import 'package:widgetbook/widgetbook.dart';
@@ -12,39 +16,55 @@ import '../../molecules/Button/main.dart';
 
 class DSTimelineTemplate extends HookWidget {
   final String _username;
-  final String _buttonLabel;
 
-  final List<ThoughtModel> _thoughts;
+  final List<Widget> _children;
 
   const DSTimelineTemplate({
     super.key,
     required String username,
-    required String buttonLabel,
-    required List<ThoughtModel> thoughts,
+    required List<Widget> children,
   })  : _username = username,
-        _thoughts = thoughts,
-        _buttonLabel = buttonLabel;
+        _children = children;
+
+  // Widget initializeCorrectThoughtWidget(ThoughtModel thought) {
+  //   switch (thought.type) {
+  //     case ThoughtType.text:
+  //       return DSEditableTextThought(
+  //         thought: thought,
+  //         onChange: (id, data) {
+  //           print('$id $data');
+  //         },
+  //         onNewLine: () {
+  //           print('${thought.id} new line');
+  //         },
+  //       );
+  //     default:
+  //       return const DSText('something gone wrong');
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
+    // final List<Widget> thoughts = _thoughts
+    //     .map((thought) => initializeCorrectThoughtWidget(thought))
+    //     .toList()
+    //     .cast();
+
     return Column(
       children: [
+        Expanded(
+          child: Container(
+            color: DSColor.gray40,
+            child: ListView.separated(
+              itemCount: _children.length,
+              itemBuilder: (context, index) => _children[index],
+              separatorBuilder: (context, index) => const SizedBox(height: 4),
+            ),
+          ),
+        ),
         DSAppBar(
           avatar: DSAvatar(_username),
-          children: [
-            DSButton(
-              _buttonLabel,
-              icon: Icons.calendar_today_rounded,
-              size: DSButtonSizes.small,
-              shape: DSButtonShapes.round,
-              kind: DSButtonKinds.tertiary,
-            )
-          ],
-        ),
-        Scrollable(
-          viewportBuilder: (context, position) => Column(
-            children: [],
-          ),
+          children: const [],
         ),
       ],
     );
@@ -60,21 +80,11 @@ Widget defaultDSTimelineTemplateUseCase(BuildContext context) {
     initialValue: 'Foo',
   );
 
-  final buttonLabel = context.knobs.options(
-    label: 'Button Label',
-    description: 'This data defines the label of the button with the callendar',
-    options: const [
-      Option(label: 'Today', value: 'TODAY'),
-      Option(label: 'Yesterday', value: 'YESTERDAY'),
-      Option(label: 'Hoje', value: 'HOJE'),
-      Option(label: 'Ontem', value: 'ONTEM'),
-      Option(label: 'Other', value: '26/10/1996'),
-    ],
-  );
-
   return DSTimelineTemplate(
     username: username,
-    buttonLabel: buttonLabel,
-    thoughts: [],
+    children: const [
+      DSText('foo'),
+      DSText('bar'),
+    ],
   );
 }
