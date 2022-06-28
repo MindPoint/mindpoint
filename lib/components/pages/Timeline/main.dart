@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:mindpoint/components/atoms/Avatar/main.dart';
 import 'package:mindpoint/components/atoms/Text/main.dart';
 import 'package:mindpoint/data/providers/main.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -19,7 +20,7 @@ class DSTimelinePage extends HookConsumerWidget {
       template: Stack(
         children: [
           DSTimelineTemplate(
-            username: userViewModel.user?.displayName ?? 'Anon',
+            avatar: DSAvatar(userViewModel.user?.displayName ?? 'Anon'),
             children: const [
               DSText('foo'),
               DSText('bar'),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:mindpoint/components/atoms/Avatar/main.dart';
 import 'package:mindpoint/components/molecules/Button/main.dart';
 import 'package:mindpoint/styles/colors/main.dart';
@@ -10,12 +9,12 @@ import 'package:widgetbook_annotation/widgetbook_annotation.dart' as notations;
 typedef Childrens = List<Widget>;
 
 class DSAppBar extends StatelessWidget {
-  final DSAvatar _avatar;
+  final Widget _avatar;
   final Childrens _children;
 
   const DSAppBar({
     super.key,
-    required DSAvatar avatar,
+    required Widget avatar,
     required Childrens children,
   })  : _avatar = avatar,
         _children = children;

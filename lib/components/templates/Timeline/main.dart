@@ -1,29 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+
+import 'package:mindpoint/styles/colors/main.dart';
 import 'package:mindpoint/components/atoms/Avatar/main.dart';
-import 'package:mindpoint/components/atoms/EditableText/main.dart';
 import 'package:mindpoint/components/atoms/Text/main.dart';
 import 'package:mindpoint/components/molecules/AppBar/main.dart';
-import 'package:mindpoint/components/molecules/Thought/main.dart';
-import 'package:mindpoint/data/models/thought_model.dart';
-import 'package:mindpoint/styles/colors/main.dart';
 
 // ignore: unused_import
 import 'package:widgetbook/widgetbook.dart';
 import 'package:widgetbook_annotation/widgetbook_annotation.dart' as notations;
 
-import '../../molecules/Button/main.dart';
-
 class DSTimelineTemplate extends HookWidget {
-  final String _username;
+  final Widget _avatar;
 
   final List<Widget> _children;
 
   const DSTimelineTemplate({
     super.key,
-    required String username,
+    required Widget avatar,
     required List<Widget> children,
-  })  : _username = username,
+  })  : _avatar = avatar,
         _children = children;
 
   // Widget initializeCorrectThoughtWidget(ThoughtModel thought) {
@@ -63,7 +59,7 @@ class DSTimelineTemplate extends HookWidget {
           ),
         ),
         DSAppBar(
-          avatar: DSAvatar(_username),
+          avatar: _avatar,
           children: const [],
         ),
       ],
@@ -81,7 +77,7 @@ Widget defaultDSTimelineTemplateUseCase(BuildContext context) {
   );
 
   return DSTimelineTemplate(
-    username: username,
+    avatar: DSAvatar(username),
     children: const [
       DSText('foo'),
       DSText('bar'),

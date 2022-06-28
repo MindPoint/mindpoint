@@ -31,10 +31,10 @@ import 'package:mindpoint/components/atoms/CustomIcons/main.dart';
 import 'package:mindpoint/components/atoms/Avatar/main.dart';
 import 'package:mindpoint/components/molecules/AppBar/main.dart';
 import 'package:mindpoint/components/templates/Timeline/main.dart';
-import 'package:mindpoint/data/models/thought_model.dart';
 import 'package:mindpoint/components/atoms/EditableText/main.dart';
-import 'package:mindpoint/components/molecules/Thought/main.dart';
 import 'package:mindpoint/hooks/debounce.dart';
+import 'package:mindpoint/components/molecules/Thought/main.dart';
+import 'package:mindpoint/data/models/thought_model.dart';
 
 void main() {
   runApp(HotReload());
