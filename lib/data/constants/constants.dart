@@ -1,3 +1,3 @@
 const firebaseFirestoreUsersCollectionKey = 'users';
 const firebaseFirestorePagesCollectionKey = 'pages';
-const firebaseFirestoreThoughtsCollectionKey = 'thoughts';
+const firebaseFirestoreNodesCollectionKey = 'nodes';
