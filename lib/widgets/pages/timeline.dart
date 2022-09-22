@@ -32,7 +32,13 @@ class Footer extends HookConsumerWidget {
       ),
       child: Row(
         children: [
-          Text('No que está pensando', style: defaultPoppins),
+          Text(
+            'No que está pensando',
+            style: defaultPoppins,
+            textScaleFactor: 1,
+          ),
+
+          // Avatar
           Button(
             children: [
               Text(
@@ -42,6 +48,7 @@ class Footer extends HookConsumerWidget {
                   fontSize: Units.xxbig,
                   fontWeight: FontWeight.bold,
                 ),
+                textScaleFactor: 1,
               ),
             ],
           )

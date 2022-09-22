@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -54,31 +55,27 @@ class Button extends HookWidget {
         duration: const Duration(
           milliseconds: 25,
         ),
+        alignment: Alignment.center,
         transformAlignment: Alignment.center,
         transform:
             Matrix4(scaleX, 0, 0, 0, 0, scaleY, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1),
-        alignment: Alignment.center,
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(
-            minHeight: 32,
-            maxHeight: 32,
-            minWidth: 32,
+        constraints: const BoxConstraints(
+          minHeight: 32,
+          maxHeight: 32,
+          minWidth: 32,
+        ),
+        padding: const EdgeInsets.symmetric(horizontal: Units.small),
+        decoration: BoxDecoration(
+          color: buttonBackgroundColors[kind] as Color,
+          borderRadius: BorderRadius.circular(100),
+          border: Border.all(
+            color: buttonBorderColors[kind] as Color,
           ),
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: Units.small),
-            decoration: BoxDecoration(
-              color: buttonBackgroundColors[kind] as Color,
-              borderRadius: BorderRadius.circular(100),
-              border: Border.all(
-                color: buttonBorderColors[kind] as Color,
-              ),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: children ?? [],
-            ),
-          ),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: children ?? [],
         ),
       ),
     );
