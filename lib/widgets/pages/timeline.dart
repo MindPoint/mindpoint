@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
@@ -25,6 +27,8 @@ class Footer extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final tapping = useState(false);
+
     return Container(
       padding: const EdgeInsets.symmetric(
         horizontal: Units.xxbig,
@@ -38,20 +42,28 @@ class Footer extends HookConsumerWidget {
             textScaleFactor: 1,
           ),
 
+          // Attachments
+          const Button(
+            kind: Kind.tertiary,
+            child: Icon(
+              Icons.attachment,
+              size: 16,
+              color: CustomColors.black,
+            ),
+          ),
+
           // Avatar
           Button(
-            children: [
-              Text(
-                'J',
-                style: GoogleFonts.poppins(
-                  color: CustomColors.white,
-                  fontSize: Units.xxbig,
-                  fontWeight: FontWeight.bold,
-                ),
-                textScaleFactor: 1,
+            child: Text(
+              'J',
+              style: GoogleFonts.poppins(
+                color: CustomColors.white,
+                fontSize: Units.xxbig,
+                fontWeight: FontWeight.bold,
               ),
-            ],
-          )
+              textScaleFactor: 1,
+            ),
+          ),
         ],
       ),
     );

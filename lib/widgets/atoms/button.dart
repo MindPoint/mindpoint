@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mindpoint/constants/colors.dart';
 import 'package:mindpoint/constants/kinds.dart';
 import 'package:mindpoint/constants/units.dart';
+
+import 'dart:developer' as developer;
+
+import 'package:vibration/vibration.dart';
 
 const Map<Kind, Color> buttonBorderColors = {
   Kind.primary: CustomColors.black,
@@ -22,38 +26,52 @@ const Map<Kind, Color> buttonBackgroundColors = {
 
 class Button extends HookWidget {
   final Kind kind;
-  final List<Widget>? children;
+  final Widget? child;
 
-  const Button({super.key, this.children, this.kind = Kind.primary});
+  const Button({super.key, this.child, this.kind = Kind.primary});
 
   @override
   Widget build(BuildContext context) {
     final tapping = useState(false);
+
     final scaleX = tapping.value ? 0.90 : 1.0;
     final scaleY = scaleX;
 
+    final userIsTapping = useCallback(() {
+      tapping.value = true;
+    }, [tapping]);
+
+    final userNotTapping = useCallback(() {
+      tapping.value = false;
+    }, [tapping]);
+
+    final vibrateOnTap = useCallback(() {
+      Vibration.vibrate(duration: 25);
+    }, []);
+
     return GestureDetector(
       onTapDown: (details) {
-        tapping.value = true;
+        vibrateOnTap();
+        userIsTapping();
       },
       onTapUp: (details) {
-        tapping.value = false;
+        userNotTapping();
       },
       onVerticalDragEnd: (details) {
-        tapping.value = false;
+        userNotTapping();
       },
       onHorizontalDragEnd: (details) {
-        tapping.value = false;
+        userNotTapping();
       },
       onLongPressEnd: (details) {
-        tapping.value = false;
+        userNotTapping();
       },
       onForcePressEnd: (details) {
-        tapping.value = false;
+        userNotTapping();
       },
       child: AnimatedContainer(
         duration: const Duration(
-          milliseconds: 25,
+          milliseconds: 50,
         ),
         alignment: Alignment.center,
         transformAlignment: Alignment.center,
@@ -64,18 +82,20 @@ class Button extends HookWidget {
           maxHeight: 32,
           minWidth: 32,
         ),
-        padding: const EdgeInsets.symmetric(horizontal: Units.small),
+        padding: const EdgeInsets.symmetric(horizontal: Units.xsmall),
         decoration: BoxDecoration(
           color: buttonBackgroundColors[kind] as Color,
           borderRadius: BorderRadius.circular(100),
           border: Border.all(
+            width: 1,
             color: buttonBorderColors[kind] as Color,
           ),
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: children ?? [],
+        child: AnimatedSwitcher(
+          duration: const Duration(milliseconds: 200),
+          switchInCurve: Curves.easeInOut,
+          switchOutCurve: Curves.easeInOut,
+          child: child,
         ),
       ),
     );
