@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 
 import '../../constants/kinds.dart';
+import '../../constants/units.dart';
 import '../../constants/wheights.dart';
 import '../atoms/typography.dart';
 
@@ -10,11 +11,11 @@ class ThoughtCallToAction extends StatelessWidget {
     required this.currentThoughtData,
   });
 
-  final String? currentThoughtData;
+  final String currentThoughtData;
 
   @override
   Widget build(BuildContext context) {
-    return currentThoughtData == null
+    return currentThoughtData.isEmpty
         ? const CustomTypography(
             'No que está pensando?',
             kind: Kind.secondary,
@@ -27,11 +28,11 @@ class ThoughtCallToAction extends StatelessWidget {
                 kind: Kind.secondary,
                 wheight: Wheights.medium,
               ),
-              const SizedBox(width: 4),
+              const SizedBox(width: Units.xxsmall),
               Flexible(
                 flex: 1,
                 child: CustomTypography(
-                  currentThoughtData ?? '',
+                  currentThoughtData,
                   kind: Kind.secondary,
                   wheight: Wheights.regular,
                 ),

@@ -42,17 +42,24 @@ Widget getCloseIcon(String? username) {
 }
 
 class Footer extends HookConsumerWidget {
-  final String? username;
-  final String? currentThoughtData;
-  final bool? isProfileMenuOpen;
-  final bool? isAttachmentsMenuOpen;
+  final String username;
+  final String currentThoughtData;
+  final bool isProfileMenuOpen;
+  final bool isAttachmentsMenuOpen;
+
+  final Function onCtaTapDown;
+  final Function onProfileButtonTapDown;
+  final Function onAttachmentsButtonTapDown;
 
   const Footer({
     super.key,
-    this.username,
-    this.currentThoughtData,
-    this.isProfileMenuOpen,
-    this.isAttachmentsMenuOpen,
+    required this.username,
+    required this.currentThoughtData,
+    required this.isProfileMenuOpen,
+    required this.isAttachmentsMenuOpen,
+    required this.onCtaTapDown,
+    required this.onProfileButtonTapDown,
+    required this.onAttachmentsButtonTapDown,
   });
 
   @override
@@ -77,6 +84,7 @@ class Footer extends HookConsumerWidget {
             child: GestureDetector(
               onTapDown: (details) {
                 Vibration.vibrate(duration: 25);
+                onCtaTapDown();
               },
               child: ThoughtCallToAction(
                 currentThoughtData: currentThoughtData,
@@ -84,34 +92,36 @@ class Footer extends HookConsumerWidget {
             ),
           ),
 
-          const SizedBox(width: 8),
+          const SizedBox(width: Units.small),
 
           // Attachment Button
           GestureDetector(
             onTapDown: (details) {
+              onAttachmentsButtonTapDown();
               Vibration.vibrate(duration: 25);
             },
             child: DoubleStateButton(
               primaryChild: getAttachmentIcon(username),
               primaryKind: Kind.tertiary,
               secondaryChild: getCloseIcon(username),
-              state: isAttachmentsMenuOpen!
+              state: isAttachmentsMenuOpen
                   ? DoubleStateButtonState.secondary
                   : DoubleStateButtonState.primary,
             ),
           ),
 
-          const SizedBox(width: 8),
+          const SizedBox(width: Units.small),
 
           // Avatar Button
           GestureDetector(
             onTapDown: (details) {
+              onProfileButtonTapDown();
               Vibration.vibrate(duration: 25);
             },
             child: DoubleStateButton(
               primaryChild: getAvatarText(username),
               secondaryChild: getCloseIcon(username),
-              state: isProfileMenuOpen!
+              state: isProfileMenuOpen
                   ? DoubleStateButtonState.secondary
                   : DoubleStateButtonState.primary,
             ),

@@ -1,11 +1,15 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
-
-import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
+import 'package:mindpoint/constants/colors.dart';
+import 'package:mindpoint/constants/menus.dart';
+import 'package:mindpoint/providers/main.dart';
 import 'package:mindpoint/widgets/template/default_template.dart';
 
 import '../organisms/footer.dart';
+import '../organisms/menus.dart';
 
 class TimelinePage extends HookConsumerWidget {
   const TimelinePage({super.key});
@@ -13,6 +17,17 @@ class TimelinePage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     final nodes = [];
+
+    final currentMenu = ref.watch(currentMenuProvider);
+
+    final userIsEditing =
+        useMemoized(() => currentMenu == AvailableMenus.edit, [currentMenu]);
+
+    final userIsOnProfileMenu =
+        useMemoized(() => currentMenu == AvailableMenus.profile, [currentMenu]);
+
+    final userIsOnAttachmentsMenu = useMemoized(
+        () => currentMenu == AvailableMenus.attachments, [currentMenu]);
 
     return Scaffold(
       body: DefaultTemplate(
@@ -26,13 +41,25 @@ class TimelinePage extends HookConsumerWidget {
             return const Divider();
           },
         ),
-        notification: Text(''),
-        footer: const Footer(
+        menu: Menus(currentMenu: currentMenu),
+        footer: Footer(
           username: 'João',
-          currentThoughtData:
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam, purus sit amet luctus venenatis, lectus magna fringilla urna, porttitor rhoncus dolor purus non enim praesent elementum facilisis leo, vel fringilla est ullamcorper eget nulla.',
-          isProfileMenuOpen: false,
-          isAttachmentsMenuOpen: false,
+          currentThoughtData: '',
+          isProfileMenuOpen: userIsOnProfileMenu,
+          isAttachmentsMenuOpen: userIsOnAttachmentsMenu,
+          onCtaTapDown: () {
+            ref.read(currentMenuProvider.state).state = AvailableMenus.edit;
+          },
+          onProfileButtonTapDown: () {
+            ref.read(currentMenuProvider.state).state = userIsOnProfileMenu
+                ? AvailableMenus.none
+                : AvailableMenus.profile;
+          },
+          onAttachmentsButtonTapDown: () {
+            ref.read(currentMenuProvider.state).state = userIsOnAttachmentsMenu
+                ? AvailableMenus.none
+                : AvailableMenus.attachments;
+          },
         ),
       ),
     );

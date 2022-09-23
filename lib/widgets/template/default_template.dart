@@ -4,13 +4,13 @@ import 'package:mindpoint/widgets/atoms/page_base.dart';
 
 class DefaultTemplate extends HookWidget {
   final Widget content;
-  final Widget notification;
+  final Widget menu;
   final Widget footer;
 
   const DefaultTemplate({
     super.key,
     required this.content,
-    required this.notification,
+    required this.menu,
     required this.footer,
   });
 
@@ -24,7 +24,7 @@ class DefaultTemplate extends HookWidget {
           Expanded(
             child: content,
           ),
-          notification,
+          menu,
           footer
         ],
       ),

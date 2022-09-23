@@ -40,23 +40,11 @@ class Button extends HookWidget {
       tapping.value = false;
     }, [tapping]);
 
-    return GestureDetector(
-      onTapDown: (details) {
+    return Listener(
+      onPointerDown: (details) {
         userIsTapping();
       },
-      onTapUp: (details) {
-        userNotTapping();
-      },
-      onVerticalDragEnd: (details) {
-        userNotTapping();
-      },
-      onHorizontalDragEnd: (details) {
-        userNotTapping();
-      },
-      onLongPressEnd: (details) {
-        userNotTapping();
-      },
-      onForcePressEnd: (details) {
+      onPointerUp: (details) {
         userNotTapping();
       },
       child: AnimatedContainer(
