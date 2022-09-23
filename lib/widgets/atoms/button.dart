@@ -23,20 +23,31 @@ class Button extends HookWidget {
   final Kind kind;
   final Widget? child;
 
-  const Button({super.key, this.child, this.kind = Kind.primary});
+  final bool animate;
+
+  const Button({
+    super.key,
+    this.child,
+    this.animate = true,
+    this.kind = Kind.primary,
+  });
 
   @override
   Widget build(BuildContext context) {
     final tapping = useState(false);
 
-    final scaleX = tapping.value ? 0.90 : 1.0;
+    final scaleX = tapping.value ? 0.98 : 1.0;
     final scaleY = scaleX;
 
     final userIsTapping = useCallback(() {
+      if (!animate) return;
+
       tapping.value = true;
     }, [tapping]);
 
     final userNotTapping = useCallback(() {
+      if (!animate) return;
+
       tapping.value = false;
     }, [tapping]);
 

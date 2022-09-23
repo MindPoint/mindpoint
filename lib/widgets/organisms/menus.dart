@@ -1,62 +1,32 @@
+import 'dart:developer';
+
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:mindpoint/providers/main.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:mindpoint/widgets/organisms/profile_menu.dart';
 
 import '../../constants/colors.dart';
 import '../../constants/menus.dart';
 
-class Menus extends StatelessWidget {
+class Menus extends HookConsumerWidget {
   const Menus({
-    Key? key,
-    required this.currentMenu,
-  }) : super(key: key);
-
-  final AvailableMenus currentMenu;
+    super.key,
+  });
 
   @override
-  Widget build(BuildContext context) {
-    final menus = {
-      AvailableMenus.none: Container(),
-      AvailableMenus.profile: Container(
-        key: const ValueKey(AvailableMenus.profile),
-        padding: EdgeInsets.all(8),
-        child: Flex(
-          direction: Axis.vertical,
-          children: const [
-            Text('profile'),
-            Text('profile'),
-            Text('profile'),
-            Text('profile'),
-            Text('profile'),
-            Text('profile'),
-            Text('profile'),
-            Text('profile'),
-          ],
-        ),
-      ),
-      AvailableMenus.attachments: Container(
-        key: const ValueKey(AvailableMenus.attachments),
-        padding: EdgeInsets.all(8),
-        child: Flex(
-          direction: Axis.vertical,
-          children: const [
-            Text('attachments'),
-            Text('attachments'),
-            Text('attachments'),
-            Text('attachments'),
-            Text('attachments'),
-          ],
-        ),
-      ),
-      AvailableMenus.edit: Container(
-        key: const ValueKey(AvailableMenus.attachments),
-        padding: EdgeInsets.all(8),
-        child: Flex(
-          direction: Axis.vertical,
-          children: const [
-            Text('editing'),
-          ],
-        ),
-      ),
-    };
+  Widget build(BuildContext context, ref) {
+    final currentMenu = ref.watch(currentMenuProvider);
+
+    final menu = useMemoized<Widget>(() {
+      switch (currentMenu) {
+        case AvailableMenus.profile:
+          return const ProfileMenu();
+        default:
+          return Container();
+      }
+    }, [currentMenu]);
 
     return AnimatedSize(
       curve: Curves.easeInOut,
@@ -77,7 +47,7 @@ class Menus extends StatelessWidget {
           switchInCurve: Curves.easeInOut,
           switchOutCurve: Curves.easeInOut,
           duration: const Duration(milliseconds: 100),
-          child: menus[currentMenu],
+          child: menu,
         ),
       ),
     );

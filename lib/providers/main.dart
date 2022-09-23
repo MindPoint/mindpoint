@@ -63,5 +63,13 @@ final firebaseAuthProvider =
 final authStateChangesProvider = StreamProvider<User?>(
     (ref) => ref.watch(firebaseAuthProvider).authStateChanges());
 
+final userLogedInProvider =
+    Provider<bool>((ref) => ref.watch(authStateChangesProvider).value != null);
+
+final usernameProvider = StateProvider<String>(
+  (ref) =>
+      ref.watch(authStateChangesProvider).value?.displayName ?? 'Anonymous',
+);
+
 final currentMenuProvider =
     StateProvider<AvailableMenus>((ref) => AvailableMenus.none);

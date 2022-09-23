@@ -3,7 +3,6 @@ import 'package:go_router/go_router.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:widgetbook_annotation/widgetbook_annotation.dart';
 
 import 'firebase_options.dart';
 import 'package:mindpoint/router/main.dart';

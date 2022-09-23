@@ -41,7 +41,7 @@ class TimelinePage extends HookConsumerWidget {
             return const Divider();
           },
         ),
-        menu: Menus(currentMenu: currentMenu),
+        menu: const Menus(),
         footer: Footer(
           username: 'João',
           currentThoughtData: '',
