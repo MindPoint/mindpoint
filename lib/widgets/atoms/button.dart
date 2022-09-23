@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:mindpoint/constants/colors.dart';
 import 'package:mindpoint/constants/kinds.dart';
 import 'package:mindpoint/constants/units.dart';
-
-import 'dart:developer' as developer;
-
-import 'package:vibration/vibration.dart';
 
 const Map<Kind, Color> buttonBorderColors = {
   Kind.primary: CustomColors.black,
@@ -45,13 +40,8 @@ class Button extends HookWidget {
       tapping.value = false;
     }, [tapping]);
 
-    final vibrateOnTap = useCallback(() {
-      Vibration.vibrate(duration: 25);
-    }, []);
-
     return GestureDetector(
       onTapDown: (details) {
-        vibrateOnTap();
         userIsTapping();
       },
       onTapUp: (details) {
