@@ -98,7 +98,6 @@ class Footer extends HookConsumerWidget {
           GestureDetector(
             onTapDown: (details) {
               onAttachmentsButtonTapDown();
-              Vibration.vibrate(duration: 25);
             },
             child: DoubleStateButton(
               primaryChild: getAttachmentIcon(username),
@@ -116,7 +115,6 @@ class Footer extends HookConsumerWidget {
           GestureDetector(
             onTapDown: (details) {
               onProfileButtonTapDown();
-              Vibration.vibrate(duration: 25);
             },
             child: DoubleStateButton(
               primaryChild: getAvatarText(username),

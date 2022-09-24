@@ -5,6 +5,8 @@ import 'package:mindpoint/constants/colors.dart';
 import 'package:mindpoint/constants/kinds.dart';
 import 'package:mindpoint/constants/units.dart';
 
+import 'package:vibration/vibration.dart';
+
 const Map<Kind, Color> buttonBorderColors = {
   Kind.primary: CustomColors.black,
   Kind.secondary: CustomColors.black,
@@ -43,6 +45,7 @@ class Button extends HookWidget {
       if (!animate) return;
 
       tapping.value = true;
+      Vibration.vibrate(duration: 25);
     }, [tapping]);
 
     final userNotTapping = useCallback(() {

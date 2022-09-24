@@ -1,5 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mindpoint/constants/kinds.dart';
 import 'package:mindpoint/widgets/molecule/icon_button.dart';
@@ -20,8 +24,77 @@ class ProfileMenu extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final auth = ref.watch(firebaseAuthProvider);
+    final userLogedIn = ref.watch(userLogedInProvider);
+
     final username = ref.watch(usernameProvider);
     final usernameFirstLetter = username[0].toUpperCase();
+
+    /// Displays the button when the user is not logged in
+    final signInWithGoogleButton = useMemoized(() {
+      return !userLogedIn
+          ? GestureDetector(
+              onTap: () {
+                signInWithGoogle(auth, GoogleSignIn());
+              },
+              child: Container(
+                padding: const EdgeInsets.only(right: Units.small),
+                child: const CustomIconButton(
+                  label: 'Entrar com o Google',
+                  icon: CustomIcons.googleLogo,
+                ),
+              ),
+            )
+          : Container();
+    }, [userLogedIn]);
+
+    final donationButton = useMemoized(() {
+      return Container(
+        padding: const EdgeInsets.only(right: Units.small),
+        child: userLogedIn
+            ? const CustomIconButton(
+                label: 'Doação',
+                icon: Icons.attach_money,
+              )
+            : const CustomIconButton(
+                label: 'Doação',
+                icon: Icons.attach_money,
+                kind: Kind.secondary,
+                color: CustomColors.black,
+              ),
+      );
+    }, [userLogedIn]);
+
+    final signOutButton = useMemoized(() {
+      return userLogedIn
+          ? GestureDetector(
+              onTap: () {
+                signOut(auth, GoogleSignIn());
+              },
+              child: Container(
+                padding: const EdgeInsets.only(right: Units.small),
+                child: const CustomIconButton(
+                  label: 'Sair',
+                  icon: Icons.logout,
+                  kind: Kind.secondary,
+                  color: CustomColors.black,
+                ),
+              ),
+            )
+          : Container();
+    }, [userLogedIn]);
+
+    final configButton = useMemoized(() {
+      return Container(
+        padding: const EdgeInsets.only(right: Units.small),
+        child: const CustomIconButton(
+          label: 'Configurações',
+          icon: Icons.settings,
+          kind: Kind.secondary,
+          color: CustomColors.black,
+        ),
+      );
+    }, [userLogedIn]);
 
     return Container(
       key: const ValueKey(AvailableMenus.profile),
@@ -43,16 +116,24 @@ class ProfileMenu extends HookConsumerWidget {
                 Button(
                   animate: false,
                   child: CustomTypography(
+                    key: ValueKey(usernameFirstLetter),
                     usernameFirstLetter,
                     color: CustomColors.white,
                     wheight: Wheights.bold,
                   ),
                 ),
                 const SizedBox(width: Units.small),
-                CustomTypography(
-                  username,
-                  wheight: Wheights.bold,
-                ),
+                AnimatedSize(
+                  duration: const Duration(milliseconds: 50),
+                  child: AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 200),
+                    child: CustomTypography(
+                      key: ValueKey(username),
+                      username,
+                      wheight: Wheights.bold,
+                    ),
+                  ),
+                )
               ],
             ),
           ),
@@ -66,31 +147,11 @@ class ProfileMenu extends HookConsumerWidget {
               horizontal: Units.xxbig,
             ),
             child: Row(
-              children: const [
-                // Login Button
-                CustomIconButton(
-                  label: 'Entrar com o Google',
-                  icon: CustomIcons.googleLogo,
-                ),
-                SizedBox(width: Units.small),
-                CustomIconButton(
-                  label: 'Doação',
-                  icon: Icons.attach_money,
-                ),
-                SizedBox(width: Units.small),
-                CustomIconButton(
-                  label: 'Dark mode',
-                  icon: Icons.dark_mode,
-                  kind: Kind.secondary,
-                  color: CustomColors.black,
-                ),
-                SizedBox(width: Units.small),
-                CustomIconButton(
-                  label: 'Configurações',
-                  icon: Icons.settings,
-                  kind: Kind.secondary,
-                  color: CustomColors.black,
-                ),
+              children: [
+                signInWithGoogleButton,
+                // donationButton,
+                // configButton,
+                signOutButton,
               ],
             ),
           ),
