@@ -1,7 +1,11 @@
+import 'dart:developer';
+
+import 'package:debounce_throttle/debounce_throttle.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mindpoint/constants/menus.dart';
+import 'package:undo/undo.dart';
 
 final firebaseAuthProvider =
     Provider<FirebaseAuth>((ref) => FirebaseAuth.instance);
@@ -18,8 +22,9 @@ final usernameProvider = StateProvider<String>(
       'Anonymous User',
 );
 
-final currentThoughtDataProvider = StateProvider<String>(
-  (ref) => '',
+final currentThoughtDataProvider =
+    StateNotifierProvider<CurrentThoughtManager, String>(
+  (ref) => CurrentThoughtManager(''),
 );
 
 final currentMenuProvider =
@@ -80,4 +85,45 @@ Future<void> signInAnonymously(
   FirebaseAuth auth,
 ) async {
   await auth.signInAnonymously();
+}
+
+/// Manages the state of the thought the user is currently typing, supports a
+/// a ChangeStack to track what the user are currently typing.
+class CurrentThoughtManager extends StateNotifier<String> {
+  final stack = ChangeStack();
+  final throttle =
+      Throttle<String>(const Duration(milliseconds: 2500), initialValue: '');
+
+  CurrentThoughtManager(super.state) {
+    // Saves the data in the Stack
+    throttle.values.listen((data) {
+      final change = Change(
+        state,
+        () => state = data,
+        (String oldState) => state = oldState,
+      );
+
+      stack.add(change);
+    });
+  }
+
+  /// Changes the value of the current thought and uses the Stack to track changes
+  void change(String data) {
+    throttle.value = data;
+  }
+
+  bool get canUndo => stack.canUndo;
+  bool get canRedo => stack.canRedo;
+
+  void undo() {
+    stack.undo();
+  }
+
+  void redo() {
+    stack.redo();
+  }
+
+  void clear() {
+    stack.clearHistory();
+  }
 }

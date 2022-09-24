@@ -47,6 +47,8 @@ dependencies:
   freezed_annotation: ^2.0.3
   widgetbook_annotation: ^2.1.0
   google_sign_in: ^5.3.3
+  undo: ^1.4.0
+  debounce_throttle: ^2.0.0
 
 dev_dependencies:
   flutter_test:
