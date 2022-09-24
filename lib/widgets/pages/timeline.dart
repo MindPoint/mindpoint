@@ -42,25 +42,7 @@ class TimelinePage extends HookConsumerWidget {
           },
         ),
         menu: const Menus(),
-        footer: Footer(
-          username: 'João',
-          currentThoughtData: '',
-          isProfileMenuOpen: userIsOnProfileMenu,
-          isAttachmentsMenuOpen: userIsOnAttachmentsMenu,
-          onCtaTapDown: () {
-            ref.read(currentMenuProvider.state).state = AvailableMenus.edit;
-          },
-          onProfileButtonTapDown: () {
-            ref.read(currentMenuProvider.state).state = userIsOnProfileMenu
-                ? AvailableMenus.none
-                : AvailableMenus.profile;
-          },
-          onAttachmentsButtonTapDown: () {
-            ref.read(currentMenuProvider.state).state = userIsOnAttachmentsMenu
-                ? AvailableMenus.none
-                : AvailableMenus.attachments;
-          },
-        ),
+        footer: const Footer(),
       ),
     );
   }

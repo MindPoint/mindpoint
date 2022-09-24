@@ -18,8 +18,18 @@ final usernameProvider = StateProvider<String>(
       'Anonymous User',
 );
 
+final currentThoughtDataProvider = StateProvider<String>(
+  (ref) => '',
+);
+
 final currentMenuProvider =
     StateProvider<AvailableMenus>((ref) => AvailableMenus.none);
+
+final userIsOnProfileMenuProvider = Provider<bool>(
+    (ref) => ref.watch(currentMenuProvider) == AvailableMenus.profile);
+
+final userIsOnAttachmentsMenuProvider = Provider<bool>(
+    (ref) => ref.watch(currentMenuProvider) == AvailableMenus.attachments);
 
 /// Enables the user to login using a Google Account
 Future<void> signInWithGoogle(

@@ -2,11 +2,13 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:mindpoint/providers/main.dart';
 
 import 'package:vibration/vibration.dart';
 
 import '../../constants/colors.dart';
 import '../../constants/kinds.dart';
+import '../../constants/menus.dart';
 import '../../constants/sizes.dart';
 import '../../constants/units.dart';
 import '../../constants/wheights.dart';
@@ -42,28 +44,16 @@ Widget getCloseIcon(String? username) {
 }
 
 class Footer extends HookConsumerWidget {
-  final String username;
-  final String currentThoughtData;
-  final bool isProfileMenuOpen;
-  final bool isAttachmentsMenuOpen;
-
-  final Function onCtaTapDown;
-  final Function onProfileButtonTapDown;
-  final Function onAttachmentsButtonTapDown;
-
   const Footer({
     super.key,
-    required this.username,
-    required this.currentThoughtData,
-    required this.isProfileMenuOpen,
-    required this.isAttachmentsMenuOpen,
-    required this.onCtaTapDown,
-    required this.onProfileButtonTapDown,
-    required this.onAttachmentsButtonTapDown,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final username = ref.watch(usernameProvider);
+    final userIsOnProfileMenu = ref.watch(userIsOnProfileMenuProvider);
+    final userIsOnAttachmentsMenu = ref.watch(userIsOnAttachmentsMenuProvider);
+
     return Container(
       decoration: const BoxDecoration(
         border: Border(
@@ -84,10 +74,10 @@ class Footer extends HookConsumerWidget {
             child: GestureDetector(
               onTapDown: (details) {
                 Vibration.vibrate(duration: 25);
-                onCtaTapDown();
+                ref.read(currentMenuProvider.state).state = AvailableMenus.edit;
               },
               child: ThoughtCallToAction(
-                currentThoughtData: currentThoughtData,
+                currentThoughtData: ref.watch(currentThoughtDataProvider),
               ),
             ),
           ),
@@ -97,13 +87,16 @@ class Footer extends HookConsumerWidget {
           // Attachment Button
           GestureDetector(
             onTapDown: (details) {
-              onAttachmentsButtonTapDown();
+              ref.read(currentMenuProvider.state).state =
+                  userIsOnAttachmentsMenu
+                      ? AvailableMenus.none
+                      : AvailableMenus.attachments;
             },
             child: DoubleStateButton(
               primaryChild: getAttachmentIcon(username),
               primaryKind: Kind.tertiary,
               secondaryChild: getCloseIcon(username),
-              state: isAttachmentsMenuOpen
+              state: userIsOnAttachmentsMenu
                   ? DoubleStateButtonState.secondary
                   : DoubleStateButtonState.primary,
             ),
@@ -114,12 +107,14 @@ class Footer extends HookConsumerWidget {
           // Avatar Button
           GestureDetector(
             onTapDown: (details) {
-              onProfileButtonTapDown();
+              ref.read(currentMenuProvider.state).state = userIsOnProfileMenu
+                  ? AvailableMenus.none
+                  : AvailableMenus.profile;
             },
             child: DoubleStateButton(
               primaryChild: getAvatarText(username),
               secondaryChild: getCloseIcon(username),
-              state: isProfileMenuOpen
+              state: userIsOnProfileMenu
                   ? DoubleStateButtonState.secondary
                   : DoubleStateButtonState.primary,
             ),
