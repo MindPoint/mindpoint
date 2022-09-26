@@ -6,6 +6,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:mindpoint/providers/main.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mindpoint/widgets/organisms/profile_menu.dart';
+import 'package:mindpoint/widgets/organisms/thought_menu.dart';
 
 import '../../constants/colors.dart';
 import '../../constants/menus.dart';
@@ -23,6 +24,8 @@ class Menus extends HookConsumerWidget {
       switch (currentMenu) {
         case AvailableMenus.profile:
           return const ProfileMenu();
+        case AvailableMenus.edit:
+          return const ThoughtMenu();
         default:
           return Container();
       }

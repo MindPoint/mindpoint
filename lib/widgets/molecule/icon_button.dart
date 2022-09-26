@@ -16,17 +16,20 @@ class CustomIconButton extends StatelessWidget {
     required this.icon,
     this.kind = Kind.primary,
     this.color = CustomColors.white,
+    this.disabled = false,
   });
 
   final String label;
   final IconData icon;
   final Kind kind;
   final Color color;
+  final bool disabled;
 
   @override
   Widget build(BuildContext context) {
     return Button(
       kind: kind,
+      disabled: disabled,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [

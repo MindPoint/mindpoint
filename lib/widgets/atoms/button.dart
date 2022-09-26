@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -26,12 +28,14 @@ class Button extends HookWidget {
   final Widget? child;
 
   final bool animate;
+  final bool disabled;
 
   const Button({
     super.key,
     this.child,
-    this.animate = true,
     this.kind = Kind.primary,
+    this.animate = true,
+    this.disabled = false,
   });
 
   @override
@@ -41,53 +45,61 @@ class Button extends HookWidget {
     final scaleX = tapping.value ? 0.98 : 1.0;
     final scaleY = scaleX;
 
-    final userIsTapping = useCallback(() {
+    void userIsTapping() {
       if (!animate) return;
 
       tapping.value = true;
       Vibration.vibrate(duration: 25);
-    }, [tapping]);
+    }
 
-    final userNotTapping = useCallback(() {
+    void userNotTapping() {
       if (!animate) return;
 
       tapping.value = false;
-    }, [tapping]);
+    }
 
     return Listener(
       onPointerDown: (details) {
+        if (disabled) return;
+
         userIsTapping();
       },
       onPointerUp: (details) {
+        if (disabled) return;
+
         userNotTapping();
       },
-      child: AnimatedContainer(
-        duration: const Duration(
-          milliseconds: 50,
-        ),
-        alignment: Alignment.center,
-        transformAlignment: Alignment.center,
-        transform:
-            Matrix4(scaleX, 0, 0, 0, 0, scaleY, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1),
-        constraints: const BoxConstraints(
-          minHeight: 32,
-          maxHeight: 32,
-          minWidth: 32,
-        ),
-        padding: const EdgeInsets.symmetric(horizontal: Units.xsmall),
-        decoration: BoxDecoration(
-          color: buttonBackgroundColors[kind] as Color,
-          borderRadius: BorderRadius.circular(100),
-          border: Border.all(
-            width: 1,
-            color: buttonBorderColors[kind] as Color,
+      child: AnimatedOpacity(
+        duration: const Duration(milliseconds: 50),
+        opacity: disabled ? 0.5 : 1,
+        child: AnimatedContainer(
+          duration: const Duration(
+            milliseconds: 50,
           ),
-        ),
-        child: AnimatedSwitcher(
-          duration: const Duration(milliseconds: 200),
-          switchInCurve: Curves.easeInOut,
-          switchOutCurve: Curves.easeInOut,
-          child: child,
+          alignment: Alignment.center,
+          transformAlignment: Alignment.center,
+          transform:
+              Matrix4(scaleX, 0, 0, 0, 0, scaleY, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1),
+          constraints: const BoxConstraints(
+            minHeight: 32,
+            maxHeight: 32,
+            minWidth: 32,
+          ),
+          padding: const EdgeInsets.symmetric(horizontal: Units.xsmall),
+          decoration: BoxDecoration(
+            color: buttonBackgroundColors[kind] as Color,
+            borderRadius: BorderRadius.circular(100),
+            border: Border.all(
+              width: 1,
+              color: buttonBorderColors[kind] as Color,
+            ),
+          ),
+          child: AnimatedSwitcher(
+            duration: const Duration(milliseconds: 200),
+            switchInCurve: Curves.easeInOut,
+            switchOutCurve: Curves.easeInOut,
+            child: child,
+          ),
         ),
       ),
     );

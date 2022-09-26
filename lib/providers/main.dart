@@ -7,6 +7,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mindpoint/constants/menus.dart';
 import 'package:undo/undo.dart';
 
+import '../models/thought_manager.dart';
+
 final firebaseAuthProvider =
     Provider<FirebaseAuth>((ref) => FirebaseAuth.instance);
 
@@ -29,6 +31,9 @@ final currentThoughtDataProvider =
 
 final currentMenuProvider =
     StateProvider<AvailableMenus>((ref) => AvailableMenus.none);
+
+final userIsOnEditMenuProvider = Provider<bool>(
+    (ref) => ref.watch(currentMenuProvider) == AvailableMenus.edit);
 
 final userIsOnProfileMenuProvider = Provider<bool>(
     (ref) => ref.watch(currentMenuProvider) == AvailableMenus.profile);
@@ -85,45 +90,4 @@ Future<void> signInAnonymously(
   FirebaseAuth auth,
 ) async {
   await auth.signInAnonymously();
-}
-
-/// Manages the state of the thought the user is currently typing, supports a
-/// a ChangeStack to track what the user are currently typing.
-class CurrentThoughtManager extends StateNotifier<String> {
-  final stack = ChangeStack();
-  final throttle =
-      Throttle<String>(const Duration(milliseconds: 2500), initialValue: '');
-
-  CurrentThoughtManager(super.state) {
-    // Saves the data in the Stack
-    throttle.values.listen((data) {
-      final change = Change(
-        state,
-        () => state = data,
-        (String oldState) => state = oldState,
-      );
-
-      stack.add(change);
-    });
-  }
-
-  /// Changes the value of the current thought and uses the Stack to track changes
-  void change(String data) {
-    throttle.value = data;
-  }
-
-  bool get canUndo => stack.canUndo;
-  bool get canRedo => stack.canRedo;
-
-  void undo() {
-    stack.undo();
-  }
-
-  void redo() {
-    stack.redo();
-  }
-
-  void clear() {
-    stack.clearHistory();
-  }
 }

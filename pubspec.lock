@@ -756,6 +756,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.4.9"
+  text_selection_controls:
+    dependency: "direct main"
+    description:
+      name: text_selection_controls
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.2"
   timing:
     dependency: transitive
     description:

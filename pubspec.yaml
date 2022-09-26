@@ -49,6 +49,7 @@ dependencies:
   google_sign_in: ^5.3.3
   undo: ^1.4.0
   debounce_throttle: ^2.0.0
+  text_selection_controls: ^0.0.2
 
 dev_dependencies:
   flutter_test:
