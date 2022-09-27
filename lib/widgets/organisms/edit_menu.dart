@@ -23,8 +23,8 @@ int getCursorOffset(
   return currentOffset;
 }
 
-class ThoughtMenu extends HookConsumerWidget {
-  const ThoughtMenu({super.key});
+class EditMenu extends HookConsumerWidget {
+  const EditMenu({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

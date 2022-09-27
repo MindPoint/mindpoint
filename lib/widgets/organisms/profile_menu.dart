@@ -1,7 +1,4 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -10,9 +7,9 @@ import 'package:mindpoint/widgets/molecule/icon_button.dart';
 
 import '../../constants/colors.dart';
 import '../../constants/menus.dart';
-import '../../constants/sizes.dart';
 import '../../constants/units.dart';
 import '../../constants/wheights.dart';
+import '../../methods/auth.dart';
 import '../../providers/main.dart';
 import '../atoms/button.dart';
 import '../atoms/custom_icons.dart';

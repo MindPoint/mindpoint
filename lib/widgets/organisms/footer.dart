@@ -3,7 +3,10 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:mindpoint/data/models/node.dart';
 import 'package:mindpoint/hooks/keep_alive.dart';
+import 'package:mindpoint/methods/node.dart';
+import 'package:mindpoint/methods/utils/id.dart';
 import 'package:mindpoint/providers/main.dart';
 
 import 'package:vibration/vibration.dart';
@@ -84,7 +87,10 @@ class EditActionsFooter extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     useAutomaticKeepAlive(wantKeepAlive: true);
 
+    final user = ref.watch(authStateChangesProvider).value;
     final currentThoughtData = ref.watch(currentThoughtDataProvider);
+    final currentThoughtNotifier =
+        ref.watch(currentThoughtDataProvider.notifier);
 
     return Container(
       decoration: const BoxDecoration(
@@ -121,10 +127,22 @@ class EditActionsFooter extends HookConsumerWidget {
 
           // Save Button
           GestureDetector(
+            onTap: () {
+              addNode(
+                user!,
+                Node(
+                  id: getCustomUniqueId(),
+                  type: Types.text,
+                  data: currentThoughtData,
+                  edited: DateTime.now(),
+                ),
+              );
+              currentThoughtNotifier.change('');
+            },
             child: CustomIconButton(
               label: 'Salvar',
               icon: Icons.keyboard_return,
-              disabled: currentThoughtData.isEmpty,
+              disabled: currentThoughtData.isEmpty && user != null,
             ),
           )
         ],
@@ -140,7 +158,6 @@ class DefaultFooter extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final username = ref.watch(usernameProvider);
     final userIsOnProfileMenu = ref.watch(userIsOnProfileMenuProvider);
-    final userIsOnAttachmentsMenu = ref.watch(userIsOnAttachmentsMenuProvider);
 
     return Container(
       decoration: const BoxDecoration(

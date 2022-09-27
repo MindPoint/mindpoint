@@ -1,22 +1,29 @@
 import 'dart:developer';
 
-import 'package:debounce_throttle/debounce_throttle.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mindpoint/constants/menus.dart';
-import 'package:undo/undo.dart';
 
 import '../models/thought_manager.dart';
 
 final firebaseAuthProvider =
     Provider<FirebaseAuth>((ref) => FirebaseAuth.instance);
 
+// A stream that returns the current user, if it is null, it will try to
+// login anonimously
 final authStateChangesProvider = StreamProvider<User?>(
-    (ref) => ref.watch(firebaseAuthProvider).authStateChanges());
+  (ref) => ref.watch(firebaseAuthProvider).authStateChanges()
+    // Ensures the app always have an user to store the data
+    ..listen(
+      (user) => user ?? ref.read(firebaseAuthProvider).signInAnonymously(),
+    ),
+);
 
-final userLogedInProvider =
-    Provider<bool>((ref) => ref.watch(authStateChangesProvider).value != null);
+final userLogedInProvider = Provider<bool>((ref) {
+  final user = ref.watch(authStateChangesProvider).value;
+  return user != null && !user.isAnonymous;
+});
 
 final usernameProvider = StateProvider<String>(
   (ref) =>
@@ -40,54 +47,3 @@ final userIsOnProfileMenuProvider = Provider<bool>(
 
 final userIsOnAttachmentsMenuProvider = Provider<bool>(
     (ref) => ref.watch(currentMenuProvider) == AvailableMenus.attachments);
-
-/// Enables the user to login using a Google Account
-Future<void> signInWithGoogle(
-  FirebaseAuth auth,
-  GoogleSignIn googleSignIn,
-) async {
-  try {
-    final account = await googleSignIn.signIn();
-
-    if (account == null) return;
-
-    final accountAuth = await account.authentication;
-
-    final AuthCredential authCredential = GoogleAuthProvider.credential(
-      idToken: accountAuth.idToken,
-      accessToken: accountAuth.accessToken,
-    );
-
-    final credential = await auth.signInWithCredential(authCredential);
-
-    final currentUser = FirebaseAuth.instance.currentUser;
-
-    assert(credential.user?.uid == currentUser?.uid);
-  } catch (e) {}
-}
-
-/// Signout from the google account
-Future<void> signOut(
-  FirebaseAuth auth,
-  GoogleSignIn googleSignIn,
-) {
-  void handleSignOutSuccess(_) {
-    auth.signOut();
-  }
-
-  void handleSignOutError(error) {
-    throw error;
-  }
-
-  return GoogleSignIn()
-      .signOut()
-      .then(handleSignOutSuccess)
-      .catchError(handleSignOutError);
-}
-
-// Login the user anonymously
-Future<void> signInAnonymously(
-  FirebaseAuth auth,
-) async {
-  await auth.signInAnonymously();
-}

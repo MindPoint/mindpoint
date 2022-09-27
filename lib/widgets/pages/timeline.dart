@@ -1,13 +1,16 @@
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:mindpoint/constants/colors.dart';
-import 'package:mindpoint/constants/menus.dart';
-import 'package:mindpoint/providers/main.dart';
+import 'package:mindpoint/constants/font_families.dart';
+import 'package:mindpoint/constants/units.dart';
+import 'package:mindpoint/providers/nodes.dart';
+import 'package:mindpoint/widgets/atoms/typography.dart';
 import 'package:mindpoint/widgets/template/default_template.dart';
 
+import '../../data/models/node.dart';
 import '../organisms/footer.dart';
 import '../organisms/menus.dart';
 
@@ -16,29 +19,45 @@ class TimelinePage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    final nodes = [];
+    final controller = useScrollController();
 
-    final currentMenu = ref.watch(currentMenuProvider);
-
-    final userIsEditing =
-        useMemoized(() => currentMenu == AvailableMenus.edit, [currentMenu]);
-
-    final userIsOnProfileMenu =
-        useMemoized(() => currentMenu == AvailableMenus.profile, [currentMenu]);
-
-    final userIsOnAttachmentsMenu = useMemoized(
-        () => currentMenu == AvailableMenus.attachments, [currentMenu]);
+    final stream = ref.watch(nodesProvider.stream);
 
     return Scaffold(
       body: DefaultTemplate(
-        content: ListView.separated(
-          padding: const EdgeInsets.all(0),
-          itemCount: nodes.length,
-          itemBuilder: (BuildContext context, int index) {
-            return Text(nodes[index]);
-          },
-          separatorBuilder: (BuildContext context, int index) {
-            return const Divider();
+        content: StreamBuilder(
+          stream: stream,
+          builder: (context, AsyncSnapshot<Iterable<Node>> snapshot) {
+            final nodes = snapshot.data?.toList().reversed.toList() ?? [];
+
+            // log('${controller.position.maxScrollExtent}');
+            // log('${controller.position.pixels}');
+            // log('${controller.position.viewportDimension}');
+
+            return ListView.separated(
+              // shrinkWrap: true,
+              controller: controller,
+              padding: const EdgeInsets.all(0),
+              itemCount: nodes.length,
+              itemBuilder: (BuildContext context, int index) {
+                return Container(
+                  padding: const EdgeInsets.only(
+                    bottom: Units.small,
+                    left: Units.big,
+                    right: Units.big,
+                  ),
+                  child: CustomTypography(
+                    overflow: TextOverflow.visible,
+                    nodes[index].data,
+                    fontFamily: FontFamilies.robotoSerif,
+                  ),
+                );
+              },
+              separatorBuilder: (BuildContext context, int index) {
+                return const SizedBox();
+              },
+              reverse: true,
+            );
           },
         ),
         menu: const Menus(),

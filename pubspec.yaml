@@ -50,6 +50,7 @@ dependencies:
   undo: ^1.4.0
   debounce_throttle: ^2.0.0
   text_selection_controls: ^0.0.2
+  json_annotation: any
 
 dev_dependencies:
   flutter_test:
