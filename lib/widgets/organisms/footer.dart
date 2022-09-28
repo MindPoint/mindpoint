@@ -6,7 +6,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mindpoint/data/models/node.dart';
 import 'package:mindpoint/hooks/keep_alive.dart';
 import 'package:mindpoint/methods/node.dart';
-import 'package:mindpoint/methods/utils/id.dart';
 import 'package:mindpoint/providers/main.dart';
 
 import 'package:vibration/vibration.dart';
@@ -18,6 +17,7 @@ import '../../constants/sizes.dart';
 import '../../constants/units.dart';
 import '../../constants/wheights.dart';
 
+import '../../hooks/keyboard_visibility.dart';
 import '../atoms/button.dart';
 import '../atoms/typography.dart';
 import '../molecule/double_state_button.dart';
@@ -57,8 +57,15 @@ class Footer extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    useAutomaticKeepAlive(wantKeepAlive: true);
     final currentMenu = ref.watch(currentMenuProvider);
+
+    useKeyBoardVisibility((visible) {
+      log('keyboard is visible $visible');
+
+      if (!visible) {
+        ref.read(currentMenuProvider.state).state = AvailableMenus.none;
+      }
+    });
 
     final currentFooter = useMemoized(() {
       switch (currentMenu) {
@@ -85,8 +92,6 @@ class EditActionsFooter extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    useAutomaticKeepAlive(wantKeepAlive: true);
-
     final user = ref.watch(authStateChangesProvider).value;
     final currentThoughtData = ref.watch(currentThoughtDataProvider);
 
@@ -106,21 +111,7 @@ class EditActionsFooter extends HookConsumerWidget {
       child: Flex(
         direction: Axis.horizontal,
         children: [
-          // Close Button
-          GestureDetector(
-            onTapDown: (details) {
-              ref.read(currentMenuProvider.state).state = AvailableMenus.none;
-            },
-            child: const Button(
-              kind: Kind.tertiary,
-              child: Icon(
-                Icons.expand_more,
-                size: Units.xxbig,
-                color: CustomColors.black,
-              ),
-            ),
-          ),
-
+          // Forces the Save button to the end
           Expanded(child: Container()),
 
           // Save Button

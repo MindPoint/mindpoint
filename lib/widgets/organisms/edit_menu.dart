@@ -6,24 +6,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mindpoint/constants/colors.dart';
 import 'package:mindpoint/constants/units.dart';
+import 'package:mindpoint/hooks/keyboard_visibility.dart';
 
 import '../../data/models/node.dart';
 import '../../methods/node.dart';
 import '../../providers/main.dart';
-
-int getCursorOffset(
-  String currentData,
-  int currentOffset,
-  String incomingData,
-) {
-  final cursorWasAtTheEnd = currentData.length == currentOffset;
-
-  if (cursorWasAtTheEnd) return incomingData.length;
-
-  if (currentOffset > incomingData.length) return incomingData.length;
-
-  return currentOffset;
-}
 
 class EditMenu extends HookConsumerWidget {
   const EditMenu({super.key});
