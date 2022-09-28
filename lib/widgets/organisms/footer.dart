@@ -89,8 +89,6 @@ class EditActionsFooter extends HookConsumerWidget {
 
     final user = ref.watch(authStateChangesProvider).value;
     final currentThoughtData = ref.watch(currentThoughtDataProvider);
-    final currentThoughtNotifier =
-        ref.watch(currentThoughtDataProvider.notifier);
 
     return Container(
       decoration: const BoxDecoration(
@@ -128,15 +126,18 @@ class EditActionsFooter extends HookConsumerWidget {
           // Save Button
           GestureDetector(
             onTap: () {
-              addNode(
-                user!,
-                Node(
-                  type: NodeTypes.text,
-                  data: currentThoughtData,
-                  timestamp: DateTime.now(),
-                ),
-              );
-              currentThoughtNotifier.change('');
+              if (ref.read(currentThoughtDataProvider).isNotEmpty) {
+                addNode(
+                  user!,
+                  Node(
+                    type: NodeTypes.text,
+                    data: currentThoughtData,
+                    timestamp: DateTime.now(),
+                  ),
+                );
+              }
+
+              ref.read(currentThoughtDataProvider.state).state = '';
             },
             child: CustomIconButton(
               label: 'Salvar',

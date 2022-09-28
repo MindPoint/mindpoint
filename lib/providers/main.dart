@@ -25,16 +25,13 @@ final userLogedInProvider = Provider<bool>((ref) {
   return user != null && !user.isAnonymous;
 });
 
-final usernameProvider = StateProvider<String>(
+final usernameProvider = Provider<String>(
   (ref) =>
       ref.watch(authStateChangesProvider).value?.displayName ??
       'Anonymous User',
 );
 
-final currentThoughtDataProvider =
-    StateNotifierProvider<CurrentThoughtManager, String>(
-  (ref) => CurrentThoughtManager(''),
-);
+final currentThoughtDataProvider = StateProvider<String>((ref) => '');
 
 final currentMenuProvider =
     StateProvider<AvailableMenus>((ref) => AvailableMenus.none);

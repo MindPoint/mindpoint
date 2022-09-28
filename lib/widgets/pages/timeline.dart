@@ -22,30 +22,35 @@ class TimelinePage extends HookConsumerWidget {
 
     final stream = ref.watch(nodesProvider.stream);
 
-    return Scaffold(
-      body: DefaultTemplate(
-        content: StreamBuilder(
-          stream: stream,
-          builder: (context, AsyncSnapshot<Iterable<Node>> snapshot) {
-            final nodes = snapshot.data?.toList() ?? [];
+    final MediaQueryData data = MediaQuery.of(context);
 
-            if (nodes.isEmpty) {
-              return Container(
-                padding: const EdgeInsets.symmetric(
-                  vertical: Units.xbig,
-                  horizontal: Units.big,
-                ),
-                child: const CustomTypography('Nada aqui por enquanto :('),
+    return MediaQuery(
+      data: data.copyWith(textScaleFactor: 1),
+      child: Scaffold(
+        body: DefaultTemplate(
+          content: StreamBuilder(
+            stream: stream,
+            builder: (context, AsyncSnapshot<Iterable<Node>> snapshot) {
+              final nodes = snapshot.data?.toList() ?? [];
+
+              if (nodes.isEmpty) {
+                return Container(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: Units.xbig,
+                    horizontal: Units.big,
+                  ),
+                  child: const CustomTypography('Nada aqui por enquanto :('),
+                );
+              }
+
+              return NodeList(
+                nodes: nodes,
               );
-            }
-
-            return NodeList(
-              nodes: nodes,
-            );
-          },
+            },
+          ),
+          menu: const Menus(),
+          footer: const Footer(),
         ),
-        menu: const Menus(),
-        footer: const Footer(),
       ),
     );
   }
