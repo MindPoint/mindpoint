@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'dart:developer';
+import 'dart:math' as math;
 
 import 'package:collection/collection.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -27,28 +29,9 @@ class NodeList extends HookConsumerWidget {
   Widget build(BuildContext context, ref) {
     final isOnAnyMenu = ref.watch(userIsOnAnyKindOfMenu);
 
-    final reversed = useState(false);
-    final controller = useScrollController();
-
-    // This allow the list to stick to the top of the page when the list doesn't
-    // have enougth data to be displayed sticking to the bottom of the screen.
-    useEffect(() {
-      final timer = Timer.periodic(const Duration(milliseconds: 1), (t) {
-        if (!controller.hasClients) return;
-
-        if (controller.position.maxScrollExtent > 0 && !reversed.value) {
-          reversed.value = true;
-        } else if (controller.position.maxScrollExtent == 0 && reversed.value) {
-          reversed.value = false;
-        }
-      });
-
-      return () => timer.cancel();
-    }, []);
-
     // Is required to reverse the data to display it in the correct order, the
     // [ListView] will be reversed too, so the Nodes can "stick" to the bottom.
-    final groupedNodes = useMemoized(() {
+    final normalizedGroupNodes = useMemoized(() {
       return groupBy<Node, String>(
         nodes,
         (node) => DateTime(
@@ -56,28 +39,65 @@ class NodeList extends HookConsumerWidget {
           node.timestamp.month,
           node.timestamp.day,
         ).toIso8601String(),
-      ).values.sortedBy((element) => element[0].timestamp).toList();
+      )
+          .values
+          .sortedBy((element) => element[0].timestamp)
+          .toList()
+          .reversed
+          .toList();
     }, [nodes]);
 
-    final normalizedGroupNodes =
-        reversed.value ? groupedNodes.reversed.toList() : groupedNodes;
-
-    return ListView.separated(
-      // shrinkWrap: true,
-      controller: controller,
-      padding: const EdgeInsets.all(0),
-      itemCount: normalizedGroupNodes.length,
-      itemBuilder: (BuildContext context, int index) => AnimatedOpacity(
-        key: ValueKey(
-            normalizedGroupNodes[index][0].timestamp.toIso8601String()),
-        opacity: isOnAnyMenu ? 0.7 : 1,
-        duration: const Duration(milliseconds: 250),
-        curve: Curves.easeInOut,
-        child: NodeGroup(nodes: normalizedGroupNodes[index]),
-      ),
-      reverse: reversed.value,
-      separatorBuilder: (BuildContext context, int index) =>
-          const NodeListSeparator(),
+    return CustomScrollView(
+      semanticChildCount: normalizedGroupNodes.length,
+      reverse: true,
+      slivers: <Widget>[
+        SliverLayoutBuilder(
+          builder: (context, constraints) {
+            return SliverList(
+              delegate: SliverChildBuilderDelegate(
+                (BuildContext context, int index) {
+                  return AnimatedOpacity(
+                    opacity: isOnAnyMenu ? 0.75 : 1,
+                    duration: const Duration(milliseconds: 100),
+                    curve: Curves.easeInOut,
+                    child: index == 0
+                        // Should increase the size of the first NodeGroup
+                        ? Container(
+                            constraints: BoxConstraints(
+                              minHeight: normalizedGroupNodes.length > 1
+                                  ? constraints.viewportMainAxisExtent - 100
+                                  : constraints.viewportMainAxisExtent,
+                            ),
+                            child:
+                                NodeGroup(nodes: normalizedGroupNodes[index]),
+                          )
+                        // Should add an border to the bottom of the other NodeGroups
+                        : Container(
+                            decoration: const BoxDecoration(
+                              border: Border(
+                                bottom: BorderSide(
+                                  width: 1,
+                                  color: CustomColors.gray50,
+                                ),
+                              ),
+                            ),
+                            child:
+                                NodeGroup(nodes: normalizedGroupNodes[index]),
+                          ),
+                  );
+                },
+                semanticIndexCallback: (Widget widget, int localIndex) {
+                  if (localIndex.isEven) {
+                    return localIndex ~/ 2;
+                  }
+                  return null;
+                },
+                childCount: normalizedGroupNodes.length,
+              ),
+            );
+          },
+        ),
+      ],
     );
   }
 }

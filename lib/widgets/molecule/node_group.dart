@@ -56,7 +56,6 @@ class NodeGroup extends StatelessWidget {
 
           // Adds a padding to each node and selects the correct widget
           ...nodes.map((node) {
-            log('$node');
             return NodeGroupChildWrapper(
               child: getCorrectNodeWidget(node),
             );
