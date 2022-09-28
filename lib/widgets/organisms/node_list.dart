@@ -11,11 +11,7 @@ import 'package:mindpoint/providers/main.dart';
 import 'package:mindpoint/widgets/molecule/node_group.dart';
 
 import '../../constants/colors.dart';
-import '../../constants/font_families.dart';
-import '../../constants/units.dart';
-import '../../constants/wheights.dart';
 import '../../data/models/node.dart';
-import '../atoms/typography.dart';
 
 class NodeList extends HookConsumerWidget {
   final List<Node> nodes;
@@ -31,24 +27,37 @@ class NodeList extends HookConsumerWidget {
 
     // Is required to reverse the data to display it in the correct order, the
     // [ListView] will be reversed too, so the Nodes can "stick" to the bottom.
-    final normalizedGroupNodes = useMemoized(() {
-      return groupBy<Node, String>(
+    final groups = useMemoized(() {
+      final groups = groupBy<Node, DateTime>(
         nodes,
         (node) => DateTime(
           node.timestamp.year,
           node.timestamp.month,
           node.timestamp.day,
-        ).toIso8601String(),
-      )
-          .values
-          .sortedBy((element) => element[0].timestamp)
+        ),
+      );
+
+      // Adds a node group to the current day
+      groups.putIfAbsent(
+        DateTime(
+          DateTime.now().year,
+          DateTime.now().month,
+          DateTime.now().day,
+        ),
+        () => [],
+      );
+
+      // Maps the keys and objects to a [GroupedNodes] object, reverses it and
+      // returns it to be rendered.
+      return groups.keys
+          .map((key) => GroupedNodes(timestamp: key, nodes: groups[key] ?? []))
           .toList()
           .reversed
           .toList();
     }, [nodes]);
 
     return CustomScrollView(
-      semanticChildCount: normalizedGroupNodes.length,
+      semanticChildCount: groups.length,
       reverse: true,
       slivers: <Widget>[
         SliverLayoutBuilder(
@@ -64,12 +73,11 @@ class NodeList extends HookConsumerWidget {
                         // Should increase the size of the first NodeGroup
                         ? Container(
                             constraints: BoxConstraints(
-                              minHeight: normalizedGroupNodes.length > 1
+                              minHeight: groups.length > 1
                                   ? constraints.viewportMainAxisExtent - 100
                                   : constraints.viewportMainAxisExtent,
                             ),
-                            child:
-                                NodeGroup(nodes: normalizedGroupNodes[index]),
+                            child: NodeGroup(group: groups[index]),
                           )
                         // Should add an border to the bottom of the other NodeGroups
                         : Container(
@@ -81,8 +89,7 @@ class NodeList extends HookConsumerWidget {
                                 ),
                               ),
                             ),
-                            child:
-                                NodeGroup(nodes: normalizedGroupNodes[index]),
+                            child: NodeGroup(group: groups[index]),
                           ),
                   );
                 },
@@ -92,7 +99,7 @@ class NodeList extends HookConsumerWidget {
                   }
                   return null;
                 },
-                childCount: normalizedGroupNodes.length,
+                childCount: groups.length,
               ),
             );
           },

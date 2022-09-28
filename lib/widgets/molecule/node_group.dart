@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:mindpoint/constants/colors.dart';
 import 'package:mindpoint/constants/units.dart';
 import 'package:mindpoint/data/models/node.dart';
 import 'package:mindpoint/widgets/molecule/nodes/text_node.dart';
@@ -10,21 +11,30 @@ import 'package:mindpoint/widgets/molecule/nodes/text_node.dart';
 import '../../constants/wheights.dart';
 import '../atoms/typography.dart';
 
-class NodeGroup extends StatelessWidget {
+class GroupedNodes {
+  final DateTime timestamp;
   final List<Node> nodes;
+
+  GroupedNodes({
+    required this.timestamp,
+    required this.nodes,
+  });
+}
+
+class NodeGroup extends StatelessWidget {
+  final GroupedNodes group;
 
   const NodeGroup({
     super.key,
-    required this.nodes,
+    required this.group,
   });
 
-  String getDisplayLabel(Node currentNode) {
+  String getDisplayLabel(DateTime timestamp) {
     final now = DateTime.now();
     final today = DateTime(now.year, now.month, now.day);
     final yesterday = DateTime(now.year, now.month, now.day - 1);
 
-    final nodeDate = DateTime(currentNode.timestamp.year,
-        currentNode.timestamp.month, currentNode.timestamp.day);
+    final nodeDate = DateTime(timestamp.year, timestamp.month, timestamp.day);
 
     if (nodeDate == today) return 'Hoje';
     if (nodeDate == yesterday) return 'Ontem';
@@ -41,6 +51,25 @@ class NodeGroup extends StatelessWidget {
     }
   }
 
+  List<Widget> getNodeWidgetsToBeRendered(List<Node> nodes) {
+    if (nodes.isEmpty) {
+      return [
+        const NodeGroupChildWrapper(
+          child: CustomTypography(
+            'Você ainda não escreveu nada hoje.',
+            color: CustomColors.black60,
+          ),
+        ),
+      ];
+    } else {
+      return nodes.map((node) {
+        return NodeGroupChildWrapper(
+          child: getCorrectNodeWidget(node),
+        );
+      }).toList();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -50,16 +79,12 @@ class NodeGroup extends StatelessWidget {
         children: [
           // Group label
           CustomTypography(
-            getDisplayLabel(nodes[0]),
+            getDisplayLabel(group.timestamp),
             wheight: Wheights.medium,
           ),
 
           // Adds a padding to each node and selects the correct widget
-          ...nodes.map((node) {
-            return NodeGroupChildWrapper(
-              child: getCorrectNodeWidget(node),
-            );
-          }).toList()
+          ...getNodeWidgetsToBeRendered(group.nodes),
         ],
       ),
     );

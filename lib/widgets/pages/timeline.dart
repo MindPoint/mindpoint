@@ -31,20 +31,8 @@ class TimelinePage extends HookConsumerWidget {
           content: StreamBuilder(
             stream: stream,
             builder: (context, AsyncSnapshot<Iterable<Node>> snapshot) {
-              final nodes = snapshot.data?.toList() ?? [];
-
-              if (nodes.isEmpty) {
-                return Container(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: Units.xbig,
-                    horizontal: Units.big,
-                  ),
-                  child: const CustomTypography('Nada aqui por enquanto :('),
-                );
-              }
-
               return NodeList(
-                nodes: nodes,
+                nodes: snapshot.data?.toList() ?? [],
               );
             },
           ),
