@@ -55,7 +55,9 @@ class Button extends HookWidget {
     void userNotTapping() {
       if (!animate) return;
 
-      tapping.value = false;
+      try {
+        tapping.value = false;
+      } catch (e) {}
     }
 
     return Listener(

@@ -66,6 +66,7 @@ class EditMenu extends HookConsumerWidget {
             height: constraints.maxHeight,
             child: TextField(
               controller: textController,
+              textCapitalization: TextCapitalization.sentences,
               onChanged: (data) {
                 // The data that the user is typing should be posted when it tries
                 // to create a new line. So we need to check if the las char is a
