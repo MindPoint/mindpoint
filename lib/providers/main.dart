@@ -39,6 +39,9 @@ final currentThoughtDataProvider =
 final currentMenuProvider =
     StateProvider<AvailableMenus>((ref) => AvailableMenus.none);
 
+final userIsOnAnyKindOfMenu = Provider<bool>(
+    (ref) => ref.watch(currentMenuProvider) != AvailableMenus.none);
+
 final userIsOnEditMenuProvider = Provider<bool>(
     (ref) => ref.watch(currentMenuProvider) == AvailableMenus.edit);
 

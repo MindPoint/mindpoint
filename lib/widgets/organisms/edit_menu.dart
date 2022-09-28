@@ -56,7 +56,7 @@ class EditMenu extends HookConsumerWidget {
           vertical: 8,
           horizontal: 16,
         ),
-        height: 160,
+        height: 120,
         child: LayoutBuilder(
           builder: (context, constraints) {
             return SizedBox(

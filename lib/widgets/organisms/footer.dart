@@ -131,10 +131,9 @@ class EditActionsFooter extends HookConsumerWidget {
               addNode(
                 user!,
                 Node(
-                  id: getCustomUniqueId(),
-                  type: Types.text,
+                  type: NodeTypes.text,
                   data: currentThoughtData,
-                  edited: DateTime.now(),
+                  timestamp: DateTime.now(),
                 ),
               );
               currentThoughtNotifier.change('');

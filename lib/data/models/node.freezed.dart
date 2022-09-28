@@ -20,11 +20,10 @@ Node _$NodeFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Node {
-  String get id => throw _privateConstructorUsedError;
-  Types get type => throw _privateConstructorUsedError;
+  NodeTypes get type => throw _privateConstructorUsedError;
   String get data => throw _privateConstructorUsedError;
   @TimestampConverter()
-  DateTime get edited => throw _privateConstructorUsedError;
+  DateTime get timestamp => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -36,10 +35,7 @@ abstract class $NodeCopyWith<$Res> {
   factory $NodeCopyWith(Node value, $Res Function(Node) then) =
       _$NodeCopyWithImpl<$Res>;
   $Res call(
-      {String id,
-      Types type,
-      String data,
-      @TimestampConverter() DateTime edited});
+      {NodeTypes type, String data, @TimestampConverter() DateTime timestamp});
 }
 
 /// @nodoc
@@ -52,27 +48,22 @@ class _$NodeCopyWithImpl<$Res> implements $NodeCopyWith<$Res> {
 
   @override
   $Res call({
-    Object? id = freezed,
     Object? type = freezed,
     Object? data = freezed,
-    Object? edited = freezed,
+    Object? timestamp = freezed,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
       type: type == freezed
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
-              as Types,
+              as NodeTypes,
       data: data == freezed
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
               as String,
-      edited: edited == freezed
-          ? _value.edited
-          : edited // ignore: cast_nullable_to_non_nullable
+      timestamp: timestamp == freezed
+          ? _value.timestamp
+          : timestamp // ignore: cast_nullable_to_non_nullable
               as DateTime,
     ));
   }
@@ -84,10 +75,7 @@ abstract class _$$_NodeCopyWith<$Res> implements $NodeCopyWith<$Res> {
       __$$_NodeCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String id,
-      Types type,
-      String data,
-      @TimestampConverter() DateTime edited});
+      {NodeTypes type, String data, @TimestampConverter() DateTime timestamp});
 }
 
 /// @nodoc
@@ -101,27 +89,22 @@ class __$$_NodeCopyWithImpl<$Res> extends _$NodeCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? id = freezed,
     Object? type = freezed,
     Object? data = freezed,
-    Object? edited = freezed,
+    Object? timestamp = freezed,
   }) {
     return _then(_$_Node(
-      id: id == freezed
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
       type: type == freezed
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
-              as Types,
+              as NodeTypes,
       data: data == freezed
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
               as String,
-      edited: edited == freezed
-          ? _value.edited
-          : edited // ignore: cast_nullable_to_non_nullable
+      timestamp: timestamp == freezed
+          ? _value.timestamp
+          : timestamp // ignore: cast_nullable_to_non_nullable
               as DateTime,
     ));
   }
@@ -131,26 +114,23 @@ class __$$_NodeCopyWithImpl<$Res> extends _$NodeCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_Node implements _Node {
   const _$_Node(
-      {required this.id,
-      required this.type,
+      {required this.type,
       required this.data,
-      @TimestampConverter() required this.edited});
+      @TimestampConverter() required this.timestamp});
 
   factory _$_Node.fromJson(Map<String, dynamic> json) => _$$_NodeFromJson(json);
 
   @override
-  final String id;
-  @override
-  final Types type;
+  final NodeTypes type;
   @override
   final String data;
   @override
   @TimestampConverter()
-  final DateTime edited;
+  final DateTime timestamp;
 
   @override
   String toString() {
-    return 'Node(id: $id, type: $type, data: $data, edited: $edited)';
+    return 'Node(type: $type, data: $data, timestamp: $timestamp)';
   }
 
   @override
@@ -158,20 +138,18 @@ class _$_Node implements _Node {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Node &&
-            const DeepCollectionEquality().equals(other.id, id) &&
             const DeepCollectionEquality().equals(other.type, type) &&
             const DeepCollectionEquality().equals(other.data, data) &&
-            const DeepCollectionEquality().equals(other.edited, edited));
+            const DeepCollectionEquality().equals(other.timestamp, timestamp));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(id),
       const DeepCollectionEquality().hash(type),
       const DeepCollectionEquality().hash(data),
-      const DeepCollectionEquality().hash(edited));
+      const DeepCollectionEquality().hash(timestamp));
 
   @JsonKey(ignore: true)
   @override
@@ -186,22 +164,19 @@ class _$_Node implements _Node {
 
 abstract class _Node implements Node {
   const factory _Node(
-      {required final String id,
-      required final Types type,
+      {required final NodeTypes type,
       required final String data,
-      @TimestampConverter() required final DateTime edited}) = _$_Node;
+      @TimestampConverter() required final DateTime timestamp}) = _$_Node;
 
   factory _Node.fromJson(Map<String, dynamic> json) = _$_Node.fromJson;
 
   @override
-  String get id => throw _privateConstructorUsedError;
-  @override
-  Types get type => throw _privateConstructorUsedError;
+  NodeTypes get type => throw _privateConstructorUsedError;
   @override
   String get data => throw _privateConstructorUsedError;
   @override
   @TimestampConverter()
-  DateTime get edited => throw _privateConstructorUsedError;
+  DateTime get timestamp => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$$_NodeCopyWith<_$_Node> get copyWith => throw _privateConstructorUsedError;

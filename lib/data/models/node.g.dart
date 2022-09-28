@@ -7,19 +7,18 @@ part of 'node.dart';
 // **************************************************************************
 
 _$_Node _$$_NodeFromJson(Map<String, dynamic> json) => _$_Node(
-      id: json['id'] as String,
-      type: $enumDecode(_$TypesEnumMap, json['type']),
+      type: $enumDecode(_$NodeTypesEnumMap, json['type']),
       data: json['data'] as String,
-      edited: const TimestampConverter().fromJson(json['edited'] as Timestamp),
+      timestamp:
+          const TimestampConverter().fromJson(json['timestamp'] as Timestamp),
     );
 
 Map<String, dynamic> _$$_NodeToJson(_$_Node instance) => <String, dynamic>{
-      'id': instance.id,
-      'type': _$TypesEnumMap[instance.type],
+      'type': _$NodeTypesEnumMap[instance.type],
       'data': instance.data,
-      'edited': const TimestampConverter().toJson(instance.edited),
+      'timestamp': const TimestampConverter().toJson(instance.timestamp),
     };
 
-const _$TypesEnumMap = {
-  Types.text: 'text',
+const _$NodeTypesEnumMap = {
+  NodeTypes.text: 'text',
 };

@@ -9,6 +9,6 @@ Future addNode(User user, Node node) {
       .collection('users')
       .doc(user.uid)
       .collection('nodes')
-      .doc(node.id)
+      .doc(node.timestamp.toIso8601String())
       .set(node.toJson());
 }
