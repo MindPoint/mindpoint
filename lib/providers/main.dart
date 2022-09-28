@@ -26,9 +26,22 @@ final userLogedInProvider = Provider<bool>((ref) {
 });
 
 final usernameProvider = Provider<String>(
-  (ref) =>
-      ref.watch(authStateChangesProvider).value?.displayName ??
-      'Anonymous User',
+  (ref) {
+    final user = ref.watch(authStateChangesProvider).value;
+
+    // if (user != null &&
+    //     (user.displayName == null || user.displayName!.isEmpty)) {
+    //   return 'Anonymous User';
+    // }
+
+    if (user != null &&
+        user.displayName != null &&
+        user.displayName!.isNotEmpty) {
+      return user.displayName as String;
+    }
+
+    return 'Anonymous';
+  },
 );
 
 final currentThoughtDataProvider = StateProvider<String>((ref) => '');

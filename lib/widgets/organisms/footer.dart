@@ -24,9 +24,9 @@ import '../molecule/double_state_button.dart';
 import '../molecule/icon_button.dart';
 import '../molecule/thought_cta.dart';
 
-Widget getAvatarText(String? username) {
+Widget getAvatarText(String username) {
   return CustomTypography(
-    username?[0] ?? 'A',
+    username[0],
     kind: Kind.primary,
     size: Sizes.small,
     wheight: Wheights.bold,
