@@ -17,6 +17,7 @@ class EditMenu extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final focusNode = useFocusNode();
     final textController = useTextEditingController();
 
     final user = ref.watch(authStateChangesProvider).value;
@@ -52,6 +53,7 @@ class EditMenu extends HookConsumerWidget {
           return SizedBox(
             height: constraints.maxHeight,
             child: TextField(
+              focusNode: focusNode,
               controller: textController,
               textCapitalization: TextCapitalization.sentences,
               onChanged: (data) {

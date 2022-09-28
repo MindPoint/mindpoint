@@ -40,6 +40,10 @@ class App extends HookConsumerWidget {
       routeInformationParser: router.routeInformationParser,
       routerDelegate: router.routerDelegate,
       title: title,
+      theme: ThemeData(
+        primaryColor: Colors.black,
+        // primarySwatch: Colors.black,
+      ),
     );
   }
 }

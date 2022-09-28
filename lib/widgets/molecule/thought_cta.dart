@@ -29,14 +29,13 @@ class ThoughtCallToAction extends HookConsumerWidget {
                 wheight: Wheights.medium,
               ),
               const SizedBox(width: Units.xxsmall),
-              Flexible(
-                flex: 1,
+              Expanded(
                 child: CustomTypography(
                   currentThoughtData,
                   kind: Kind.secondary,
                   wheight: Wheights.regular,
                 ),
-              )
+              ),
             ],
           );
   }

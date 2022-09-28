@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 import 'package:mindpoint/constants/units.dart';
 import 'package:mindpoint/constants/colors.dart';
@@ -30,6 +31,8 @@ class CustomTypography extends StatelessWidget {
 
   final TextOverflow overflow;
 
+  final bool selectable;
+
   const CustomTypography(
     this.data, {
     super.key,
@@ -39,19 +42,28 @@ class CustomTypography extends StatelessWidget {
     this.fontFamily = FontFamilies.poppins,
     this.color,
     this.overflow = TextOverflow.ellipsis,
+    this.selectable = false,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      data,
-      style: fontFamilies[fontFamily]!(
-        color: color ?? typographyFontColor[kind],
-        fontSize: typographyFontSize[size],
-        fontWeight: fontWheights[wheight],
-      ),
-      overflow: overflow,
-      textScaleFactor: 1,
+    final style = fontFamilies[fontFamily]!(
+      color: color ?? typographyFontColor[kind],
+      fontSize: typographyFontSize[size],
+      fontWeight: fontWheights[wheight],
     );
+
+    if (selectable) {
+      return SelectableText(
+        data,
+        style: style,
+      );
+    } else {
+      return Text(
+        data,
+        style: style,
+        overflow: overflow,
+      );
+    }
   }
 }
