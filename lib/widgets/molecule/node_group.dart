@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -54,6 +56,7 @@ class NodeGroup extends StatelessWidget {
 
           // Adds a padding to each node and selects the correct widget
           ...nodes.map((node) {
+            log('$node');
             return NodeGroupChildWrapper(
               child: getCorrectNodeWidget(node),
             );

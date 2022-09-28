@@ -20,7 +20,6 @@ class TextNode extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(top: Units.small),
       child: CustomTypography(
         overflow: TextOverflow.visible,
         node.data,
