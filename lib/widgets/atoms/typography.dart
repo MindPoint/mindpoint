@@ -132,7 +132,6 @@ class ATypography extends StatelessWidget {
         ),
         const SizedBox(width: KUnits.xxsmall),
         Flexible(
-          flex: 1,
           child: ATypography(
             data,
             key: key,
