@@ -39,7 +39,7 @@ class CustomIconButton extends StatelessWidget {
             size: 16,
           ),
           const SizedBox(width: KUnits.xxsmall),
-          CustomTypography(
+          ATypography(
             label,
             color: color,
             wheight: KWheights.medium,

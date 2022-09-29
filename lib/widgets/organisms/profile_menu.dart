@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:mindpoint/constants/sizes.dart';
 
 import '../../constants/kinds.dart';
 import '../../constants/menus.dart';
@@ -13,7 +14,6 @@ import '../../data/providers/main.dart';
 import '../atoms/button.dart';
 import '../atoms/typography.dart';
 import '../atoms/custom_icons.dart';
-import '../molecule/icon_button.dart';
 
 /// ProfileMenu displays information and actions related to the current user,
 class ProfileMenu extends HookConsumerWidget {
@@ -33,9 +33,14 @@ class ProfileMenu extends HookConsumerWidget {
               onTap: () => signInWithGoogle(),
               child: Container(
                 padding: const EdgeInsets.only(right: KUnits.small),
-                child: const CustomIconButton(
-                  label: 'Entrar com o Google',
-                  icon: CustomIcons.googleLogo,
+                child: Button(
+                  child: ATypography.withIcon(
+                    'Entrar com o Google',
+                    CustomIcons.googleLogo,
+                    color: KColors.white,
+                    wheight: KWheights.medium,
+                    size: KSizes.smallest,
+                  ),
                 ),
               ),
             )
@@ -48,11 +53,14 @@ class ProfileMenu extends HookConsumerWidget {
               onTap: () => signOut(),
               child: Container(
                 padding: const EdgeInsets.only(right: KUnits.small),
-                child: const CustomIconButton(
-                  label: 'Sair',
-                  icon: Icons.logout,
+                child: Button(
                   kind: KKind.secondary,
-                  color: KColors.black,
+                  child: ATypography.withIcon(
+                    'Sair',
+                    Icons.logout,
+                    wheight: KWheights.medium,
+                    size: KSizes.smallest,
+                  ),
                 ),
               ),
             )
@@ -78,7 +86,7 @@ class ProfileMenu extends HookConsumerWidget {
               children: [
                 Button(
                   animate: false,
-                  child: CustomTypography(
+                  child: ATypography(
                     key: ValueKey(usernameFirstLetter),
                     usernameFirstLetter,
                     color: KColors.white,
@@ -90,7 +98,7 @@ class ProfileMenu extends HookConsumerWidget {
                   duration: const Duration(milliseconds: 50),
                   child: AnimatedSwitcher(
                     duration: const Duration(milliseconds: 200),
-                    child: CustomTypography(
+                    child: ATypography(
                       key: ValueKey(username),
                       username,
                       wheight: KWheights.bold,

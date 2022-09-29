@@ -9,44 +9,63 @@ import 'package:mindpoint/constants/wheights.dart';
 import '../../constants/kinds.dart';
 import '../../constants/sizes.dart';
 
-final typographyFontColor = {
+typedef TypeTextStyleCallBack = TextStyle Function({
+  Paint? background,
+  Color? backgroundColor,
+  Color? color,
+  TextDecoration? decoration,
+  Color? decorationColor,
+  TextDecorationStyle? decorationStyle,
+  double? decorationThickness,
+  List<ui.FontFeature>? fontFeatures,
+  double? fontSize,
+  FontStyle? fontStyle,
+  FontWeight? fontWeight,
+  Paint? foreground,
+  double? height,
+  double? letterSpacing,
+  Locale? locale,
+  List<ui.Shadow>? shadows,
+  TextBaseline? textBaseline,
+  TextStyle? textStyle,
+  double? wordSpacing,
+});
+
+const kTypographyKind = KKind.primary;
+const kTypographySize = KSizes.small;
+const kTypographyWheight = KWheights.regular;
+const kTypographyStyle = KFontFamily.poppins;
+const kTypographyOverflow = TextOverflow.ellipsis;
+const kTypographySelectable = false;
+
+const kTypographyFontColor = {
   KKind.primary: KColors.black,
   KKind.secondary: KColors.black50,
 };
 
-final typographyFontSize = {
+const kTypographyIconColor = {
+  KKind.primary: KColors.black,
+  KKind.secondary: KColors.black50,
+};
+
+const kTypographyFontSize = {
   KSizes.smallest: KUnits.big,
   KSizes.small: KUnits.xbig,
 };
 
-class CustomTypography extends StatelessWidget {
+const kTypographyWithIconSize = {
+  KSizes.smallest: KUnits.xxbig,
+  KSizes.small: KUnits.xxxbig,
+};
+
+class ATypography extends StatelessWidget {
   final String data;
 
   final KKind kind;
   final KSizes size;
   final FontWeight wheight;
 
-  final TextStyle Function({
-    TextStyle? textStyle,
-    Color? color,
-    Color? backgroundColor,
-    double? fontSize,
-    FontWeight? fontWeight,
-    FontStyle? fontStyle,
-    double? letterSpacing,
-    double? wordSpacing,
-    TextBaseline? textBaseline,
-    double? height,
-    Locale? locale,
-    Paint? foreground,
-    Paint? background,
-    List<ui.Shadow>? shadows,
-    List<ui.FontFeature>? fontFeatures,
-    TextDecoration? decoration,
-    Color? decorationColor,
-    TextDecorationStyle? decorationStyle,
-    double? decorationThickness,
-  }) fontFamily;
+  final TypeTextStyleCallBack style;
 
   final Color? color;
 
@@ -54,37 +73,78 @@ class CustomTypography extends StatelessWidget {
 
   final bool selectable;
 
-  const CustomTypography(
+  const ATypography(
     this.data, {
     super.key,
-    this.kind = KKind.primary,
-    this.size = KSizes.small,
-    this.wheight = KWheights.regular,
-    this.fontFamily = KFontFamily.poppins,
+    this.kind = kTypographyKind,
+    this.size = kTypographySize,
+    this.wheight = kTypographyWheight,
+    this.style = kTypographyStyle,
     this.color,
-    this.overflow = TextOverflow.ellipsis,
-    this.selectable = false,
+    this.overflow = kTypographyOverflow,
+    this.selectable = kTypographySelectable,
   });
 
   @override
   Widget build(BuildContext context) {
-    final style = fontFamily(
-      color: color ?? typographyFontColor[kind],
-      fontSize: typographyFontSize[size],
+    final selectedStyle = style(
+      color: color ?? kTypographyFontColor[kind],
+      fontSize: kTypographyFontSize[size],
       fontWeight: wheight,
     );
 
     if (selectable) {
       return SelectableText(
         data,
-        style: style,
+        style: selectedStyle,
       );
     } else {
       return Text(
         data,
-        style: style,
+        style: selectedStyle,
         overflow: overflow,
       );
     }
+  }
+
+  static Widget withIcon(
+    String data,
+    IconData icon, {
+    Key? key,
+    KKind kind = kTypographyKind,
+    KSizes size = kTypographySize,
+    FontWeight wheight = kTypographyWheight,
+    TypeTextStyleCallBack style = KFontFamily.poppins,
+    Color? color,
+    TextOverflow overflow = kTypographyOverflow,
+  }) {
+    return Flex(
+      direction: Axis.horizontal,
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Flexible(
+          child: Icon(
+            icon,
+            size: kTypographyWithIconSize[size],
+            color: color ?? kTypographyIconColor[kind],
+          ),
+        ),
+        const SizedBox(width: KUnits.xxsmall),
+        Flexible(
+          flex: 1,
+          child: ATypography(
+            data,
+            key: key,
+            kind: kind,
+            size: size,
+            wheight: wheight,
+            color: color,
+            style: style,
+            overflow: overflow,
+          ),
+        ),
+      ],
+    );
   }
 }

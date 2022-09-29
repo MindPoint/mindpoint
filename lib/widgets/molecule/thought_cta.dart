@@ -16,21 +16,21 @@ class ThoughtCallToAction extends HookConsumerWidget {
     final currentThoughtData = ref.watch(currentThoughtDataProvider);
 
     return currentThoughtData.isEmpty || userIsOnEditMenu
-        ? const CustomTypography(
+        ? const ATypography(
             'No que está pensando?',
             kind: KKind.secondary,
           )
         : Flex(
             direction: Axis.horizontal,
             children: [
-              const CustomTypography(
+              const ATypography(
                 'Rascunho:',
                 kind: KKind.secondary,
                 wheight: KWheights.medium,
               ),
               const SizedBox(width: KUnits.xxsmall),
               Expanded(
-                child: CustomTypography(
+                child: ATypography(
                   currentThoughtData,
                   kind: KKind.secondary,
                   wheight: KWheights.regular,

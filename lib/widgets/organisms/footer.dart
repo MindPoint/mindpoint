@@ -24,7 +24,7 @@ import '../molecule/icon_button.dart';
 import '../molecule/thought_cta.dart';
 
 Widget getAvatarText(String username) {
-  return CustomTypography(
+  return ATypography(
     username[0],
     kind: KKind.primary,
     size: KSizes.small,

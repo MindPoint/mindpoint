@@ -14,10 +14,10 @@ class TextNode extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomTypography(
+    return ATypography(
       overflow: TextOverflow.visible,
       node.data,
-      fontFamily: KFontFamily.robotoSerif,
+      style: KFontFamily.robotoSerif,
     );
   }
 }

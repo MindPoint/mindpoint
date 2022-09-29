@@ -55,7 +55,7 @@ class NodeGroup extends StatelessWidget {
     if (nodes.isEmpty) {
       return [
         const NodeGroupChildWrapper(
-          child: CustomTypography(
+          child: ATypography(
             'Você ainda não escreveu nada hoje.',
             color: KColors.black60,
           ),
@@ -78,7 +78,7 @@ class NodeGroup extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Group label
-          CustomTypography(
+          ATypography(
             getDisplayLabel(group.timestamp),
             wheight: KWheights.medium,
           ),
