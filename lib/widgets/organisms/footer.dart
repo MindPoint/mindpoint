@@ -17,10 +17,8 @@ import '../../constants/sizes.dart';
 import '../../constants/units.dart';
 import '../../constants/wheights.dart';
 
-import '../../data/providers/nodes.dart';
 import '../../hooks/keyboard_visibility.dart';
 import '../atoms/typography.dart';
-import '../molecule/double_state_button.dart';
 import '../molecule/icon_button.dart';
 import '../molecule/thought_cta.dart';
 
