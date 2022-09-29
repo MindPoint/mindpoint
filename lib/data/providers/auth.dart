@@ -1,11 +1,26 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+/// Provides the FirebaseAuth instance
+final firebaseAuthProvider =
+    Provider<FirebaseAuth>((ref) => FirebaseAuth.instance);
+
+// A stream that returns the current user, if it is null, it will try to
+// login anonimously
+final authStateChangesProvider = StreamProvider<User?>(
+  (ref) => ref.watch(firebaseAuthProvider).authStateChanges()
+    // Ensures the app always have an user to store the data
+    ..listen(
+      (user) => user ?? ref.read(firebaseAuthProvider).signInAnonymously(),
+    ),
+);
 
 /// Enables the user to login using a Google Account
-Future<void> signInWithGoogle(
-  FirebaseAuth auth,
-  GoogleSignIn googleSignIn,
-) async {
+Future<void> signInWithGoogle() async {
+  final auth = FirebaseAuth.instance;
+  final googleSignIn = GoogleSignIn();
+
   try {
     final account = await googleSignIn.signIn();
 
@@ -27,10 +42,9 @@ Future<void> signInWithGoogle(
 }
 
 /// Signout from the google account
-Future<void> signOut(
-  FirebaseAuth auth,
-  GoogleSignIn googleSignIn,
-) {
+Future<void> signOut() {
+  final auth = FirebaseAuth.instance;
+
   void handleSignOutSuccess(_) {
     auth.signOut();
   }

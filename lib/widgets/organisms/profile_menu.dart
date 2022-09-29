@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:mindpoint/constants/kinds.dart';
-import 'package:mindpoint/widgets/molecule/icon_button.dart';
 
-import '../../constants/colors.dart';
+import '../../constants/kinds.dart';
 import '../../constants/menus.dart';
 import '../../constants/units.dart';
+import '../../constants/colors.dart';
 import '../../constants/wheights.dart';
-import '../../methods/auth.dart';
-import '../../providers/main.dart';
+
+import '../../data/providers/main.dart';
+
 import '../atoms/button.dart';
-import '../atoms/custom_icons.dart';
 import '../atoms/typography.dart';
+import '../atoms/custom_icons.dart';
+import '../molecule/icon_button.dart';
 
 /// ProfileMenu displays information and actions related to the current user,
 class ProfileMenu extends HookConsumerWidget {
@@ -21,7 +21,6 @@ class ProfileMenu extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final auth = ref.watch(firebaseAuthProvider);
     final userLogedIn = ref.watch(userLogedInProvider);
 
     final username = ref.watch(usernameProvider);
@@ -31,9 +30,7 @@ class ProfileMenu extends HookConsumerWidget {
     final signInWithGoogleButton = useMemoized(() {
       return !userLogedIn
           ? GestureDetector(
-              onTap: () {
-                signInWithGoogle(auth, GoogleSignIn());
-              },
+              onTap: () => signInWithGoogle(),
               child: Container(
                 padding: const EdgeInsets.only(right: KUnits.small),
                 child: const CustomIconButton(
@@ -45,29 +42,10 @@ class ProfileMenu extends HookConsumerWidget {
           : Container();
     }, [userLogedIn]);
 
-    final donationButton = useMemoized(() {
-      return Container(
-        padding: const EdgeInsets.only(right: KUnits.small),
-        child: userLogedIn
-            ? const CustomIconButton(
-                label: 'Doação',
-                icon: Icons.attach_money,
-              )
-            : const CustomIconButton(
-                label: 'Doação',
-                icon: Icons.attach_money,
-                kind: KKind.secondary,
-                color: KColors.black,
-              ),
-      );
-    }, [userLogedIn]);
-
     final signOutButton = useMemoized(() {
       return userLogedIn
           ? GestureDetector(
-              onTap: () {
-                signOut(auth, GoogleSignIn());
-              },
+              onTap: () => signOut(),
               child: Container(
                 padding: const EdgeInsets.only(right: KUnits.small),
                 child: const CustomIconButton(
@@ -79,18 +57,6 @@ class ProfileMenu extends HookConsumerWidget {
               ),
             )
           : Container();
-    }, [userLogedIn]);
-
-    final configButton = useMemoized(() {
-      return Container(
-        padding: const EdgeInsets.only(right: KUnits.small),
-        child: const CustomIconButton(
-          label: 'Configurações',
-          icon: Icons.settings,
-          kind: KKind.secondary,
-          color: KColors.black,
-        ),
-      );
     }, [userLogedIn]);
 
     return Container(

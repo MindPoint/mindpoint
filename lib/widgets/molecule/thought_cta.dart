@@ -4,7 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../constants/kinds.dart';
 import '../../constants/units.dart';
 import '../../constants/wheights.dart';
-import '../../providers/main.dart';
+import '../../data/providers/main.dart';
 import '../atoms/typography.dart';
 
 class ThoughtCallToAction extends HookConsumerWidget {

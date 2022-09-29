@@ -3,9 +3,9 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
 import 'package:mindpoint/data/models/node.dart';
-import 'package:mindpoint/methods/node.dart';
-import 'package:mindpoint/providers/main.dart';
+import 'package:mindpoint/data/providers/main.dart';
 
 import 'package:vibration/vibration.dart';
 
@@ -16,6 +16,7 @@ import '../../constants/sizes.dart';
 import '../../constants/units.dart';
 import '../../constants/wheights.dart';
 
+import '../../data/providers/nodes.dart';
 import '../../hooks/keyboard_visibility.dart';
 import '../atoms/typography.dart';
 import '../molecule/double_state_button.dart';

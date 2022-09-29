@@ -3,13 +3,13 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:mindpoint/providers/main.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mindpoint/widgets/organisms/profile_menu.dart';
 import 'package:mindpoint/widgets/organisms/edit_menu.dart';
 
 import '../../constants/colors.dart';
 import '../../constants/menus.dart';
+import '../../data/providers/main.dart';
 
 class Menus extends HookConsumerWidget {
   const Menus({

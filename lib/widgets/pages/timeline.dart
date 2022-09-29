@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'package:mindpoint/constants/units.dart';
-
-import 'package:mindpoint/providers/nodes.dart';
-import 'package:mindpoint/widgets/atoms/typography.dart';
-import 'package:mindpoint/widgets/template/default_template.dart';
-
 import '../../data/models/node.dart';
+import '../../data/providers/nodes.dart';
+
+import '../template/default_template.dart';
+
 import '../organisms/footer.dart';
 import '../organisms/menus.dart';
 import '../organisms/node_list.dart';

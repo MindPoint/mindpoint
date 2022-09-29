@@ -47,7 +47,6 @@ class App extends HookConsumerWidget {
           selectionHandleColor: KColors.black,
           selectionColor: KColors.gray100,
         ),
-        // primarySwatch: Colors.black,
       ),
     );
   }
