@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:mindpoint/constants/colors.dart';
 
 import 'firebase_options.dart';
 import 'package:mindpoint/router/main.dart';
@@ -41,7 +42,11 @@ class App extends HookConsumerWidget {
       routerDelegate: router.routerDelegate,
       title: title,
       theme: ThemeData(
-        primaryColor: Colors.black,
+        textSelectionTheme: const TextSelectionThemeData(
+          cursorColor: KColors.black,
+          selectionHandleColor: KColors.black,
+          selectionColor: KColors.gray100,
+        ),
         // primarySwatch: Colors.black,
       ),
     );
