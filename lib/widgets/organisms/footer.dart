@@ -6,6 +6,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:mindpoint/data/models/node.dart';
 import 'package:mindpoint/data/providers/main.dart';
+import 'package:mindpoint/widgets/atoms/button.dart';
 
 import 'package:vibration/vibration.dart';
 
@@ -149,6 +150,8 @@ class DefaultFooter extends HookConsumerWidget {
     final username = ref.watch(usernameProvider);
     final userIsOnProfileMenu = ref.watch(userIsOnProfileMenuProvider);
 
+    final currentMenu = ref.watch(currentMenuProvider);
+
     return Container(
       decoration: const BoxDecoration(
         border: Border(
@@ -175,20 +178,29 @@ class DefaultFooter extends HookConsumerWidget {
               child: const ThoughtCallToAction(),
             ),
           ),
+
           const SizedBox(width: KUnits.small),
-          GestureDetector(
-            onTapDown: (details) {
-              ref.read(currentMenuProvider.state).state = userIsOnProfileMenu
-                  ? KAvailableMenus.none
-                  : KAvailableMenus.profile;
+
+          // Avatar Button
+          AButton.withStates(
+            state: currentMenu,
+            states: {
+              // Displays the first letter of the current username
+              KAvailableMenus.none: AButtonState(
+                child: getAvatarText(username),
+                kind: KKind.primary,
+                onTap: () => ref.read(currentMenuProvider.state).state =
+                    KAvailableMenus.profile,
+              ),
+
+              // Displays the close icon to close the current menu
+              KAvailableMenus.profile: AButtonState(
+                child: getCloseIcon(username),
+                kind: KKind.secondary,
+                onTap: () => ref.read(currentMenuProvider.state).state =
+                    KAvailableMenus.none,
+              ),
             },
-            child: DoubleStateButton(
-              primaryChild: getAvatarText(username),
-              secondaryChild: getCloseIcon(username),
-              state: userIsOnProfileMenu
-                  ? DoubleStateButtonState.secondary
-                  : DoubleStateButtonState.primary,
-            ),
           ),
         ],
       ),

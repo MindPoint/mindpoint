@@ -33,7 +33,7 @@ class ProfileMenu extends HookConsumerWidget {
               onTap: () => signInWithGoogle(),
               child: Container(
                 padding: const EdgeInsets.only(right: KUnits.small),
-                child: Button(
+                child: AButton(
                   child: ATypography.withIcon(
                     'Entrar com o Google',
                     CustomIcons.googleLogo,
@@ -53,7 +53,7 @@ class ProfileMenu extends HookConsumerWidget {
               onTap: () => signOut(),
               child: Container(
                 padding: const EdgeInsets.only(right: KUnits.small),
-                child: Button(
+                child: AButton(
                   kind: KKind.secondary,
                   child: ATypography.withIcon(
                     'Sair',
@@ -84,7 +84,7 @@ class ProfileMenu extends HookConsumerWidget {
             child: Flex(
               direction: Axis.horizontal,
               children: [
-                Button(
+                AButton(
                   animate: false,
                   child: ATypography(
                     key: ValueKey(usernameFirstLetter),

@@ -27,7 +27,7 @@ class CustomIconButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Button(
+    return AButton(
       kind: kind,
       disabled: disabled,
       child: Row(

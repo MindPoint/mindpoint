@@ -39,7 +39,7 @@ class DoubleStateButton extends StatelessWidget {
       DoubleStateButtonState.secondary: secondaryChild
     };
 
-    return Button(
+    return AButton(
       kind: kindMap[state]!,
       child: childMap[state]!,
     );

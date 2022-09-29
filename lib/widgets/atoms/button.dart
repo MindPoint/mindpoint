@@ -9,33 +9,82 @@ import 'package:mindpoint/constants/units.dart';
 
 import 'package:vibration/vibration.dart';
 
-const Map<KKind, Color> buttonBorderColors = {
+const kButtonKind = KKind.primary;
+const kButtonShouldAnimate = true;
+const kButtonDisabled = false;
+
+const Map<KKind, Color> kButtonBorderColors = {
   KKind.primary: KColors.black,
   KKind.secondary: KColors.black,
   KKind.tertiary: KColors.black10,
   KKind.quaternary: KColors.transparent,
 };
 
-const Map<KKind, Color> buttonBackgroundColors = {
+const Map<KKind, Color> kButtonBackgroundColors = {
   KKind.primary: KColors.black,
   KKind.secondary: KColors.white,
   KKind.tertiary: KColors.gray10,
   KKind.quaternary: KColors.transparent,
 };
 
-class Button extends HookWidget {
+abstract class AButtonAbstract {
   final KKind kind;
   final Widget? child;
 
   final bool animate;
   final bool disabled;
 
-  const Button({
+  final void Function()? onTap;
+
+  AButtonAbstract({
+    this.child,
+    this.kind = kButtonKind,
+    this.animate = kButtonShouldAnimate,
+    this.disabled = kButtonDisabled,
+    this.onTap,
+  });
+}
+
+class AButtonState implements AButtonAbstract {
+  @override
+  final KKind kind;
+  @override
+  final Widget? child;
+  @override
+  final bool animate;
+  @override
+  final bool disabled;
+  @override
+  final void Function()? onTap;
+
+  const AButtonState({
+    this.child,
+    this.kind = kButtonKind,
+    this.animate = kButtonShouldAnimate,
+    this.disabled = kButtonDisabled,
+    this.onTap,
+  });
+}
+
+class AButton extends HookWidget implements AButtonAbstract {
+  @override
+  final KKind kind;
+  @override
+  final Widget? child;
+  @override
+  final bool animate;
+  @override
+  final bool disabled;
+  @override
+  final void Function()? onTap;
+
+  const AButton({
     super.key,
     this.child,
-    this.kind = KKind.primary,
-    this.animate = true,
-    this.disabled = false,
+    this.kind = kButtonKind,
+    this.animate = kButtonShouldAnimate,
+    this.disabled = kButtonDisabled,
+    this.onTap,
   });
 
   @override
@@ -46,29 +95,36 @@ class Button extends HookWidget {
     final scaleY = scaleX;
 
     void userIsTapping() {
-      if (!animate) return;
+      try {
+        if (disabled) return;
+        if (!animate) return;
 
-      tapping.value = true;
-      Vibration.vibrate(duration: 25);
+        tapping.value = true;
+        Vibration.vibrate(duration: 25);
+      } on Exception catch (e) {}
     }
 
     void userNotTapping() {
+      if (disabled) return;
       if (!animate) return;
 
       try {
         tapping.value = false;
-      } catch (e) {}
+      } on Exception catch (e) {}
     }
 
-    return Listener(
-      onPointerDown: (details) {
-        if (disabled) return;
-
+    return GestureDetector(
+      onTap: () => onTap == null ? null : onTap!(),
+      onTapDown: (d) {
         userIsTapping();
       },
-      onPointerUp: (details) {
-        if (disabled) return;
-
+      onTapUp: (d) {
+        userNotTapping();
+      },
+      onVerticalDragEnd: (d) {
+        userNotTapping();
+      },
+      onHorizontalDragEnd: (d) {
         userNotTapping();
       },
       child: AnimatedOpacity(
@@ -89,11 +145,11 @@ class Button extends HookWidget {
           ),
           padding: const EdgeInsets.symmetric(horizontal: KUnits.xsmall),
           decoration: BoxDecoration(
-            color: buttonBackgroundColors[kind] as Color,
+            color: kButtonBackgroundColors[kind] as Color,
             borderRadius: BorderRadius.circular(100),
             border: Border.all(
               width: 1,
-              color: buttonBorderColors[kind] as Color,
+              color: kButtonBorderColors[kind] as Color,
             ),
           ),
           child: AnimatedSwitcher(
@@ -104,6 +160,25 @@ class Button extends HookWidget {
           ),
         ),
       ),
+    );
+  }
+
+  static Widget withStates<K>({
+    required Map<K, AButtonState> states,
+    required K state,
+    Key? key,
+  }) {
+    assert(states[state] != null);
+
+    final current = states[state] as AButtonState;
+
+    return AButton(
+      key: key,
+      animate: current.animate,
+      disabled: current.disabled,
+      kind: current.kind,
+      onTap: current.onTap,
+      child: current.child,
     );
   }
 }

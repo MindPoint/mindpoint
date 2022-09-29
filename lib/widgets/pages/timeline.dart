@@ -16,8 +16,6 @@ class TimelinePage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    final controller = useScrollController();
-
     final stream = ref.watch(nodesProvider.stream);
 
     final MediaQueryData data = MediaQuery.of(context);
