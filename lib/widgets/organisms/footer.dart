@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mindpoint/data/models/node.dart';
-import 'package:mindpoint/hooks/keep_alive.dart';
 import 'package:mindpoint/methods/node.dart';
 import 'package:mindpoint/providers/main.dart';
 
@@ -18,7 +17,6 @@ import '../../constants/units.dart';
 import '../../constants/wheights.dart';
 
 import '../../hooks/keyboard_visibility.dart';
-import '../atoms/button.dart';
 import '../atoms/typography.dart';
 import '../molecule/double_state_button.dart';
 import '../molecule/icon_button.dart';
@@ -27,26 +25,26 @@ import '../molecule/thought_cta.dart';
 Widget getAvatarText(String username) {
   return CustomTypography(
     username[0],
-    kind: Kind.primary,
-    size: Sizes.small,
-    wheight: Wheights.bold,
-    color: CustomColors.white,
+    kind: KKind.primary,
+    size: KSizes.small,
+    wheight: KWheights.bold,
+    color: KColors.white,
   );
 }
 
 Widget getAttachmentIcon(String? username) {
   return const Icon(
     Icons.attachment,
-    size: Units.xxbig,
-    color: CustomColors.black,
+    size: KUnits.xxbig,
+    color: KColors.black,
   );
 }
 
 Widget getCloseIcon(String? username) {
   return const Icon(
     Icons.close_sharp,
-    size: Units.xxbig,
-    color: CustomColors.black,
+    size: KUnits.xxbig,
+    color: KColors.black,
   );
 }
 
@@ -63,13 +61,13 @@ class Footer extends HookConsumerWidget {
       log('keyboard is visible $visible');
 
       if (!visible) {
-        ref.read(currentMenuProvider.state).state = AvailableMenus.none;
+        ref.read(currentMenuProvider.state).state = KAvailableMenus.none;
       }
     });
 
     final currentFooter = useMemoized(() {
       switch (currentMenu) {
-        case AvailableMenus.edit:
+        case KAvailableMenus.edit:
           return const EditActionsFooter(
             key: ValueKey('EditActionsFooter'),
           );
@@ -100,13 +98,13 @@ class EditActionsFooter extends HookConsumerWidget {
         border: Border(
           top: BorderSide(
             width: 1,
-            color: CustomColors.black10,
+            color: KColors.black10,
           ),
         ),
       ),
       padding: const EdgeInsets.symmetric(
-        vertical: Units.big,
-        horizontal: Units.xxbig,
+        vertical: KUnits.big,
+        horizontal: KUnits.xxbig,
       ),
       child: Flex(
         direction: Axis.horizontal,
@@ -155,13 +153,13 @@ class DefaultFooter extends HookConsumerWidget {
         border: Border(
           top: BorderSide(
             width: 1,
-            color: CustomColors.black10,
+            color: KColors.black10,
           ),
         ),
       ),
       padding: const EdgeInsets.symmetric(
-        vertical: Units.big,
-        horizontal: Units.xxbig,
+        vertical: KUnits.big,
+        horizontal: KUnits.xxbig,
       ),
       child: Flex(
         direction: Axis.horizontal,
@@ -170,17 +168,18 @@ class DefaultFooter extends HookConsumerWidget {
             child: GestureDetector(
               onTapDown: (details) {
                 Vibration.vibrate(duration: 25);
-                ref.read(currentMenuProvider.state).state = AvailableMenus.edit;
+                ref.read(currentMenuProvider.state).state =
+                    KAvailableMenus.edit;
               },
               child: const ThoughtCallToAction(),
             ),
           ),
-          const SizedBox(width: Units.small),
+          const SizedBox(width: KUnits.small),
           GestureDetector(
             onTapDown: (details) {
               ref.read(currentMenuProvider.state).state = userIsOnProfileMenu
-                  ? AvailableMenus.none
-                  : AvailableMenus.profile;
+                  ? KAvailableMenus.none
+                  : KAvailableMenus.profile;
             },
             child: DoubleStateButton(
               primaryChild: getAvatarText(username),

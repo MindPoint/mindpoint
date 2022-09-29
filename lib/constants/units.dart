@@ -1,7 +1,7 @@
-class Units {
+class KUnits {
   // This class is not meant to be instantiated or extended; this constructor
   // prevents instantiation and extension.
-  Units._();
+  KUnits._();
 
   static const zero = 0.0;
   static const xxxsmall = 2.0;

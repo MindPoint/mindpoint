@@ -1,4 +1,4 @@
-enum Kind {
+enum KKind {
   primary,
   secondary,
   tertiary,

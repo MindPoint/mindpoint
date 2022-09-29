@@ -1,4 +1,4 @@
-enum States {
+enum KStates {
   primary,
   secondary,
   disabled,

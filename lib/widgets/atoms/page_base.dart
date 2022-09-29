@@ -24,7 +24,7 @@ class PageBase extends HookWidget {
         bottom: keyboardPaddingBottom,
       ),
       decoration: const BoxDecoration(
-        color: CustomColors.white,
+        color: KColors.white,
       ),
       child: Column(
         mainAxisSize: MainAxisSize.max,

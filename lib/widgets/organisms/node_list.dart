@@ -85,7 +85,7 @@ class NodeList extends HookConsumerWidget {
                               border: Border(
                                 bottom: BorderSide(
                                   width: 1,
-                                  color: CustomColors.gray50,
+                                  color: KColors.gray50,
                                 ),
                               ),
                             ),
@@ -119,7 +119,7 @@ class NodeListSeparator extends StatelessWidget {
     return Container(
       height: 1,
       width: double.infinity,
-      color: CustomColors.gray50,
+      color: KColors.gray50,
     );
   }
 }

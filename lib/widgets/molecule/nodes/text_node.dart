@@ -17,7 +17,7 @@ class TextNode extends StatelessWidget {
     return CustomTypography(
       overflow: TextOverflow.visible,
       node.data,
-      fontFamily: FontFamilies.robotoSerif,
+      fontFamily: KFontFamily.robotoSerif,
     );
   }
 }

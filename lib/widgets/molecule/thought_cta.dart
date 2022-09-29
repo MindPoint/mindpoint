@@ -18,22 +18,22 @@ class ThoughtCallToAction extends HookConsumerWidget {
     return currentThoughtData.isEmpty || userIsOnEditMenu
         ? const CustomTypography(
             'No que está pensando?',
-            kind: Kind.secondary,
+            kind: KKind.secondary,
           )
         : Flex(
             direction: Axis.horizontal,
             children: [
               const CustomTypography(
                 'Rascunho:',
-                kind: Kind.secondary,
-                wheight: Wheights.medium,
+                kind: KKind.secondary,
+                wheight: KWheights.medium,
               ),
-              const SizedBox(width: Units.xxsmall),
+              const SizedBox(width: KUnits.xxsmall),
               Expanded(
                 child: CustomTypography(
                   currentThoughtData,
-                  kind: Kind.secondary,
-                  wheight: Wheights.regular,
+                  kind: KKind.secondary,
+                  wheight: KWheights.regular,
                 ),
               ),
             ],

@@ -1,5 +1,6 @@
-enum AvailableMenus {
+enum KAvailableMenus {
   login,
+  confirmLogout,
   donation,
   news,
   attachments,

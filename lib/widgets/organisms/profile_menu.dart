@@ -35,7 +35,7 @@ class ProfileMenu extends HookConsumerWidget {
                 signInWithGoogle(auth, GoogleSignIn());
               },
               child: Container(
-                padding: const EdgeInsets.only(right: Units.small),
+                padding: const EdgeInsets.only(right: KUnits.small),
                 child: const CustomIconButton(
                   label: 'Entrar com o Google',
                   icon: CustomIcons.googleLogo,
@@ -47,7 +47,7 @@ class ProfileMenu extends HookConsumerWidget {
 
     final donationButton = useMemoized(() {
       return Container(
-        padding: const EdgeInsets.only(right: Units.small),
+        padding: const EdgeInsets.only(right: KUnits.small),
         child: userLogedIn
             ? const CustomIconButton(
                 label: 'Doação',
@@ -56,8 +56,8 @@ class ProfileMenu extends HookConsumerWidget {
             : const CustomIconButton(
                 label: 'Doação',
                 icon: Icons.attach_money,
-                kind: Kind.secondary,
-                color: CustomColors.black,
+                kind: KKind.secondary,
+                color: KColors.black,
               ),
       );
     }, [userLogedIn]);
@@ -69,12 +69,12 @@ class ProfileMenu extends HookConsumerWidget {
                 signOut(auth, GoogleSignIn());
               },
               child: Container(
-                padding: const EdgeInsets.only(right: Units.small),
+                padding: const EdgeInsets.only(right: KUnits.small),
                 child: const CustomIconButton(
                   label: 'Sair',
                   icon: Icons.logout,
-                  kind: Kind.secondary,
-                  color: CustomColors.black,
+                  kind: KKind.secondary,
+                  color: KColors.black,
                 ),
               ),
             )
@@ -83,20 +83,20 @@ class ProfileMenu extends HookConsumerWidget {
 
     final configButton = useMemoized(() {
       return Container(
-        padding: const EdgeInsets.only(right: Units.small),
+        padding: const EdgeInsets.only(right: KUnits.small),
         child: const CustomIconButton(
           label: 'Configurações',
           icon: Icons.settings,
-          kind: Kind.secondary,
-          color: CustomColors.black,
+          kind: KKind.secondary,
+          color: KColors.black,
         ),
       );
     }, [userLogedIn]);
 
     return Container(
-      key: const ValueKey(AvailableMenus.profile),
+      key: const ValueKey(KAvailableMenus.profile),
       padding: const EdgeInsets.symmetric(
-        vertical: Units.xxxxbig,
+        vertical: KUnits.xxxxbig,
       ),
       child: Flex(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -105,7 +105,7 @@ class ProfileMenu extends HookConsumerWidget {
           // Avatar and username - ProfileMenuHeader
           Container(
             padding: const EdgeInsets.symmetric(
-              horizontal: Units.xxbig,
+              horizontal: KUnits.xxbig,
             ),
             child: Flex(
               direction: Axis.horizontal,
@@ -115,11 +115,11 @@ class ProfileMenu extends HookConsumerWidget {
                   child: CustomTypography(
                     key: ValueKey(usernameFirstLetter),
                     usernameFirstLetter,
-                    color: CustomColors.white,
-                    wheight: Wheights.bold,
+                    color: KColors.white,
+                    wheight: KWheights.bold,
                   ),
                 ),
-                const SizedBox(width: Units.small),
+                const SizedBox(width: KUnits.small),
                 AnimatedSize(
                   duration: const Duration(milliseconds: 50),
                   child: AnimatedSwitcher(
@@ -127,7 +127,7 @@ class ProfileMenu extends HookConsumerWidget {
                     child: CustomTypography(
                       key: ValueKey(username),
                       username,
-                      wheight: Wheights.bold,
+                      wheight: KWheights.bold,
                     ),
                   ),
                 )
@@ -135,13 +135,13 @@ class ProfileMenu extends HookConsumerWidget {
             ),
           ),
 
-          const SizedBox(height: Units.xxbig),
+          const SizedBox(height: KUnits.xxbig),
 
           // Actions related to the user - ProfileMenuActions
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             padding: const EdgeInsets.symmetric(
-              horizontal: Units.xxbig,
+              horizontal: KUnits.xxbig,
             ),
             child: Row(
               children: [

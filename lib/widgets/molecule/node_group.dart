@@ -57,7 +57,7 @@ class NodeGroup extends StatelessWidget {
         const NodeGroupChildWrapper(
           child: CustomTypography(
             'Você ainda não escreveu nada hoje.',
-            color: CustomColors.black60,
+            color: KColors.black60,
           ),
         ),
       ];
@@ -73,14 +73,14 @@ class NodeGroup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(Units.big),
+      padding: const EdgeInsets.all(KUnits.big),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Group label
           CustomTypography(
             getDisplayLabel(group.timestamp),
-            wheight: Wheights.medium,
+            wheight: KWheights.medium,
           ),
 
           // Adds a padding to each node and selects the correct widget
@@ -102,7 +102,7 @@ class NodeGroupChildWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(top: Units.small),
+      margin: const EdgeInsets.only(top: KUnits.small),
       child: child,
     );
   }

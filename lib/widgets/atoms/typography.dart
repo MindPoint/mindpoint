@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 
 import 'package:mindpoint/constants/units.dart';
@@ -10,23 +10,44 @@ import '../../constants/kinds.dart';
 import '../../constants/sizes.dart';
 
 final typographyFontColor = {
-  Kind.primary: CustomColors.black,
-  Kind.secondary: CustomColors.black50,
+  KKind.primary: KColors.black,
+  KKind.secondary: KColors.black50,
 };
 
 final typographyFontSize = {
-  Sizes.smallest: Units.big,
-  Sizes.small: Units.xbig,
+  KSizes.smallest: KUnits.big,
+  KSizes.small: KUnits.xbig,
 };
 
 class CustomTypography extends StatelessWidget {
   final String data;
 
-  final Kind kind;
-  final Sizes size;
-  final Wheights wheight;
+  final KKind kind;
+  final KSizes size;
+  final FontWeight wheight;
 
-  final FontFamilies fontFamily;
+  final TextStyle Function({
+    TextStyle? textStyle,
+    Color? color,
+    Color? backgroundColor,
+    double? fontSize,
+    FontWeight? fontWeight,
+    FontStyle? fontStyle,
+    double? letterSpacing,
+    double? wordSpacing,
+    TextBaseline? textBaseline,
+    double? height,
+    Locale? locale,
+    Paint? foreground,
+    Paint? background,
+    List<ui.Shadow>? shadows,
+    List<ui.FontFeature>? fontFeatures,
+    TextDecoration? decoration,
+    Color? decorationColor,
+    TextDecorationStyle? decorationStyle,
+    double? decorationThickness,
+  }) fontFamily;
+
   final Color? color;
 
   final TextOverflow overflow;
@@ -36,10 +57,10 @@ class CustomTypography extends StatelessWidget {
   const CustomTypography(
     this.data, {
     super.key,
-    this.kind = Kind.primary,
-    this.size = Sizes.small,
-    this.wheight = Wheights.regular,
-    this.fontFamily = FontFamilies.poppins,
+    this.kind = KKind.primary,
+    this.size = KSizes.small,
+    this.wheight = KWheights.regular,
+    this.fontFamily = KFontFamily.poppins,
     this.color,
     this.overflow = TextOverflow.ellipsis,
     this.selectable = false,
@@ -47,10 +68,10 @@ class CustomTypography extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final style = fontFamilies[fontFamily]!(
+    final style = fontFamily(
       color: color ?? typographyFontColor[kind],
       fontSize: typographyFontSize[size],
-      fontWeight: fontWheights[wheight],
+      fontWeight: wheight,
     );
 
     if (selectable) {

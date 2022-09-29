@@ -9,22 +9,22 @@ import 'package:mindpoint/constants/units.dart';
 
 import 'package:vibration/vibration.dart';
 
-const Map<Kind, Color> buttonBorderColors = {
-  Kind.primary: CustomColors.black,
-  Kind.secondary: CustomColors.black,
-  Kind.tertiary: CustomColors.black10,
-  Kind.quaternary: CustomColors.transparent,
+const Map<KKind, Color> buttonBorderColors = {
+  KKind.primary: KColors.black,
+  KKind.secondary: KColors.black,
+  KKind.tertiary: KColors.black10,
+  KKind.quaternary: KColors.transparent,
 };
 
-const Map<Kind, Color> buttonBackgroundColors = {
-  Kind.primary: CustomColors.black,
-  Kind.secondary: CustomColors.white,
-  Kind.tertiary: CustomColors.gray10,
-  Kind.quaternary: CustomColors.transparent,
+const Map<KKind, Color> buttonBackgroundColors = {
+  KKind.primary: KColors.black,
+  KKind.secondary: KColors.white,
+  KKind.tertiary: KColors.gray10,
+  KKind.quaternary: KColors.transparent,
 };
 
 class Button extends HookWidget {
-  final Kind kind;
+  final KKind kind;
   final Widget? child;
 
   final bool animate;
@@ -33,7 +33,7 @@ class Button extends HookWidget {
   const Button({
     super.key,
     this.child,
-    this.kind = Kind.primary,
+    this.kind = KKind.primary,
     this.animate = true,
     this.disabled = false,
   });
@@ -87,7 +87,7 @@ class Button extends HookWidget {
             maxHeight: 32,
             minWidth: 32,
           ),
-          padding: const EdgeInsets.symmetric(horizontal: Units.xsmall),
+          padding: const EdgeInsets.symmetric(horizontal: KUnits.xsmall),
           decoration: BoxDecoration(
             color: buttonBackgroundColors[kind] as Color,
             borderRadius: BorderRadius.circular(100),

@@ -47,16 +47,16 @@ final usernameProvider = Provider<String>(
 final currentThoughtDataProvider = StateProvider<String>((ref) => '');
 
 final currentMenuProvider =
-    StateProvider<AvailableMenus>((ref) => AvailableMenus.none);
+    StateProvider<KAvailableMenus>((ref) => KAvailableMenus.none);
 
 final userIsOnAnyKindOfMenu = Provider<bool>(
-    (ref) => ref.watch(currentMenuProvider) != AvailableMenus.none);
+    (ref) => ref.watch(currentMenuProvider) != KAvailableMenus.none);
 
 final userIsOnEditMenuProvider = Provider<bool>(
-    (ref) => ref.watch(currentMenuProvider) == AvailableMenus.edit);
+    (ref) => ref.watch(currentMenuProvider) == KAvailableMenus.edit);
 
 final userIsOnProfileMenuProvider = Provider<bool>(
-    (ref) => ref.watch(currentMenuProvider) == AvailableMenus.profile);
+    (ref) => ref.watch(currentMenuProvider) == KAvailableMenus.profile);
 
 final userIsOnAttachmentsMenuProvider = Provider<bool>(
-    (ref) => ref.watch(currentMenuProvider) == AvailableMenus.attachments);
+    (ref) => ref.watch(currentMenuProvider) == KAvailableMenus.attachments);

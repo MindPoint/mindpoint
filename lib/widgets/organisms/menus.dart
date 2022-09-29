@@ -22,9 +22,9 @@ class Menus extends HookConsumerWidget {
 
     final menu = useMemoized<Widget>(() {
       switch (currentMenu) {
-        case AvailableMenus.profile:
+        case KAvailableMenus.profile:
           return const ProfileMenu();
-        case AvailableMenus.edit:
+        case KAvailableMenus.edit:
           return const EditMenu();
         default:
           return Container();
@@ -39,9 +39,9 @@ class Menus extends HookConsumerWidget {
         decoration: BoxDecoration(
           border: Border(
             top: BorderSide(
-              color: currentMenu == AvailableMenus.none
-                  ? CustomColors.white
-                  : CustomColors.black10,
+              color: currentMenu == KAvailableMenus.none
+                  ? KColors.white
+                  : KColors.black10,
               width: 1,
             ),
           ),

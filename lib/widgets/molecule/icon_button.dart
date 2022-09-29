@@ -14,14 +14,14 @@ class CustomIconButton extends StatelessWidget {
     super.key,
     required this.label,
     required this.icon,
-    this.kind = Kind.primary,
-    this.color = CustomColors.white,
+    this.kind = KKind.primary,
+    this.color = KColors.white,
     this.disabled = false,
   });
 
   final String label;
   final IconData icon;
-  final Kind kind;
+  final KKind kind;
   final Color color;
   final bool disabled;
 
@@ -38,12 +38,12 @@ class CustomIconButton extends StatelessWidget {
             color: color,
             size: 16,
           ),
-          const SizedBox(width: Units.xxsmall),
+          const SizedBox(width: KUnits.xxsmall),
           CustomTypography(
             label,
             color: color,
-            wheight: Wheights.medium,
-            size: Sizes.smallest,
+            wheight: KWheights.medium,
+            size: KSizes.smallest,
           )
         ],
       ),

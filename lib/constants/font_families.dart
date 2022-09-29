@@ -1,11 +1,10 @@
 import 'package:google_fonts/google_fonts.dart';
 
-enum FontFamilies {
-  poppins,
-  robotoSerif,
-}
+class KFontFamily {
+  // This class is not meant to be instantiated or extended; this constructor
+  // prevents instantiation and extension.
+  KFontFamily._();
 
-final fontFamilies = {
-  FontFamilies.poppins: GoogleFonts.poppins,
-  FontFamilies.robotoSerif: GoogleFonts.robotoSerif,
-};
+  static const poppins = GoogleFonts.poppins;
+  static const robotoSerif = GoogleFonts.robotoSerif;
+}

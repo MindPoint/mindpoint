@@ -10,8 +10,8 @@ enum DoubleStateButtonState {
 }
 
 class DoubleStateButton extends StatelessWidget {
-  final Kind primaryKind;
-  final Kind secondaryKind;
+  final KKind primaryKind;
+  final KKind secondaryKind;
 
   final Widget primaryChild;
   final Widget secondaryChild;
@@ -20,8 +20,8 @@ class DoubleStateButton extends StatelessWidget {
 
   const DoubleStateButton({
     super.key,
-    this.primaryKind = Kind.primary,
-    this.secondaryKind = Kind.secondary,
+    this.primaryKind = KKind.primary,
+    this.secondaryKind = KKind.secondary,
     required this.primaryChild,
     required this.secondaryChild,
     required this.state,

@@ -9,7 +9,7 @@ class AndroidStatusBar extends StatelessWidget {
      */
     SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(
-        statusBarColor: CustomColors.gray20,
+        statusBarColor: KColors.gray20,
         statusBarIconBrightness: Brightness.dark,
         systemNavigationBarColor: transparent,
         systemNavigationBarIconBrightness: Brightness.dark,
@@ -21,7 +21,7 @@ class AndroidStatusBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 25,
-      color: CustomColors.transparent,
+      color: KColors.transparent,
     );
   }
 }

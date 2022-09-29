@@ -1,4 +1,4 @@
-enum Sizes {
+enum KSizes {
   smallest,
   small,
   medium,
