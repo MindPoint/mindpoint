@@ -34,7 +34,7 @@ class MMenu extends StatelessWidget implements MMenuAbstract {
     return AnimatedSwitcher(
       switchInCurve: Curves.easeInOut,
       switchOutCurve: Curves.easeInOut,
-      duration: const Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 250),
       transitionBuilder: (Widget child, Animation<double> animation) {
         return FadeTransition(
           opacity: animation,

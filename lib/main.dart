@@ -42,6 +42,7 @@ class App extends HookConsumerWidget {
       routerDelegate: router.routerDelegate,
       title: title,
       theme: ThemeData(
+        useMaterial3: true,
         primaryColor: KColors.black,
         textSelectionTheme: const TextSelectionThemeData(
           cursorColor: KColors.black,
