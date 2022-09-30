@@ -3,9 +3,9 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:mindpoint/widgets/atoms/page_base.dart';
 
 class DefaultTemplate extends HookWidget {
-  final Widget content;
-  final Widget menu;
-  final Widget footer;
+  final Widget? content;
+  final Widget? menu;
+  final Widget? footer;
 
   const DefaultTemplate({
     super.key,
@@ -22,10 +22,10 @@ class DefaultTemplate extends HookWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Expanded(
-            child: content,
+            child: content ?? Container(),
           ),
-          menu,
-          footer
+          menu ?? Container(),
+          footer ?? Container(),
         ],
       ),
     );

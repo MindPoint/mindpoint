@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mindpoint/constants/menus.dart';
 import 'package:mindpoint/data/providers/main.dart';
 import 'package:mindpoint/widgets/molecule/footer.dart';
+import 'package:mindpoint/widgets/molecule/menu.dart';
 import 'package:mindpoint/widgets/pages/timeline/footer/default.dart';
 import 'package:mindpoint/widgets/pages/timeline/footer/edit.dart';
+import 'package:mindpoint/widgets/pages/timeline/menus/edit.dart';
+import 'package:mindpoint/widgets/pages/timeline/menus/profile.dart';
 
 import '../../../data/models/node.dart';
 import '../../template/default_template.dart';
 
-import '../../organisms/menus.dart';
 import '../../organisms/node_list.dart';
 
 class TimelinePage extends HookConsumerWidget {
@@ -36,7 +37,20 @@ class TimelinePage extends HookConsumerWidget {
               );
             },
           ),
-          menu: const Menus(),
+          menu: MMenu.withState(
+            state: currentMenu,
+            states: {
+              KAvailableMenus.none: const MMenuState(
+                child: SizedBox(height: 0),
+              ),
+              KAvailableMenus.profile: const MMenuState(
+                child: TimelineProfileMenu(),
+              ),
+              KAvailableMenus.edit: const MMenuState(
+                child: TimelineEditMenu(),
+              ),
+            },
+          ),
           footer: MFooter.withStates(
             state: currentMenu,
             states: {
