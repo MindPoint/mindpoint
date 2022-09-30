@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mindpoint/widgets/pages/timeline.dart';
+import 'package:mindpoint/widgets/pages/timeline/timeline.dart';
 
 class RouteNames {
   RouteNames._();
@@ -15,6 +15,6 @@ GoRouter createRouterInstance() => GoRouter(
           path: RouteNames.timeline,
           builder: (BuildContext context, GoRouterState state) =>
               const TimelinePage(),
-        )
+        ),
       ],
     );
