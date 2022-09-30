@@ -34,16 +34,16 @@ class TimelineEditFooter extends HookConsumerWidget {
         // Save Button
         AButton(
           onTap: () {
-            if (ref.read(currentThoughtDataProvider).isNotEmpty) {
-              addNode(
-                user!,
-                Node(
-                  type: NodeTypes.text,
-                  data: currentThoughtData,
-                  timestamp: DateTime.now(),
-                ),
-              );
-            }
+            if (ref.read(currentThoughtDataProvider).isEmpty) return;
+
+            addNode(
+              user!,
+              FirestoreNode(
+                type: FirestoreNodeTypes.text,
+                data: currentThoughtData,
+                timestamp: DateTime.now(),
+              ),
+            );
 
             ref.read(currentThoughtDataProvider.state).state = '';
           },

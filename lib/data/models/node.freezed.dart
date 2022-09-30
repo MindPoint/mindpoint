@@ -14,37 +14,42 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-Node _$NodeFromJson(Map<String, dynamic> json) {
+FirestoreNode _$FirestoreNodeFromJson(Map<String, dynamic> json) {
   return _Node.fromJson(json);
 }
 
 /// @nodoc
-mixin _$Node {
-  NodeTypes get type => throw _privateConstructorUsedError;
+mixin _$FirestoreNode {
+  FirestoreNodeTypes get type => throw _privateConstructorUsedError;
   String get data => throw _privateConstructorUsedError;
   @TimestampConverter()
   DateTime get timestamp => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $NodeCopyWith<Node> get copyWith => throw _privateConstructorUsedError;
+  $FirestoreNodeCopyWith<FirestoreNode> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $NodeCopyWith<$Res> {
-  factory $NodeCopyWith(Node value, $Res Function(Node) then) =
-      _$NodeCopyWithImpl<$Res>;
+abstract class $FirestoreNodeCopyWith<$Res> {
+  factory $FirestoreNodeCopyWith(
+          FirestoreNode value, $Res Function(FirestoreNode) then) =
+      _$FirestoreNodeCopyWithImpl<$Res>;
   $Res call(
-      {NodeTypes type, String data, @TimestampConverter() DateTime timestamp});
+      {FirestoreNodeTypes type,
+      String data,
+      @TimestampConverter() DateTime timestamp});
 }
 
 /// @nodoc
-class _$NodeCopyWithImpl<$Res> implements $NodeCopyWith<$Res> {
-  _$NodeCopyWithImpl(this._value, this._then);
+class _$FirestoreNodeCopyWithImpl<$Res>
+    implements $FirestoreNodeCopyWith<$Res> {
+  _$FirestoreNodeCopyWithImpl(this._value, this._then);
 
-  final Node _value;
+  final FirestoreNode _value;
   // ignore: unused_field
-  final $Res Function(Node) _then;
+  final $Res Function(FirestoreNode) _then;
 
   @override
   $Res call({
@@ -56,7 +61,7 @@ class _$NodeCopyWithImpl<$Res> implements $NodeCopyWith<$Res> {
       type: type == freezed
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
-              as NodeTypes,
+              as FirestoreNodeTypes,
       data: data == freezed
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
@@ -70,16 +75,18 @@ class _$NodeCopyWithImpl<$Res> implements $NodeCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$$_NodeCopyWith<$Res> implements $NodeCopyWith<$Res> {
+abstract class _$$_NodeCopyWith<$Res> implements $FirestoreNodeCopyWith<$Res> {
   factory _$$_NodeCopyWith(_$_Node value, $Res Function(_$_Node) then) =
       __$$_NodeCopyWithImpl<$Res>;
   @override
   $Res call(
-      {NodeTypes type, String data, @TimestampConverter() DateTime timestamp});
+      {FirestoreNodeTypes type,
+      String data,
+      @TimestampConverter() DateTime timestamp});
 }
 
 /// @nodoc
-class __$$_NodeCopyWithImpl<$Res> extends _$NodeCopyWithImpl<$Res>
+class __$$_NodeCopyWithImpl<$Res> extends _$FirestoreNodeCopyWithImpl<$Res>
     implements _$$_NodeCopyWith<$Res> {
   __$$_NodeCopyWithImpl(_$_Node _value, $Res Function(_$_Node) _then)
       : super(_value, (v) => _then(v as _$_Node));
@@ -97,7 +104,7 @@ class __$$_NodeCopyWithImpl<$Res> extends _$NodeCopyWithImpl<$Res>
       type: type == freezed
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
-              as NodeTypes,
+              as FirestoreNodeTypes,
       data: data == freezed
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
@@ -121,7 +128,7 @@ class _$_Node implements _Node {
   factory _$_Node.fromJson(Map<String, dynamic> json) => _$$_NodeFromJson(json);
 
   @override
-  final NodeTypes type;
+  final FirestoreNodeTypes type;
   @override
   final String data;
   @override
@@ -130,7 +137,7 @@ class _$_Node implements _Node {
 
   @override
   String toString() {
-    return 'Node(type: $type, data: $data, timestamp: $timestamp)';
+    return 'FirestoreNode(type: $type, data: $data, timestamp: $timestamp)';
   }
 
   @override
@@ -162,16 +169,16 @@ class _$_Node implements _Node {
   }
 }
 
-abstract class _Node implements Node {
+abstract class _Node implements FirestoreNode {
   const factory _Node(
-      {required final NodeTypes type,
+      {required final FirestoreNodeTypes type,
       required final String data,
       @TimestampConverter() required final DateTime timestamp}) = _$_Node;
 
   factory _Node.fromJson(Map<String, dynamic> json) = _$_Node.fromJson;
 
   @override
-  NodeTypes get type => throw _privateConstructorUsedError;
+  FirestoreNodeTypes get type => throw _privateConstructorUsedError;
   @override
   String get data => throw _privateConstructorUsedError;
   @override

@@ -5,7 +5,7 @@ import 'package:mindpoint/constants/font_families.dart';
 import '../../atoms/typography.dart';
 
 class TextNode extends StatelessWidget {
-  final Node node;
+  final FirestoreNode node;
 
   const TextNode({
     super.key,

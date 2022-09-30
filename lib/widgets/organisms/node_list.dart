@@ -10,7 +10,7 @@ import '../../data/models/node.dart';
 import '../../data/providers/main.dart';
 
 class NodeList extends HookConsumerWidget {
-  final List<Node> nodes;
+  final List<FirestoreNode> nodes;
 
   const NodeList({
     super.key,
@@ -24,7 +24,7 @@ class NodeList extends HookConsumerWidget {
     // Is required to reverse the data to display it in the correct order, the
     // [ListView] will be reversed too, so the Nodes can "stick" to the bottom.
     final groups = useMemoized(() {
-      final groups = groupBy<Node, DateTime>(
+      final groups = groupBy<FirestoreNode, DateTime>(
         nodes,
         (node) => DateTime(
           node.timestamp.year,

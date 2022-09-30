@@ -65,8 +65,8 @@ class EditMenu extends HookConsumerWidget {
                 if (userIsCreatingANewLine) {
                   addNode(
                     user!,
-                    Node(
-                      type: NodeTypes.text,
+                    FirestoreNode(
+                      type: FirestoreNodeTypes.text,
                       data: currentThoughtData.trim(),
                       timestamp: DateTime.now(),
                     ),

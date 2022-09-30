@@ -20,10 +20,10 @@ final nodesProvider = StreamProvider((ref) {
       .doc(user.value?.uid)
       .collection(firebaseFirestoreThoughtsCollectionKey)
       .snapshots()
-      .map((event) => event.docs.map((doc) => Node.fromDocument(doc)));
+      .map((event) => event.docs.map((doc) => FirestoreNode.fromDocument(doc)));
 });
 
-Future addNode(User user, Node node) {
+Future addNode(User user, FirestoreNode node) {
   return FirebaseFirestore.instance
       .collection('users')
       .doc(user.uid)

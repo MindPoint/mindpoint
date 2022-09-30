@@ -13,7 +13,7 @@ import '../atoms/typography.dart';
 
 class GroupedNodes {
   final DateTime timestamp;
-  final List<Node> nodes;
+  final List<FirestoreNode> nodes;
 
   GroupedNodes({
     required this.timestamp,
@@ -42,16 +42,16 @@ class NodeGroup extends StatelessWidget {
     return '${nodeDate.day}/${nodeDate.month}/${nodeDate.year}';
   }
 
-  Widget getCorrectNodeWidget(Node node) {
+  Widget getCorrectNodeWidget(FirestoreNode node) {
     switch (node.type) {
-      case NodeTypes.text:
+      case FirestoreNodeTypes.text:
         return TextNode(node: node);
       default:
         return TextNode(node: node);
     }
   }
 
-  List<Widget> getNodeWidgetsToBeRendered(List<Node> nodes) {
+  List<Widget> getNodeWidgetsToBeRendered(List<FirestoreNode> nodes) {
     if (nodes.isEmpty) {
       return [
         const NodeGroupChildWrapper(

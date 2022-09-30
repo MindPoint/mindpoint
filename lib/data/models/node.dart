@@ -6,22 +6,23 @@ import 'converters/timestamp.dart';
 part 'node.freezed.dart';
 part 'node.g.dart';
 
-enum NodeTypes {
+enum FirestoreNodeTypes {
   text,
 }
 
 @Freezed()
-class Node with _$Node {
-  const factory Node({
-    required NodeTypes type,
+class FirestoreNode with _$FirestoreNode {
+  const factory FirestoreNode({
+    required FirestoreNodeTypes type,
     required String data,
     @TimestampConverter() required DateTime timestamp,
   }) = _Node;
 
-  factory Node.fromJson(Map<String, dynamic> json) => _$NodeFromJson(json);
+  factory FirestoreNode.fromJson(Map<String, dynamic> json) =>
+      _$FirestoreNodeFromJson(json);
 
-  factory Node.fromDocument(DocumentSnapshot doc) {
+  factory FirestoreNode.fromDocument(DocumentSnapshot doc) {
     final data = doc.data()! as Map<String, dynamic>;
-    return Node.fromJson(data);
+    return FirestoreNode.fromJson(data);
   }
 }

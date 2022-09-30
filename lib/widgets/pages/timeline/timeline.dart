@@ -29,7 +29,8 @@ class TimelinePage extends HookConsumerWidget {
         body: DefaultTemplate(
           content: StreamBuilder(
             stream: stream,
-            builder: (context, AsyncSnapshot<Iterable<Node>> snapshot) {
+            builder:
+                (context, AsyncSnapshot<Iterable<FirestoreNode>> snapshot) {
               return NodeList(
                 nodes: snapshot.data?.toList() ?? [],
               );
