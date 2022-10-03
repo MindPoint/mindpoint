@@ -1,5 +1,6 @@
 enum KAvailableMenus {
   login,
+  merge,
   confirmLogout,
   donation,
   news,

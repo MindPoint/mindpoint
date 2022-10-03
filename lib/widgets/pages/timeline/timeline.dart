@@ -7,6 +7,7 @@ import 'package:mindpoint/widgets/molecule/menu.dart';
 import 'package:mindpoint/widgets/pages/timeline/footer/default.dart';
 import 'package:mindpoint/widgets/pages/timeline/footer/edit.dart';
 import 'package:mindpoint/widgets/pages/timeline/menus/edit.dart';
+import 'package:mindpoint/widgets/pages/timeline/menus/merge.dart';
 import 'package:mindpoint/widgets/pages/timeline/menus/profile.dart';
 
 import '../../../data/models/node.dart';
@@ -19,8 +20,9 @@ class TimelinePage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    final stream = ref.watch(nodesProvider.stream);
     final currentMenu = ref.watch(currentMenuProvider);
+
+    final nodesProvider = ref.watch(nodesClassProvider);
 
     final MediaQueryData data = MediaQuery.of(context);
 
@@ -29,7 +31,7 @@ class TimelinePage extends HookConsumerWidget {
       child: Scaffold(
         body: DefaultTemplate(
           content: StreamBuilder(
-            stream: stream,
+            stream: nodesProvider.streaming,
             builder:
                 (context, AsyncSnapshot<Iterable<FirestoreNode>> snapshot) {
               return NodeList(
@@ -46,6 +48,9 @@ class TimelinePage extends HookConsumerWidget {
               KAvailableMenus.profile: const MMenuState(
                 child: TimelineProfileMenu(),
               ),
+              KAvailableMenus.merge: const MMenuState(
+                child: TimelineMergeMenu(),
+              ),
               KAvailableMenus.edit: const MMenuState(
                 child: TimelineEditMenu(),
               ),
@@ -58,6 +63,9 @@ class TimelinePage extends HookConsumerWidget {
                 child: TimelineDefaultFooter(),
               ),
               KAvailableMenus.profile: const MFooterState(
+                child: TimelineDefaultFooter(),
+              ),
+              KAvailableMenus.merge: const MFooterState(
                 child: TimelineDefaultFooter(),
               ),
               KAvailableMenus.edit: const MFooterState(

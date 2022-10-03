@@ -1,7 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:mindpoint/constants/colors.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:mindpoint/constants/menus.dart';
 
 import '../../../../constants/kinds.dart';
 import '../../../../constants/sizes.dart';
@@ -12,6 +15,7 @@ import '../../../atoms/button.dart';
 import '../../../atoms/custom_icons.dart';
 import '../../../atoms/typography.dart';
 
+/// Wraps all content for the current Menu
 class TimelineProfileMenu extends HookConsumerWidget {
   const TimelineProfileMenu({super.key});
 
@@ -51,6 +55,7 @@ class TimelineProfileMenu extends HookConsumerWidget {
   }
 }
 
+/// Displays the header with the Username initial and the current username
 class TimelineProfileHeader extends StatelessWidget {
   final String username;
 
@@ -95,7 +100,8 @@ class TimelineProfileHeader extends StatelessWidget {
   }
 }
 
-class TimelineProfileContent extends StatelessWidget {
+/// Displays all the current menu buttons
+class TimelineProfileContent extends HookConsumerWidget {
   final bool logged;
 
   const TimelineProfileContent({
@@ -104,7 +110,9 @@ class TimelineProfileContent extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
+    final nodesProvider = ref.watch(nodesClassProvider);
+
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       padding: const EdgeInsets.symmetric(
@@ -118,7 +126,17 @@ class TimelineProfileContent extends StatelessWidget {
               ? Container(
                   padding: const EdgeInsets.only(right: KUnits.small),
                   child: AButton(
-                    onTap: () => signInWithGoogle(),
+                    onTap: () async {
+                      if (nodesProvider.nodes.isNotEmpty) {
+                        ref.read(currentMenuProvider.state).state =
+                            KAvailableMenus.merge;
+                      } else {
+                        await signInWithGoogle();
+
+                        ref.read(currentMenuProvider.state).state =
+                            KAvailableMenus.none;
+                      }
+                    },
                     child: ATypography.withIcon(
                       'Entrar com o Google',
                       CustomIcons.googleLogo,
