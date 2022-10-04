@@ -117,6 +117,18 @@ class TimelineDefaultFooter extends HookConsumerWidget {
                   KAvailableMenus.none,
             ),
 
+            // Displays the close icon to close the current menu
+            KAvailableMenus.welcome: AButtonState(
+              child: const Icon(
+                Icons.close_sharp,
+                size: KUnits.xxbig,
+                color: KColors.black,
+              ),
+              kind: KKind.secondary,
+              onTap: () => ref.read(currentMenuProvider.state).state =
+                  KAvailableMenus.none,
+            ),
+
             KAvailableMenus.edit: const AButtonState(),
           },
         ),

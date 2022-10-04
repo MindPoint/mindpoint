@@ -3,6 +3,9 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
+import '../../constants/colors.dart';
+import '../../constants/units.dart';
+
 abstract class MMenuAbstract {
   final Widget? child;
 
@@ -61,6 +64,35 @@ class MMenu extends StatelessWidget implements MMenuAbstract {
     return MMenu(
       key: key,
       child: current.child,
+    );
+  }
+}
+
+class MMenuWrapper extends StatelessWidget {
+  final Widget child;
+  const MMenuWrapper({
+    super.key,
+    required this.child,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      decoration: const BoxDecoration(
+        border: Border(
+          top: BorderSide(
+            width: 1,
+            color: KColors.black10,
+            strokeAlign: StrokeAlign.inside,
+          ),
+        ),
+      ),
+      padding: const EdgeInsets.symmetric(
+        vertical: KUnits.xxxxbig,
+        horizontal: KUnits.xxbig,
+      ),
+      child: child,
     );
   }
 }

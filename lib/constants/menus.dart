@@ -8,4 +8,5 @@ enum KAvailableMenus {
   profile,
   edit,
   none,
+  welcome,
 }
