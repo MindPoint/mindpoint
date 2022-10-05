@@ -5,6 +5,7 @@ import 'package:mindpoint/constants/sizes.dart';
 import 'package:mindpoint/hooks/keyboard_visibility.dart';
 import 'package:mindpoint/widgets/atoms/button.dart';
 import 'package:mindpoint/widgets/atoms/typography.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../constants/colors.dart';
 import '../../../../data/models/node.dart';
@@ -17,6 +18,8 @@ class TimelineEditFooter extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(authStateChangesProvider).value;
     final currentThoughtData = ref.watch(currentThoughtDataProvider);
+
+    final saveAction = AppLocalizations.of(context)!.editFooterSaveAction;
 
     // Forces this menu to close when the keyboard is not visible.
     useKeyBoardVisibility((visible) {
@@ -49,7 +52,7 @@ class TimelineEditFooter extends HookConsumerWidget {
           },
           disabled: currentThoughtData.isEmpty,
           child: ATypography.withIcon(
-            'Salvar',
+            saveAction,
             Icons.keyboard_return,
             color: KColors.white,
             size: KSizes.smallest,

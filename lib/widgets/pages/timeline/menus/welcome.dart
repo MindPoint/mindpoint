@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 import 'package:mindpoint/constants/colors.dart';
 import 'package:mindpoint/widgets/molecule/menu.dart';
 import 'package:mindpoint/widgets/molecule/section.dart';
@@ -18,26 +21,20 @@ class TimelineWelcomeMenu extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return MMenuWrapper(
       child: MSection(
-        label: const ATypography(
-          'Bem vindo ao Mind Point!',
+        label: ATypography(
+          AppLocalizations.of(context)!.welcomeMenuLabel,
           wheight: KWheights.medium,
         ),
-        content: const [
-          ATypography(
-            'Aliquip velit deserunt cillum Lorem labore id aliquip culpa in eu cillum aute. Enim veniam voluptate fugiat culpa. Consequat est ipsum nostrud elit amet veniam excepteur consequat. Adipisicing ad velit adipisicing ipsum Lorem ex. Et commodo consectetur dolore quis minim enim tempor enim consectetur incididunt veniam veniam culpa. Labore id nostrud est amet amet eiusmod tempor dolore sit. Eu velit incididunt amet consequat non sit nulla eu.',
-            wheight: KWheights.regular,
-            overflow: TextOverflow.visible,
-          ),
-          ATypography(
-            'Aliquip velit deserunt cillum Lorem labore id aliquip culpa in eu cillum aute. Enim veniam voluptate fugiat culpa. Consequat est ipsum nostrud elit amet veniam excepteur consequat. Adipisicing ad velit adipisicing ipsum Lorem ex. Et commodo consectetur dolore quis minim enim tempor enim consectetur incididunt veniam veniam culpa. Labore id nostrud est amet amet eiusmod tempor dolore sit. Eu velit incididunt amet consequat non sit nulla eu.',
-            wheight: KWheights.regular,
-            overflow: TextOverflow.visible,
-          ),
-          ATypography(
-            'Aliquip velit deserunt cillum Lorem labore id aliquip culpa in eu cillum aute. Enim veniam voluptate fugiat culpa. Consequat est ipsum nostrud elit amet veniam excepteur consequat. Adipisicing ad velit adipisicing ipsum Lorem ex. Et commodo consectetur dolore quis minim enim tempor enim consectetur incididunt veniam veniam culpa. Labore id nostrud est amet amet eiusmod tempor dolore sit. Eu velit incididunt amet consequat non sit nulla eu.',
-            wheight: KWheights.regular,
-            overflow: TextOverflow.visible,
-          ),
+        content: [
+          ...AppLocalizations.of(context)!
+              .welcomeMenuContent
+              .split('\n')
+              .map((paragraph) => ATypography(
+                    paragraph,
+                    wheight: KWheights.regular,
+                    overflow: TextOverflow.visible,
+                  ))
+              .toList(),
         ],
         actions: [
           AButton(
@@ -45,7 +42,7 @@ class TimelineWelcomeMenu extends HookConsumerWidget {
               ref.read(currentMenuProvider.state).state = KAvailableMenus.none;
             },
             child: ATypography.withIcon(
-              'Entendi',
+              AppLocalizations.of(context)!.welcomeMenuConfirmAction,
               Icons.done,
               color: KColors.white,
               wheight: KWheights.medium,

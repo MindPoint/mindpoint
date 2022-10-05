@@ -22,6 +22,6 @@ final usernameProvider = Provider<String>(
       return user.displayName as String;
     }
 
-    return 'Anonymous';
+    return '';
   },
 );

@@ -1,9 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 import 'package:mindpoint/constants/colors.dart';
 import 'package:mindpoint/constants/kinds.dart';
-import 'package:mindpoint/constants/units.dart';
 import 'package:mindpoint/widgets/molecule/menu.dart';
 import 'package:mindpoint/widgets/molecule/section.dart';
 
@@ -23,21 +24,21 @@ class TimelineMergeMenu extends HookConsumerWidget {
 
     return MMenuWrapper(
       child: MSection(
-        label: const ATypography(
-          'Atenção!',
+        label: ATypography.withIcon(
+          AppLocalizations.of(context)!.mergeMenuLabel,
+          Icons.warning_rounded,
           wheight: KWheights.medium,
         ),
-        content: const [
-          ATypography(
-            'Você realizará o login em uma nova conta. Deseja adicionar os pensamentos deste usuário anonimo a sua conta atual?',
-            wheight: KWheights.regular,
-            overflow: TextOverflow.visible,
-          ),
-          ATypography(
-            'Caso você decida por não adicionar, os dados serão perdidos e não poderão mais ser recuperados!',
-            wheight: KWheights.regular,
-            overflow: TextOverflow.visible,
-          ),
+        content: [
+          ...AppLocalizations.of(context)!
+              .mergeMenuContent
+              .split('\n')
+              .map((paragraph) => ATypography(
+                    paragraph,
+                    wheight: KWheights.regular,
+                    overflow: TextOverflow.visible,
+                  ))
+              .toList(),
         ],
         actions: [
           AButton(
@@ -53,7 +54,7 @@ class TimelineMergeMenu extends HookConsumerWidget {
               ref.read(currentMenuProvider.state).state = KAvailableMenus.none;
             },
             child: ATypography.withIcon(
-              'Adicionar',
+              AppLocalizations.of(context)!.mergeMenuConfirmAction,
               Icons.done,
               color: KColors.white,
               wheight: KWheights.medium,
@@ -67,7 +68,7 @@ class TimelineMergeMenu extends HookConsumerWidget {
               ref.read(currentMenuProvider.state).state = KAvailableMenus.none;
             },
             child: ATypography.withIcon(
-              'Não adicionar',
+              AppLocalizations.of(context)!.mergeMenuDeclineAction,
               Icons.close,
               wheight: KWheights.medium,
               size: KSizes.smallest,

@@ -1,0 +1,25 @@
+{
+  "welcomeMenuLabel": "Bem vindo ao Mind Point!",
+  "welcomeMenuContent": "Veniam mollit consectetur pariatur proident ut mollit exercitation ad eiusmod elit.\nVeniam mollit consectetur pariatur proident ut mollit exercitation ad eiusmod elit.",
+  "welcomeMenuConfirmAction": "Que legal!",
+
+  "mergeMenuLabel": "Atençãp!",
+  "mergeMenuContent": "Você está realizando o login em outra conta.\nVocê deseja adicionar os dados da conta anonima atual à conta logada?",
+  "mergeMenuConfirmAction": "Sim, porfavor!",
+  "mergeMenuDeclineAction": "Não, obrigado.",
+
+  "editMenuHintText": "No que você está pensando?",
+
+  "profileMenuAnonymousUser": "Anônimo",
+  "profileMenuSigninWithGoogleAction": "Entrar com o Google",
+  "profileMenuSignoutAction": "Sair da conta",
+
+  "defaultFooterCallToAction": "No que você está pensando?",
+  "defaultFooterDraftCallToAction": "Rascunho:",
+
+  "editFooterSaveAction": "Salvar",
+
+  "pageTodayLabel": "Hoje",
+  "pageYesterdayLabel": "Ontem",
+  "pageHintText": "Você ainda não escreveu nada hoje. Tente escrever um pouco sobre como se sente ou sobre como foi seu dia."
+}

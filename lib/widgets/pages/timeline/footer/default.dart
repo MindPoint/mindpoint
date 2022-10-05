@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vibration/vibration.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../constants/kinds.dart';
 import '../../../../constants/menus.dart';
@@ -25,6 +26,16 @@ class TimelineDefaultFooter extends HookConsumerWidget {
     final currentMenu = ref.watch(currentMenuProvider);
     final currentThoughtData = ref.watch(currentThoughtDataProvider);
 
+    final normalizedUsername = username.isEmpty
+        ? AppLocalizations.of(context)!.profileMenuAnonymousUser
+        : username;
+
+    final footerCallToAction =
+        AppLocalizations.of(context)!.defaultFooterCallToAction;
+
+    final footerDraftCallToAction =
+        AppLocalizations.of(context)!.defaultFooterDraftCallToAction;
+
     return Flex(
       direction: Axis.horizontal,
       children: [
@@ -42,11 +53,11 @@ class TimelineDefaultFooter extends HookConsumerWidget {
               child: currentThoughtData.isEmpty
                   // Displays a call to action text when the user hasn't typed any
                   // kind of data
-                  ? const Align(
+                  ? Align(
                       alignment: Alignment.centerLeft,
                       child: ATypography(
-                        'No que está pensando?',
-                        kind: KKind.secondary,
+                        footerCallToAction,
+                        kind: KKind.primary,
                       ),
                     )
 
@@ -56,16 +67,16 @@ class TimelineDefaultFooter extends HookConsumerWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        const ATypography(
-                          'Rascunho:',
-                          kind: KKind.secondary,
+                        ATypography(
+                          footerDraftCallToAction,
+                          kind: KKind.primary,
                           wheight: KWheights.medium,
                         ),
                         const SizedBox(width: KUnits.xxsmall),
                         Expanded(
                           child: ATypography(
                             currentThoughtData,
-                            kind: KKind.secondary,
+                            kind: KKind.primary,
                             wheight: KWheights.regular,
                             overflow: TextOverflow.ellipsis,
                           ),
@@ -85,7 +96,7 @@ class TimelineDefaultFooter extends HookConsumerWidget {
             // Displays the first letter of the current username
             KAvailableMenus.none: AButtonState(
               child: ATypography(
-                username[0],
+                normalizedUsername[0],
                 kind: KKind.primary,
                 size: KSizes.small,
                 wheight: KWheights.bold,

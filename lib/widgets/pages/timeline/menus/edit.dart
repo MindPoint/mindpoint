@@ -5,6 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mindpoint/constants/colors.dart';
 import 'package:mindpoint/constants/units.dart';
 import 'package:mindpoint/widgets/molecule/menu.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../data/models/node.dart';
 import '../../../../data/providers/main.dart';
@@ -84,7 +85,7 @@ class TimelineEditMenu extends HookConsumerWidget {
                 decoration: InputDecoration(
                   border: InputBorder.none,
                   contentPadding: const EdgeInsets.all(0),
-                  hintText: 'No que está pensando?',
+                  hintText: AppLocalizations.of(context)!.editMenuHintText,
                   hintStyle: GoogleFonts.poppins(
                     fontSize: KUnits.xbig,
                   ),

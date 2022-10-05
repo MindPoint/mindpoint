@@ -121,9 +121,11 @@ class ATypography extends StatelessWidget {
     return Flex(
       direction: Axis.horizontal,
       mainAxisSize: MainAxisSize.min,
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Flexible(
+          flex: 0,
           child: Icon(
             icon,
             size: kTypographyWithIconSize[size],

@@ -5,6 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mindpoint/constants/menus.dart';
 import 'package:mindpoint/widgets/molecule/menu.dart';
 import 'package:mindpoint/widgets/molecule/section.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../constants/kinds.dart';
 import '../../../../constants/sizes.dart';
@@ -25,6 +26,10 @@ class TimelineProfileMenu extends HookConsumerWidget {
     final username = ref.watch(usernameProvider);
     final nodesProvider = ref.watch(nodesClassProvider);
 
+    final normalizedUsername = username.isEmpty
+        ? AppLocalizations.of(context)!.profileMenuAnonymousUser
+        : username;
+
     final List<Widget> actions = useMemoized(() {
       final List<Widget> actions = [];
 
@@ -40,7 +45,7 @@ class TimelineProfileMenu extends HookConsumerWidget {
             }
           },
           child: ATypography.withIcon(
-            'Entrar com o Google',
+            AppLocalizations.of(context)!.profileMenuSigninWithGoogleAction,
             CustomIcons.googleLogo,
             color: KColors.white,
             wheight: KWheights.medium,
@@ -52,7 +57,7 @@ class TimelineProfileMenu extends HookConsumerWidget {
           onTap: () => signOut(),
           kind: KKind.secondary,
           child: ATypography.withIcon(
-            'Sair',
+            AppLocalizations.of(context)!.profileMenuSignoutAction,
             Icons.logout,
             wheight: KWheights.medium,
             size: KSizes.smallest,
@@ -66,7 +71,7 @@ class TimelineProfileMenu extends HookConsumerWidget {
     return MMenuWrapper(
       child: MSection(
         label: TimelineProfileHeader(
-          username: username,
+          username: normalizedUsername,
         ),
         content: const [],
         actions: actions,

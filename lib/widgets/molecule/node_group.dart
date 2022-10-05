@@ -3,6 +3,7 @@ import 'package:mindpoint/constants/colors.dart';
 import 'package:mindpoint/constants/units.dart';
 import 'package:mindpoint/data/models/node.dart';
 import 'package:mindpoint/widgets/molecule/nodes/text_node.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../constants/wheights.dart';
 import '../atoms/typography.dart';
@@ -25,15 +26,19 @@ class NodeGroup extends StatelessWidget {
     required this.group,
   });
 
-  String getDisplayLabel(DateTime timestamp) {
+  String getDisplayLabel(BuildContext context, DateTime timestamp) {
     final now = DateTime.now();
     final today = DateTime(now.year, now.month, now.day);
     final yesterday = DateTime(now.year, now.month, now.day - 1);
 
     final nodeDate = DateTime(timestamp.year, timestamp.month, timestamp.day);
 
-    if (nodeDate == today) return 'Hoje';
-    if (nodeDate == yesterday) return 'Ontem';
+    if (nodeDate == today) {
+      return AppLocalizations.of(context)!.pageTodayLabel;
+    }
+    if (nodeDate == yesterday) {
+      return AppLocalizations.of(context)!.pageYesterdayLabel;
+    }
 
     return '${nodeDate.day}/${nodeDate.month}/${nodeDate.year}';
   }
@@ -47,13 +52,15 @@ class NodeGroup extends StatelessWidget {
     }
   }
 
-  List<Widget> getNodeWidgetsToBeRendered(List<FirestoreNode> nodes) {
+  List<Widget> getNodeWidgetsToBeRendered(
+      BuildContext context, List<FirestoreNode> nodes) {
     if (nodes.isEmpty) {
       return [
-        const NodeGroupChildWrapper(
+        NodeGroupChildWrapper(
           child: ATypography(
-            'Você ainda não escreveu nada hoje.',
+            AppLocalizations.of(context)!.pageHintText,
             color: KColors.black60,
+            overflow: TextOverflow.fade,
           ),
         ),
       ];
@@ -75,12 +82,12 @@ class NodeGroup extends StatelessWidget {
         children: [
           // Group label
           ATypography(
-            getDisplayLabel(group.timestamp),
+            getDisplayLabel(context, group.timestamp),
             wheight: KWheights.medium,
           ),
 
           // Adds a padding to each node and selects the correct widget
-          ...getNodeWidgetsToBeRendered(group.nodes),
+          ...getNodeWidgetsToBeRendered(context, group.nodes),
         ],
       ),
     );
