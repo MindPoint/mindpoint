@@ -1,10 +1,10 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:mindpoint/constants/colors.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mindpoint/constants/menus.dart';
+import 'package:mindpoint/widgets/molecule/menu.dart';
+import 'package:mindpoint/widgets/molecule/section.dart';
 
 import '../../../../constants/kinds.dart';
 import '../../../../constants/sizes.dart';
@@ -23,35 +23,84 @@ class TimelineProfileMenu extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final logged = ref.watch(userLogedInProvider);
     final username = ref.watch(usernameProvider);
+    final nodesProvider = ref.watch(nodesClassProvider);
 
-    return Container(
-      decoration: const BoxDecoration(
-        border: Border(
-          top: BorderSide(
-            width: 1,
-            color: KColors.black10,
-            strokeAlign: StrokeAlign.inside,
+    final List<Widget> actions = useMemoized(() {
+      final List<Widget> actions = [];
+
+      if (!logged) {
+        actions.add(AButton(
+          onTap: () async {
+            if (nodesProvider.nodes.isNotEmpty) {
+              ref.read(currentMenuProvider.state).state = KAvailableMenus.merge;
+            } else {
+              await signInWithGoogle();
+
+              ref.read(currentMenuProvider.state).state = KAvailableMenus.none;
+            }
+          },
+          child: ATypography.withIcon(
+            'Entrar com o Google',
+            CustomIcons.googleLogo,
+            color: KColors.white,
+            wheight: KWheights.medium,
+            size: KSizes.smallest,
           ),
+        ));
+      } else {
+        actions.add(AButton(
+          onTap: () => signOut(),
+          kind: KKind.secondary,
+          child: ATypography.withIcon(
+            'Sair',
+            Icons.logout,
+            wheight: KWheights.medium,
+            size: KSizes.smallest,
+          ),
+        ));
+      }
+
+      return actions;
+    }, [logged]);
+
+    return MMenuWrapper(
+      child: MSection(
+        label: TimelineProfileHeader(
+          username: username,
         ),
-      ),
-      padding: const EdgeInsets.symmetric(
-        // horizontal: KUnits.xxbig,
-        vertical: KUnits.xxxxbig,
-      ),
-      child: Flex(
-        direction: Axis.vertical,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          TimelineProfileHeader(
-            username: username,
-          ),
-          const SizedBox(height: KUnits.xxbig),
-          TimelineProfileContent(
-            logged: logged,
-          )
-        ],
+        content: const [],
+        actions: actions,
       ),
     );
+
+    // return Container(
+    //   decoration: const BoxDecoration(
+    //     border: Border(
+    //       top: BorderSide(
+    //         width: 1,
+    //         color: KColors.black10,
+    //         strokeAlign: StrokeAlign.inside,
+    //       ),
+    //     ),
+    //   ),
+    //   padding: const EdgeInsets.symmetric(
+    //     // horizontal: KUnits.xxbig,
+    //     vertical: KUnits.xxxxbig,
+    //   ),
+    //   child: Flex(
+    //     direction: Axis.vertical,
+    //     crossAxisAlignment: CrossAxisAlignment.start,
+    //     children: [
+    //       TimelineProfileHeader(
+    //         username: username,
+    //       ),
+    //       const SizedBox(height: KUnits.xxbig),
+    //       TimelineProfileContent(
+    //         logged: logged,
+    //       )
+    //     ],
+    //   ),
+    // );
   }
 }
 
@@ -66,36 +115,31 @@ class TimelineProfileHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: KUnits.xxbig,
-      ),
-      child: Flex(
-        direction: Axis.horizontal,
-        children: [
-          AButton(
-            animate: false,
+    return Flex(
+      direction: Axis.horizontal,
+      children: [
+        AButton(
+          animate: false,
+          child: ATypography(
+            key: ValueKey(username),
+            username[0].toUpperCase(),
+            color: KColors.white,
+            wheight: KWheights.bold,
+          ),
+        ),
+        const SizedBox(width: KUnits.small),
+        AnimatedSize(
+          duration: const Duration(milliseconds: 50),
+          child: AnimatedSwitcher(
+            duration: const Duration(milliseconds: 200),
             child: ATypography(
               key: ValueKey(username),
-              username[0].toUpperCase(),
-              color: KColors.white,
+              username,
               wheight: KWheights.bold,
             ),
           ),
-          const SizedBox(width: KUnits.small),
-          AnimatedSize(
-            duration: const Duration(milliseconds: 50),
-            child: AnimatedSwitcher(
-              duration: const Duration(milliseconds: 200),
-              child: ATypography(
-                key: ValueKey(username),
-                username,
-                wheight: KWheights.bold,
-              ),
-            ),
-          )
-        ],
-      ),
+        )
+      ],
     );
   }
 }
@@ -115,9 +159,6 @@ class TimelineProfileContent extends HookConsumerWidget {
 
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
-      padding: const EdgeInsets.symmetric(
-        horizontal: KUnits.xxbig,
-      ),
       child: Row(
         // TODO: Should wrapp these buttons on it own Statelles Widgets.
         children: [

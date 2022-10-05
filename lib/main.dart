@@ -46,7 +46,7 @@ class App extends HookConsumerWidget {
         primaryColor: KColors.black,
         textSelectionTheme: const TextSelectionThemeData(
           cursorColor: KColors.black,
-          selectionHandleColor: KColors.black,
+          selectionHandleColor: KColors.black50,
           selectionColor: KColors.gray100,
         ),
       ),

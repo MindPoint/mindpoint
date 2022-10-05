@@ -16,8 +16,6 @@ class TimelineWelcomeMenu extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final nodesProvider = ref.watch(nodesClassProvider);
-
     return MMenuWrapper(
       child: MSection(
         label: const ATypography(

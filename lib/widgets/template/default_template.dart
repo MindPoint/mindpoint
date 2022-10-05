@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:mindpoint/widgets/atoms/page_base.dart';
 
-class DefaultTemplate extends HookWidget {
+class DefaultTemplate extends StatelessWidget {
   final Widget? content;
   final Widget? menu;
   final Widget? footer;
@@ -15,7 +14,7 @@ class DefaultTemplate extends HookWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(context) {
     return PageBase(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,

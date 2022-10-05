@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mindpoint/constants/colors.dart';
 import 'package:mindpoint/constants/units.dart';
+import 'package:mindpoint/widgets/molecule/menu.dart';
 
 import '../../../../data/models/node.dart';
 import '../../../../data/providers/main.dart';
@@ -38,75 +39,65 @@ class TimelineEditMenu extends HookConsumerWidget {
       return null;
     }, [currentThoughtData]);
 
-    return Container(
-      decoration: const BoxDecoration(
-        border: Border(
-          top: BorderSide(
-            width: 1,
-            color: KColors.black10,
-            strokeAlign: StrokeAlign.inside,
-          ),
-        ),
-      ),
-      padding: const EdgeInsets.symmetric(
-        vertical: KUnits.small,
-        horizontal: KUnits.xxbig,
-      ),
-      height: 120,
-      child: LayoutBuilder(
-        builder: (context, constraints) {
-          return SizedBox(
-            height: constraints.maxHeight,
-            child: TextField(
-              focusNode: focusNode,
-              controller: textController,
-              textCapitalization: TextCapitalization.sentences,
-              onChanged: (data) {
-                // The data that the user is typing should be posted when it tries
-                // to create a new line. So we need to check if the las char is a
-                // line break ('\r').
-                // This decision was made beacause the space the user have to
-                // type is limited, so, we need to prevent the user to write bigger
-                // texts, breaking it in paragraphs.
-                final userIsCreatingANewLine = data.endsWith('\n');
+    return MMenuWrapper(
+      child: SizedBox(
+        height: 120,
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            return SizedBox(
+              height: constraints.maxHeight,
+              child: TextField(
+                clipBehavior: Clip.none,
+                focusNode: focusNode,
+                controller: textController,
+                textCapitalization: TextCapitalization.sentences,
+                onChanged: (data) {
+                  // The data that the user is typing should be posted when it tries
+                  // to create a new line. So we need to check if the las char is a
+                  // line break ('\r').
+                  // This decision was made beacause the space the user have to
+                  // type is limited, so, we need to prevent the user to write bigger
+                  // texts, breaking it in paragraphs.
+                  final userIsCreatingANewLine = data.endsWith('\n');
 
-                if (userIsCreatingANewLine) {
-                  addNode(
-                    user!,
-                    FirestoreNode(
-                      type: FirestoreNodeTypes.text,
-                      data: currentThoughtData.trim(),
-                      timestamp: DateTime.now(),
-                    ),
-                  );
+                  if (userIsCreatingANewLine) {
+                    addNode(
+                      user!,
+                      FirestoreNode(
+                        type: FirestoreNodeTypes.text,
+                        data: currentThoughtData.trim(),
+                        timestamp: DateTime.now(),
+                      ),
+                    );
 
-                  ref.read(currentThoughtDataProvider.state).state = '';
-                } else {
-                  ref.read(currentThoughtDataProvider.state).state = data;
-                }
-              },
-              autofocus: true,
-              autocorrect: true,
-              cursorColor: KColors.black,
-              expands: true,
-              minLines: null,
-              maxLines: null,
-              decoration: InputDecoration(
-                border: InputBorder.none,
-                contentPadding: const EdgeInsets.all(0),
-                hintText: 'No que está pensando?',
-                hintStyle: GoogleFonts.poppins(
+                    ref.read(currentThoughtDataProvider.state).state = '';
+                  } else {
+                    ref.read(currentThoughtDataProvider.state).state = data;
+                  }
+                },
+                autofocus: true,
+                autocorrect: true,
+                cursorColor: KColors.black,
+                expands: true,
+                minLines: null,
+                maxLines: null,
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  contentPadding: const EdgeInsets.all(0),
+                  hintText: 'No que está pensando?',
+                  hintStyle: GoogleFonts.poppins(
+                    fontSize: KUnits.xbig,
+                  ),
+                ),
+                style: GoogleFonts.robotoSerif(
+                  color: KColors.black,
                   fontSize: KUnits.xbig,
+                  height: 1.2,
                 ),
               ),
-              style: GoogleFonts.robotoSerif(
-                color: KColors.black,
-                fontSize: KUnits.xbig,
-                height: 1.2,
-              ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }

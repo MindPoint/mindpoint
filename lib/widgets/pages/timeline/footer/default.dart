@@ -62,11 +62,14 @@ class TimelineDefaultFooter extends HookConsumerWidget {
                           wheight: KWheights.medium,
                         ),
                         const SizedBox(width: KUnits.xxsmall),
-                        ATypography(
-                          currentThoughtData,
-                          kind: KKind.secondary,
-                          wheight: KWheights.regular,
-                        ),
+                        Expanded(
+                          child: ATypography(
+                            currentThoughtData,
+                            kind: KKind.secondary,
+                            wheight: KWheights.regular,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        )
                       ],
                     ),
             ),

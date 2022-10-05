@@ -22,6 +22,7 @@ class MSection extends StatelessWidget {
         maxHeight: viewportHeight - 56 - 300,
       ),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -70,11 +71,12 @@ class MSectionContentWrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
+    return Flexible(
+      flex: 1,
       child: Container(
         width: double.infinity,
-        margin: const EdgeInsets.only(
-          bottom: KUnits.big,
+        margin: EdgeInsets.only(
+          bottom: children.isNotEmpty ? KUnits.big : 0,
         ),
         child: SingleChildScrollView(
           child: Column(

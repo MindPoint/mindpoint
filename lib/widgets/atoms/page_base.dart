@@ -1,10 +1,10 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mindpoint/constants/colors.dart';
 
 import 'android_status_bar.dart';
 
-class PageBase extends HookWidget {
+class PageBase extends HookConsumerWidget {
   final Widget child;
 
   const PageBase({
@@ -13,7 +13,7 @@ class PageBase extends HookWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(context, ref) {
     /**
      * Adds a padding on the bottom when the keyboard is open;
      */
@@ -30,7 +30,7 @@ class PageBase extends HookWidget {
         mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          AndroidStatusBar(),
+          const AndroidStatusBar(),
           Expanded(
             flex: 1,
             child: child,
