@@ -26,7 +26,7 @@ class TimelineMergeMenu extends HookConsumerWidget {
       child: MSection(
         label: ATypography.withIcon(
           AppLocalizations.of(context)!.mergeMenuLabel,
-          Icons.warning_rounded,
+          Icons.join_left,
           wheight: KWheights.medium,
         ),
         content: [

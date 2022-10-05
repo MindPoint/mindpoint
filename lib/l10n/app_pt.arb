@@ -3,9 +3,9 @@
   "welcomeMenuContent": "Veniam mollit consectetur pariatur proident ut mollit exercitation ad eiusmod elit.\nVeniam mollit consectetur pariatur proident ut mollit exercitation ad eiusmod elit.",
   "welcomeMenuConfirmAction": "Que legal!",
 
-  "mergeMenuLabel": "Atençãp!",
-  "mergeMenuContent": "Você está realizando o login em outra conta.\nVocê deseja adicionar os dados da conta anonima atual à conta logada?",
-  "mergeMenuConfirmAction": "Sim, porfavor!",
+  "mergeMenuLabel": "Combinar os dados",
+  "mergeMenuContent": "Você realizará o login em outra conta.\nDeseja combinar os dados da conta anônima atual com a conta em que realizará o login?",
+  "mergeMenuConfirmAction": "Sim, por favor!",
   "mergeMenuDeclineAction": "Não, obrigado.",
 
   "editMenuHintText": "No que você está pensando?",
