@@ -1,6 +1,6 @@
 {
   "welcomeMenuLabel": "Welcome to Mind Point!",
-  "welcomeMenuContent": "Veniam mollit consectetur pariatur proident ut mollit exercitation ad eiusmod elit.\nVeniam mollit consectetur pariatur proident ut mollit exercitation ad eiusmod elit.",
+  "welcomeMenuContent": "Mind Point is a place to write down everything you think and feel in a private, simple and fluid way.\nFeel free to write anything you want in any way you want, because it's yours and no one will have access to your data.",
   "welcomeMenuConfirmAction": "Understood!",
 
   "mergeMenuLabel": "Merge the data",
@@ -21,7 +21,7 @@
 
   "pageTodayLabel": "Today",
   "pageYesterdayLabel": "Yesterday",
-  "pageHintText": "You didn't write anything today. Try writing a little about how you feel or how your day went.",
+  "pageHintText": "You didn't write anything today.",
 
   "defaultNotificationTitle": "What are you thinking about?",
   "defaultNotificationContent": "Remember, you always can write what you are thinking or feeling on Mind Point."
