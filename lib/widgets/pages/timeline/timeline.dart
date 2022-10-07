@@ -41,11 +41,11 @@ class TimelinePage extends HookConsumerWidget {
     useAppFirstRunEffect(() {
       ref.read(currentMenuProvider.state).state = KAvailableMenus.welcome;
 
-      // Scheduled a notification every day, at 8 AM
+      // Scheduled a notification every day, at 6 AM
       notification.scheduleNotification(
         title: AppLocalizations.of(context)!.defaultNotificationTitle,
         body: AppLocalizations.of(context)!.defaultNotificationContent,
-        scheduleDate: DateTime.parse('1996-01-01 08:00:00'),
+        scheduleDate: DateTime.parse('1996-01-01 07:00:00'),
       );
     });
 
