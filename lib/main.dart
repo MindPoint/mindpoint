@@ -9,8 +9,11 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:mindpoint/router/main.dart';
 import 'package:mindpoint/constants/colors.dart';
+import 'package:mindpoint/services/notification.dart';
 
 import 'firebase_options.dart';
+
+final notification = NotificationService();
 
 // Intializes the app
 void main() async {
@@ -20,6 +23,8 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  await notification.init();
 
   runApp(
     // Initializes the app with a riverpod scope
@@ -47,8 +52,8 @@ class App extends HookConsumerWidget {
       title: title,
       localizationsDelegates: const [
         AppLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: AppLocalizations.supportedLocales,

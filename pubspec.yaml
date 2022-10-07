@@ -59,6 +59,8 @@ dependencies:
   collection: ^1.16.0
   flutter_keyboard_visibility: ^5.3.0
   shared_preferences: ^2.0.15
+  flutter_local_notifications: ^12.0.0
+  flutter_launcher_icons: ^0.10.0
 
 dev_dependencies:
   flutter_test:
@@ -89,8 +91,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  assets:
-    - "assets/icon/icon.png"
+  # assets:
+  #   - "assets/icon/icon.png"
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
@@ -111,4 +113,6 @@ flutter:
 flutter_icons:
   ios: true
   android: true
-  image_path: "assets/icon/icon.png"
+  image_path: assets/icon/ic_launcher.png
+  adaptative_icon_foreground: '#ffffff'
+  adaptative_icon_background: assets/icon/ic_launcher_background.png

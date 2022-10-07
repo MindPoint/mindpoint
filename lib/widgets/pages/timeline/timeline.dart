@@ -20,9 +20,12 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../data/models/node.dart';
 import '../../../hooks/dark_mode.dart';
+import '../../../services/notification.dart';
 import '../../template/default_template.dart';
 
 import '../../organisms/node_list.dart';
+
+final notification = NotificationService();
 
 class TimelinePage extends HookConsumerWidget {
   const TimelinePage({super.key});
@@ -37,6 +40,13 @@ class TimelinePage extends HookConsumerWidget {
     // When the user makes the first lounches the app, go to the welcome menu
     useAppFirstRunEffect(() {
       ref.read(currentMenuProvider.state).state = KAvailableMenus.welcome;
+
+      // Scheduled a notification every day, at 8 AM
+      notification.scheduleNotification(
+        title: AppLocalizations.of(context)!.defaultNotificationTitle,
+        body: AppLocalizations.of(context)!.defaultNotificationContent,
+        scheduleDate: DateTime.parse('1996-01-01 08:00:00'),
+      );
     });
 
     return MediaQuery(

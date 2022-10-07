@@ -21,5 +21,8 @@
 
   "pageTodayLabel": "Today",
   "pageYesterdayLabel": "Yesterday",
-  "pageHintText": "You didn't write anything today. Try writing a little about how you feel or how your day went."
+  "pageHintText": "You didn't write anything today. Try writing a little about how you feel or how your day went.",
+
+  "defaultNotificationTitle": "What are you thinking about?",
+  "defaultNotificationContent": "Remember, you always can write what you are thinking or feeling on Mind Point."
 }

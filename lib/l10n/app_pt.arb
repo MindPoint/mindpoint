@@ -21,5 +21,8 @@
 
   "pageTodayLabel": "Hoje",
   "pageYesterdayLabel": "Ontem",
-  "pageHintText": "Você ainda não escreveu nada hoje. Tente escrever um pouco sobre como se sente ou sobre como foi seu dia."
+  "pageHintText": "Você ainda não escreveu nada hoje. Tente escrever um pouco sobre como se sente ou sobre como foi seu dia.",
+
+  "defaultNotificationTitle": "No que você está pensando?",
+  "defaultNotificationContent": "Lembre-se que você pode escrever o que está pensando ou sentindo a qualquer momento no Mind Point."
 }
