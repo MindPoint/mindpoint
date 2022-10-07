@@ -9,15 +9,17 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:mindpoint/router/main.dart';
 import 'package:mindpoint/constants/colors.dart';
-import 'package:mindpoint/services/notification.dart';
+import 'package:mindpoint/services/firebase_messaging.dart';
+import 'package:mindpoint/services/local_notification.dart';
 
 import 'firebase_options.dart';
-
-final notification = NotificationService();
 
 // Intializes the app
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  final notification = NotificationService();
+  final messaging = MessagingService(notification);
 
   // Firebase initialization
   await Firebase.initializeApp(
@@ -25,6 +27,7 @@ void main() async {
   );
 
   await notification.init();
+  await messaging.init();
 
   runApp(
     // Initializes the app with a riverpod scope

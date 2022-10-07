@@ -45,12 +45,12 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions web = FirebaseOptions(
     apiKey: 'AIzaSyA3DR8NZITwZbP8tt2HrysSvAjYXBPra6c',
-    appId: '1:639603288747:web:daf9e6dcc0f3bf6e3fe5ee',
+    appId: '1:639603288747:web:793166194a5d5cf83fe5ee',
     messagingSenderId: '639603288747',
     projectId: 'mind-point-99cb5',
     authDomain: 'mind-point-99cb5.firebaseapp.com',
     storageBucket: 'mind-point-99cb5.appspot.com',
-    measurementId: 'G-53D7KPFYPV',
+    measurementId: 'G-7NYFVFPCRJ',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
@@ -67,6 +67,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '639603288747',
     projectId: 'mind-point-99cb5',
     storageBucket: 'mind-point-99cb5.appspot.com',
+    androidClientId: '639603288747-b4l25r2s3is9hqahhrfl7aonmdtql9gb.apps.googleusercontent.com',
     iosClientId: '639603288747-gosllq2dpua93lunm2ol7d7vg06gjjse.apps.googleusercontent.com',
     iosBundleId: 'com.example.mindpoint',
   );
@@ -77,6 +78,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '639603288747',
     projectId: 'mind-point-99cb5',
     storageBucket: 'mind-point-99cb5.appspot.com',
+    androidClientId: '639603288747-b4l25r2s3is9hqahhrfl7aonmdtql9gb.apps.googleusercontent.com',
     iosClientId: '639603288747-gosllq2dpua93lunm2ol7d7vg06gjjse.apps.googleusercontent.com',
     iosBundleId: 'com.example.mindpoint',
   );

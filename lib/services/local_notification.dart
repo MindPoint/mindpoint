@@ -3,6 +3,7 @@
 
 // ignore_for_file: depend_on_referenced_packages
 
+import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 import 'package:timezone/timezone.dart' as tz;
@@ -33,7 +34,8 @@ class NotificationService {
 
   Future<void> init() async {
     const AndroidInitializationSettings initializationSettingsAndroid =
-        AndroidInitializationSettings('launcher_notification');
+        AndroidInitializationSettings(
+            '@mipmap/ic_stat_mindpoint_icon_launcher');
 
     // final IOSInitializationSettings initializationSettingsIOS =
     //     IOSInitializationSettings(
@@ -67,6 +69,7 @@ class NotificationService {
     const AndroidNotificationDetails androidPlatformChannelSpecifics =
         AndroidNotificationDetails(
       DEFAULT_NOTIFICATION_ID, DEFAULT_NOTIFICATION_CHANNEL,
+      color: Color.fromARGB(255, 0, 0, 0),
       channelDescription: 'batata', //Required for Android 8.0 or after
       importance: Importance.max,
       priority: Priority.high,

@@ -20,7 +20,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../data/models/node.dart';
 import '../../../hooks/dark_mode.dart';
-import '../../../services/notification.dart';
+import '../../../services/local_notification.dart';
 import '../../template/default_template.dart';
 
 import '../../organisms/node_list.dart';
