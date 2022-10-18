@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    name: Create version number
+    name: Build android
     runs-on: ubuntu-latest
     steps:
       # checkouts in the current repo
@@ -41,4 +41,14 @@ jobs:
         with:
           useConfigFile: true
 
-      - run: flutter --version
+      - name: Install all flutter packages
+        run: flutter pub get
+
+      - name: Run all flutter tests
+        run: flutter test
+
+      - name: Build the apk
+        run: flutter build apk --release --split-per-abi
+
+      - name: Build the app bundle
+        run: flutter build appbundle
