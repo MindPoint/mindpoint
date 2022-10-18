@@ -10,17 +10,35 @@ jobs:
     name: Create version number
     runs-on: ubuntu-latest
     steps:
+      # checkouts in the current repo
       - name: Checkout
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
+      # Installs GitVersion to manage the version automagically
+      # GitVersion docs: https://gitversion.net/docs/learn/branching-strategies/githubflow/
+      # GitVersion Github Action docs: https://github.com/GitTools/actions
+      # TODO: in the future, create a job to run the git version, to allow the use of the data in IOS and Android builds
       - name: Install GitVersion
         uses: gittools/actions/gitversion/setup@v0.9.7
         with:
           versionSpec: '5.x'
 
+      # Setups the java JDK to be able to run flutter
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      # Installs Flutter to run the build process
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+
       - name: Determine Version
         uses: gittools/actions/gitversion/execute@v0.9.7
         with:
           useConfigFile: true
+
+      - run: flutter --version
