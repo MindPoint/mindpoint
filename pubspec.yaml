@@ -30,6 +30,12 @@ dependencies:
   flutter:
     sdk: flutter
 
+  flutter_localizations:
+    sdk: flutter
+
+  intl: ^0.17.0
+
+  vibration: ^1.7.5
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -40,12 +46,22 @@ dependencies:
   flutter_hooks: ^0.18.4
   hooks_riverpod: ^1.0.4
   carousel_slider: ^4.1.1
-  firebase_core: ^1.17.1
+  firebase_core: ^1.24.0
   firebase_auth: ^3.3.19
+  firebase_messaging: ^13.1.0
   cloud_firestore: ^3.1.17
   freezed_annotation: ^2.0.3
   widgetbook_annotation: ^2.1.0
   google_sign_in: ^5.3.3
+  undo: ^1.4.0
+  debounce_throttle: ^2.0.0
+  text_selection_controls: ^0.0.2
+  json_annotation: any
+  collection: ^1.16.0
+  flutter_keyboard_visibility: ^5.3.0
+  shared_preferences: ^2.0.15
+  flutter_local_notifications: ^12.0.0
+  flutter_launcher_icons: ^0.10.0
 
 dev_dependencies:
   flutter_test:
@@ -68,6 +84,7 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
+  generate: true
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
@@ -75,8 +92,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  assets:
-    - "assets/icon/icon.png"
+  # assets:
+  #   - "assets/icon/icon.png"
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
@@ -97,4 +114,6 @@ flutter:
 flutter_icons:
   ios: true
   android: true
-  image_path: "assets/icon/icon.png"
+  image_path: assets/icon/ic_launcher.png
+  adaptative_icon_foreground: '#ffffff'
+  adaptative_icon_background: assets/icon/ic_launcher_background.png

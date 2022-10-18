@@ -1,0 +1,28 @@
+{
+  "welcomeMenuLabel": "Welcome to Mind Point!",
+  "welcomeMenuContent": "Mind Point is a place to write down everything you think and feel in a private, simple and fluid way.\nFeel free to write anything you want in any way you want, because it's yours and no one will have access to your data.",
+  "welcomeMenuConfirmAction": "Understood!",
+
+  "mergeMenuLabel": "Merge the data",
+  "mergeMenuContent": "You are about to signin with another account.\nDo you want to merge the data from this account with the one you are about to signin?",
+  "mergeMenuConfirmAction": "Yes please!",
+  "mergeMenuDeclineAction": "No thanks.",
+
+  "editMenuHintText": "What are you thinking about?",
+
+  "profileMenuAnonymousUser": "Anonymous",
+  "profileMenuSigninWithGoogleAction": "Signin with Google",
+  "profileMenuSignoutAction": "Signout",
+
+  "defaultFooterCallToAction": "What are you thinking about?",
+  "defaultFooterDraftCallToAction": "Draft:",
+
+  "editFooterSaveAction": "Save",
+
+  "pageTodayLabel": "Today",
+  "pageYesterdayLabel": "Yesterday",
+  "pageHintText": "You didn't write anything today.",
+
+  "defaultNotificationTitle": "What are you thinking about?",
+  "defaultNotificationContent": "Remember, you always can write what you are thinking or feeling on Mind Point."
+}

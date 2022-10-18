@@ -12,8 +12,8 @@ flutter run -t lib/main.widgetbook.dart -d windows --hot
 ```
 
 # Architecture
-This app uses the ```Bloc Architecture``` see the documentation to further information.
-[https://bloclibrary.dev/#/architecture](Bloc Architecture documentation)
+## Constants
+All custom constants in the app starts with a letter K. Example: ```dart final color = KColors.black;```
 
 # HOW TO's
 ## Testing
