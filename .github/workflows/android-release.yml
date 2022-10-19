@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - main
+      - release/**
 
 jobs:
   build:
@@ -32,12 +33,14 @@ jobs:
           useConfigFile: true
 
       # Setups the java JDK to be able to run flutter
+      # Docs: https://github.com/actions/setup-java
       - uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
           java-version: '17'
 
       # Installs Flutter to run the build process
+      # Docs: https://github.com/subosito/flutter-action
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
