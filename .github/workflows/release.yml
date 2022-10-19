@@ -72,7 +72,7 @@ jobs:
           channel: 'stable'
 
       - name: Update version in YAML
-        run: sed -i 's/99.99.99+99/${{ env.GITVERSION_SEMVER }}/g' pubspec.yaml
+        run: sed -i 's/0.0.0/${{ env.GITVERSION_SEMVER }}/g' pubspec.yaml
 
       - run: cat pubspec.yaml
 
