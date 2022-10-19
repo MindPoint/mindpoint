@@ -54,9 +54,12 @@ jobs:
       - name: Build the app bundle
         run: flutter build appbundle
 
+      - run: ls
+
       - name: Release
         uses: softprops/action-gh-release@v1
-        # if: startsWith(github.ref, 'refs/tags/')
         with:
           tag_name: ${{ env.GitVersion_SemVer }}
-          files: build\app\outputs\bundle\release\app-release.aab
+          files: |
+            build/app/outputs/apk/release/*.apk
+            build/app/outputs/bundle/release/app-release.aab
