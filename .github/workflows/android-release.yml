@@ -58,61 +58,58 @@ jobs:
         with:
           retrieve_variables: GITVERSION_SEMVER
 
-      - run: echo $GITVERSION_SEMVER
+      # Setups the java JDK to be able to run flutter
+      # Docs: https://github.com/actions/setup-java
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
 
-      # # Setups the java JDK to be able to run flutter
-      # # Docs: https://github.com/actions/setup-java
-      # - uses: actions/setup-java@v3
-      #   with:
-      #     distribution: 'temurin'
-      #     java-version: '17'
+      # Installs Flutter to run the build process
+      # Docs: https://github.com/subosito/flutter-action
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
 
-      # # Installs Flutter to run the build process
-      # # Docs: https://github.com/subosito/flutter-action
-      # - uses: subosito/flutter-action@v2
-      #   with:
-      #     channel: 'stable'
+      - name: Update version in YAML
+        run: sed -i 's/99.99.99+99/${{ env.GitVersion_SemVer }}/g' pubspec.yaml
 
-      # - name: Update version in YAML
-      #   run: sed -i 's/99.99.99+99/${{ env.GitVersion_SemVer }}/g' pubspec.yaml
+      - name: Update KeyStore password in gradle properties
+        run: sed -i 's/KEYSTORE_PASS/${{ secrets.KEYSTORE_PASS }}/g' android/key.properties
 
-      # - name: Update KeyStore password in gradle properties
-      #   run: sed -i 's/KEYSTORE_PASS/${{ secrets.KEYSTORE_PASS }}/g' android/key.properties
+      - name: Update KeyStore key password in gradle properties
+        run: sed -i 's/KEYSTORE_KEY_PASS/${{ secrets.KEYSTORE_KEY_PASS }}/g' android/key.properties
 
-      # - name: Update KeyStore key password in gradle properties
-      #   run: sed -i 's/KEYSTORE_KEY_PASS/${{ secrets.KEYSTORE_KEY_PASS }}/g' android/key.properties
+      - name: Install all flutter packages
+        run: flutter pub get
 
-      # - name: Install all flutter packages
-      #   run: flutter pub get
+      - name: Run all flutter tests
+        run: flutter test
 
-      # - name: Run all flutter tests
-      #   run: flutter test
+      - name: Build the apk
+        run: flutter build apk --release --split-per-abi
 
-      # - name: Build the apk
-      #   run: flutter build apk --release --split-per-abi
+      - name: Build the app bundle
+        run: flutter build appbundle
 
-      # - name: Build the app bundle
-      #   run: flutter build appbundle
-
-      # - run: ls
-
-      # - name: Release
-      #   uses: softprops/action-gh-release@v1
-      #   with:
-      #     tag_name: ${{ env.GitVersion_SemVer }}
-      #     files: |
-      #       build/app/outputs/apk/release/*.apk
-      #       build/app/outputs/bundle/release/app-release.aab
+      # Uploads all artifacts to be downloaded and included in the Github release
+      # docs: https://github.com/actions/upload-artifact
+      - uses: actions/upload-artifact@v3
+        with:
+          name: android
+          path: |
+            build/app/outputs/apk/release/*.apk
+            build/app/outputs/bundle/release/app-release.aab
 
   ios:
     needs:
       - semver # only run after determining the right semver
     name: IOS - Build and release to Apple Store
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
       - run: echo NOT IMPLEMENTED YET!
 
-  release:
+  github-release:
     needs:
       - semver
       - android
@@ -120,4 +117,30 @@ jobs:
     name: Github - Tag and release
     runs-on: ubuntu-latest
     steps:
-      - run: echo NOT IMPLEMENTED YET!
+      # checkouts in the current repo
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      # Retrieves the GITVERSION_SEMVER env var
+      - name: Retrieve GITVERSION_SEMVER
+        uses: nick-fields/persist-action-data@v1
+        with:
+          retrieve_variables: GITVERSION_SEMVER
+
+      # donwloads all android artifacts
+      - uses: actions/download-artifact@v3
+        with:
+          name: android
+
+      - name: Display structure of downloaded files
+        run: ls -R
+
+      # - name: Release
+      #   uses: softprops/action-gh-release@v1
+      #   with:
+      #     tag_name: ${{ env.GITVERSION_SEMVER }}
+      #     files: |
+      #       build/app/outputs/apk/release/*.apk
+      #       build/app/outputs/bundle/release/app-release.aab
