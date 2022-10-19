@@ -94,7 +94,8 @@ jobs:
 
       # Uploads all artifacts to be downloaded and included in the Github release
       # docs: https://github.com/actions/upload-artifact
-      - uses: actions/upload-artifact@v3
+      - name: Upload Android build artifacts
+        uses: actions/upload-artifact@v3
         with:
           name: android
           path: |
@@ -105,7 +106,8 @@ jobs:
     needs:
       - semver # only run after determining the right semver
     name: IOS - Build and release to Apple Store
-    runs-on: macos-latest
+    # runs-on: macos-latest # disable running on mac now to run only when it's really needed
+    runs-on: ubuntu-latest
     steps:
       - run: echo NOT IMPLEMENTED YET!
 
@@ -137,10 +139,10 @@ jobs:
       - name: Display structure of downloaded files
         run: ls -R
 
-      # - name: Release
-      #   uses: softprops/action-gh-release@v1
-      #   with:
-      #     tag_name: ${{ env.GITVERSION_SEMVER }}
-      #     files: |
-      #       build/app/outputs/apk/release/*.apk
-      #       build/app/outputs/bundle/release/app-release.aab
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ env.GITVERSION_SEMVER }}
+          files: |
+            /apk/release/*
+            /bundle/release/*
