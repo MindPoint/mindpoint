@@ -72,7 +72,7 @@ jobs:
           channel: 'stable'
 
       - name: Update version in YAML
-        run: sed -i 's/99.99.99+99/${{ env.GitVersion_SemVer }}/g' pubspec.yaml
+        run: sed -i 's/99.99.99+99/${{ env.GITVERSION_SEMVER }}/g' pubspec.yaml
 
       - name: Update KeyStore password in gradle properties
         run: sed -i 's/KEYSTORE_PASS/${{ secrets.KEYSTORE_PASS }}/g' android/key.properties
@@ -108,7 +108,8 @@ jobs:
           serviceAccountJsonPlainText: ${{ secrets.SERVICE_ACCOUNT_JSON }}
           userFraction: 0.999
           track: internal
-          packageName: br.com.mindpoint.app
+          packageName: br.com.mindpoint.app.release
+          releaseName: ${{ env.GITVERSION_SEMVER }}
           whatsNewDirectory: distribution/whatsnew
           releaseFiles: build/app/outputs/bundle/release/app-release.aab
 
