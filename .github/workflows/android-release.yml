@@ -34,7 +34,8 @@ jobs:
           useConfigFile: true
 
       # Stores the GITVERSION_SEMVER to be used on other jobs
-      - uses: nick-fields/persist-action-data@v1
+      - name: Store GITVERSION_SEMVER
+        uses: nick-fields/persist-action-data@v1
         with:
           variable: GITVERSION_SEMVER
           data: ${{ env.GitVersion_SemVer }}
@@ -52,7 +53,8 @@ jobs:
           fetch-depth: 0
 
       # Retrieves the GITVERSION_SEMVER env var
-      - uses: nick-fields/persist-action-data@v1
+      - name: Retrieve GITVERSION_SEMVER
+        uses: nick-fields/persist-action-data@v1
         with:
           retrieve_variables: GITVERSION_SEMVER
 
@@ -101,3 +103,21 @@ jobs:
       #     files: |
       #       build/app/outputs/apk/release/*.apk
       #       build/app/outputs/bundle/release/app-release.aab
+
+  ios:
+    needs:
+      - semver # only run after determining the right semver
+    name: IOS - Build and release to Apple Store
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo NOT IMPLEMENTED YET!
+
+  release:
+    needs:
+      - semver
+      - android
+      - ios
+    name: Android - Build and release to Google Play
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo NOT IMPLEMENTED YET!
