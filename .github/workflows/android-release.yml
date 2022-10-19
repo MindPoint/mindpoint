@@ -117,7 +117,7 @@ jobs:
       - semver
       - android
       - ios
-    name: Android - Build and release to Google Play
+    name: Github - Tag and release
     runs-on: ubuntu-latest
     steps:
       - run: echo NOT IMPLEMENTED YET!
