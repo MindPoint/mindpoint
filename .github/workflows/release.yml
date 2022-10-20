@@ -108,7 +108,7 @@ jobs:
         uses: r0adkll/upload-google-play@v1
         with:
           serviceAccountJsonPlainText: ${{ secrets.SERVICE_ACCOUNT_JSON }}
-          track: alpha
+          track: releases
           status: completed # when it is used on release, uses onProgress flag
           packageName: br.com.mindpoint.app.release
           releaseName: ${{ env.GITVERSION_SEMVER }}
