@@ -45,6 +45,9 @@ jobs:
       - semver # only run after determining the right semver
     name: Android - Build and release to Google Play
     runs-on: ubuntu-latest
+    env:
+      # Sets the banch name to be used on the GooglePlay deploy
+      GITHUB_BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
     steps:
       # checkouts in the current repo
       - name: Checkout
@@ -104,11 +107,26 @@ jobs:
             build/app/outputs/apk/release/*.apk
             build/app/outputs/bundle/release/app-release.aab
 
-      - name: Deploy to Google Play
+      # Releases the app to the MAIN closed test track
+      - if: ${{ contains(env.GITHUB_BRANCH_NAME, 'main') }}
+        name: Deploy to Google Play
         uses: r0adkll/upload-google-play@v1
         with:
           serviceAccountJsonPlainText: ${{ secrets.SERVICE_ACCOUNT_JSON }}
-          track: releases
+          track: main
+          status: completed # when it is used on release, uses onProgress flag
+          packageName: br.com.mindpoint.app.release
+          releaseName: ${{ env.GITVERSION_SEMVER }}
+          whatsNewDirectory: distribution/whatsnew
+          releaseFiles: build/app/outputs/bundle/release/app-release.aab
+
+      # Releases the app to the RELEASE closed test track
+      - if: ${{ contains(env.GITHUB_BRANCH_NAME, 'release') }}
+        name: Deploy to Google Play
+        uses: r0adkll/upload-google-play@v1
+        with:
+          serviceAccountJsonPlainText: ${{ secrets.SERVICE_ACCOUNT_JSON }}
+          track: release
           status: completed # when it is used on release, uses onProgress flag
           packageName: br.com.mindpoint.app.release
           releaseName: ${{ env.GITVERSION_SEMVER }}
