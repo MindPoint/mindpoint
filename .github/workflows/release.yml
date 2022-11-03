@@ -114,7 +114,7 @@ jobs:
         with:
           serviceAccountJsonPlainText: ${{ secrets.SERVICE_ACCOUNT_JSON }}
           track: main
-          status: completed # when it is used on release, uses onProgress flag
+          status: completed
           packageName: br.com.mindpoint.app.release
           releaseName: ${{ env.GITVERSION_SEMVER }}
           whatsNewDirectory: distribution/whatsnew
@@ -127,7 +127,7 @@ jobs:
         with:
           serviceAccountJsonPlainText: ${{ secrets.SERVICE_ACCOUNT_JSON }}
           track: release
-          status: completed # when it is used on release, uses onProgress flag
+          status: completed
           packageName: br.com.mindpoint.app.release
           releaseName: ${{ env.GITVERSION_SEMVER }}
           whatsNewDirectory: distribution/whatsnew

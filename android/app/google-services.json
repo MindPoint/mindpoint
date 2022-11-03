@@ -7,26 +7,34 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:639603288747:android:c77c257ccaefa7553fe5ee",
+        "mobilesdk_app_id": "1:639603288747:android:150188b46bcb47703fe5ee",
         "android_client_info": {
-          "package_name": "com.example.mindpoint"
+          "package_name": "br.com.mindpoint.app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "639603288747-b4l25r2s3is9hqahhrfl7aonmdtql9gb.apps.googleusercontent.com",
+          "client_id": "639603288747-2j1423565v7suc7qmp56l6p6r0j0efag.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.mindpoint",
-            "certificate_hash": "5bc032a1ee6afe97314962de196f986e9e80d74b"
+            "package_name": "br.com.mindpoint.app",
+            "certificate_hash": "3ad5959ae239c47b7860da62939b955d7468bf71"
           }
         },
         {
-          "client_id": "639603288747-u7sh9207s3mv4rrufoao8bbl7ft90hom.apps.googleusercontent.com",
+          "client_id": "639603288747-678m326jfv29ks80c3qnbs57r7v9s6rg.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.mindpoint",
-            "certificate_hash": "3ad5959ae239c47b7860da62939b955d7468bf71"
+            "package_name": "br.com.mindpoint.app",
+            "certificate_hash": "4004984ca2a9d8d5086c48e1146c3b77228a16ca"
+          }
+        },
+        {
+          "client_id": "639603288747-q6j1rjm3sh1sfeve282mfbulavtesjh8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.mindpoint.app",
+            "certificate_hash": "1a237af717cc52d37757f4180f4b78877a3a3bb9"
           }
         },
         {

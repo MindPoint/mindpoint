@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -38,7 +40,9 @@ Future<void> signInWithGoogle() async {
     final currentUser = FirebaseAuth.instance.currentUser;
 
     assert(credential.user?.uid == currentUser?.uid);
-  } catch (e) {}
+  } catch (e) {
+    log('$e');
+  }
 }
 
 /// Signout from the google account
