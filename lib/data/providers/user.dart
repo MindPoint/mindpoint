@@ -13,13 +13,6 @@ final usernameProvider = Provider<String>(
   (ref) {
     final user = ref.watch(authStateChangesProvider).value;
 
-    log('$user');
-
-    // if (user != null &&
-    //     (user.displayName == null || user.displayName!.isEmpty)) {
-    //   return 'Anonymous User';
-    // }
-
     if (user != null &&
         user.displayName != null &&
         user.displayName!.isNotEmpty) {

@@ -5,7 +5,7 @@
 This repo uses Semantic Versioning (SemVer), it uses [GitVersion](https://gitversion.net/) with [GitHubFlow](https://gitversion.net/docs/learn/branching-strategies/githubflow/) and [ContinuousDeployment](https://gitversion.net/docs/reference/modes/continuous-deployment) mode to ensure the correct SemVer in the releases, following the patter is extremely important to the project.
 
 ### Creating a new version
-To create a new version, you should create an branch from ```main``` with the following pattern: ```release/{SemanthicVersion}```, example: if the current main branch has a tag of ```1.0``` and you want to add a feature to it, you should create a branch with the following name ```release/1.1```, when it is merged with ```main``` it will bump the correct version.
+To create a new version, you should fork an branch from ```main``` with the following pattern: ```release/{SemanthicVersion}```, example: if the current main branch has a tag of ```1.0``` and you want to add a feature to it, you should create a branch with the following name ```release/1.1```, when it is merged with ```main``` it will bump the correct version.
 
 ## CI/CD
 * The ```main``` branche automagically builds, create a release with artifacts and tags to be deployed to Google play.

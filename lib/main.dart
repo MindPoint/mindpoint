@@ -6,11 +6,11 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:mindpoint/data/providers/messaging.dart';
+import 'package:mindpoint/data/providers/notification.dart';
 
 import 'package:mindpoint/router/main.dart';
 import 'package:mindpoint/constants/colors.dart';
-import 'package:mindpoint/services/firebase_messaging.dart';
-import 'package:mindpoint/services/local_notification.dart';
 
 import 'firebase_options.dart';
 
@@ -18,16 +18,15 @@ import 'firebase_options.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  final notification = NotificationService();
-  final messaging = MessagingService(notification);
+  final container = ProviderContainer();
 
   // Firebase initialization
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  await notification.init();
-  await messaging.init();
+  await container.read(notificationProvider).init();
+  await container.read(messagingProvider).init();
 
   runApp(
     // Initializes the app with a riverpod scope

@@ -20,12 +20,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../data/models/node.dart';
 import '../../../hooks/dark_mode.dart';
-import '../../../services/local_notification.dart';
 import '../../template/default_template.dart';
 
 import '../../organisms/node_list.dart';
-
-final notification = NotificationService();
 
 class TimelinePage extends HookConsumerWidget {
   const TimelinePage({super.key});
@@ -34,6 +31,7 @@ class TimelinePage extends HookConsumerWidget {
   Widget build(BuildContext context, ref) {
     final currentMenu = ref.watch(currentMenuProvider);
     final nodesProvider = ref.watch(nodesClassProvider);
+    final notification = ref.watch(notificationProvider);
 
     final MediaQueryData data = MediaQuery.of(context);
 

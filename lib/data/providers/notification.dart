@@ -5,6 +5,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest.dart' as tz;
@@ -18,15 +19,15 @@ const DEFAULT_NOTIFICATION_CHANNEL = 'mindpoint:notification:channel:default';
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
 
-class NotificationService {
-  static final NotificationService _notificationService =
-      NotificationService._internal();
+class NotificationProvider {
+  static final NotificationProvider _notificationService =
+      NotificationProvider._internal();
 
-  factory NotificationService() {
+  factory NotificationProvider() {
     return _notificationService;
   }
 
-  NotificationService._internal();
+  NotificationProvider._internal();
 
   Future selectNotification(NotificationResponse payload) async {
     //Handle notification tapped logic here
@@ -111,3 +112,6 @@ class NotificationService {
     );
   }
 }
+
+final notificationProvider =
+    Provider<NotificationProvider>((ref) => NotificationProvider());

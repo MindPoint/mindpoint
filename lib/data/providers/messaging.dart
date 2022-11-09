@@ -1,7 +1,8 @@
 import 'dart:developer';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:mindpoint/services/local_notification.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:mindpoint/data/providers/notification.dart';
 
 // /// Handles firebase Cloud Messaging background messages
 // Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
@@ -12,10 +13,12 @@ import 'package:mindpoint/services/local_notification.dart';
 //   log("Handling a background message: ${message.messageId}");
 // }
 
-class MessagingService {
-  final NotificationService _notification;
+class MessagingProvider {
+  final NotificationProvider _notification;
 
-  MessagingService(this._notification);
+  MessagingProvider(
+    this._notification,
+  );
 
   Future<void> init() async {
     FirebaseMessaging.instance.setAutoInitEnabled(true);
@@ -45,3 +48,8 @@ class MessagingService {
     return await FirebaseMessaging.instance.getToken();
   }
 }
+
+final messagingProvider = Provider<MessagingProvider>((ref) {
+  final notification = ref.watch(notificationProvider);
+  return MessagingProvider(notification);
+});
