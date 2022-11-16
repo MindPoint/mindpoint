@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:encrypt/encrypt.dart';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -12,18 +13,6 @@ const firebaseFirestoreThoughtsCollectionKey = 'nodes';
 
 final firebaseFireStoreInstanceProvider =
     Provider<FirebaseFirestore>((_) => FirebaseFirestore.instance);
-
-final nodesProvider = StreamProvider((ref) {
-  final user = ref.watch(authStateChangesProvider);
-  final fireStore = ref.watch(firebaseFireStoreInstanceProvider);
-
-  return fireStore
-      .collection(firebaseFirestoreUsersCollectionKey)
-      .doc(user.value?.uid)
-      .collection(firebaseFirestoreThoughtsCollectionKey)
-      .snapshots()
-      .map((event) => event.docs.map((doc) => FirestoreNode.fromDocument(doc)));
-});
 
 final nodesClassProvider = Provider((ref) {
   final user = ref.watch(authStateChangesProvider).value;
@@ -51,8 +40,16 @@ class NodesProvider extends StateNotifier<Map<String, FirestoreNode>> {
         .doc(user?.uid)
         .collection(firebaseFirestoreThoughtsCollectionKey)
         .snapshots()
-        .map((event) =>
-            event.docs.map((doc) => FirestoreNode.fromDocument(doc)));
+        .map((event) => event.docs.map((doc) {
+              final node = FirestoreNode.fromDocument(doc);
+              final decrypted = FirestoreNode(
+                type: node.type,
+                data: decrypt(user, node.data),
+                timestamp: node.timestamp,
+              );
+
+              return decrypted;
+            }));
 
     // Adds all unique nodes to the nodes Map
     stream.forEach((nodes) {
@@ -70,11 +67,39 @@ class NodesProvider extends StateNotifier<Map<String, FirestoreNode>> {
   }
 }
 
+String encrypt(User? user, String data) {
+  final hash = generateUserUniqueHash(user);
+  final key = Key.fromUtf8(hash.substring(0, 32));
+  final iv = IV.fromUtf8(hash.substring(0, 16));
+  final encrypter = Encrypter(AES(key));
+
+  return encrypter.encrypt(data, iv: iv).base64;
+}
+
+String decrypt(User? user, String data) {
+  try {
+    final hash = generateUserUniqueHash(user);
+    final key = Key.fromUtf8(hash.substring(0, 32));
+    final iv = IV.fromUtf8(hash.substring(0, 16));
+    final encrypter = Encrypter(AES(key));
+
+    return encrypter.decrypt64(data, iv: iv);
+  } catch (e) {
+    return data;
+  }
+}
+
 Future addNode(User? user, FirestoreNode node) {
+  final encrypted = FirestoreNode(
+    type: node.type,
+    data: encrypt(user, node.data),
+    timestamp: node.timestamp,
+  );
+
   return FirebaseFirestore.instance
       .collection('users')
       .doc(user?.uid)
       .collection('nodes')
-      .doc(node.timestamp.toIso8601String())
-      .set(node.toJson());
+      .doc(encrypted.timestamp.toIso8601String())
+      .set(encrypted.toJson());
 }

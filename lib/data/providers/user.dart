@@ -1,5 +1,7 @@
 import 'dart:developer';
-
+import 'dart:convert';
+import 'package:crypto/crypto.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'auth.dart';
@@ -22,3 +24,12 @@ final usernameProvider = Provider<String>(
     return '';
   },
 );
+
+String generateUserUniqueHash(User? user) {
+  final uid = user?.uid;
+
+  final bytes = utf8.encode(uid ?? 'DEFAULT_KEY'); // data being hashed
+  final digest = sha256.convert(bytes);
+
+  return digest.toString();
+}
